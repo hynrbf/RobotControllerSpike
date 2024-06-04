@@ -5,14 +5,14 @@ import time
 
 class DisplayController:
     @staticmethod
-    async def display_text(text: str, sleep_ms: int):
-        while True:
-            await light_matrix.write(text)
-            time.sleep_ms(sleep_ms)
+    def display_text(text: str, sleep_ms: int):
+        light_matrix.write(text)
+        time.sleep_ms(sleep_ms)
+        light_matrix.clear()
 
 
 async def main():
-    await DisplayController.display_text("lol", 5000)
+    DisplayController.display_text("A", 5000)
 
 
 runloop.run(main())
