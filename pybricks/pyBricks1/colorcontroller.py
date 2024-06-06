@@ -1,14 +1,15 @@
 from pybricks.pupdevices import ColorSensor
 from pybricks.parameters import Port, Color
 from pybricks.tools import wait
-from pybricks.hubs import PrimeHub
+
+from shared import Shared
 
 
 class ColorController:
     @staticmethod
     def get_mat_color(port_to_use: Port = Port.A):
         sensor = ColorSensor(port_to_use)
-        hub = PrimeHub()
+        hub = Shared.hub()
 
         while True:
             if sensor.color() == Color.RED:
