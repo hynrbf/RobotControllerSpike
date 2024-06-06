@@ -1,21 +1,22 @@
-from hub import light_matrix
 import runloop
-from app import display, sound
-import time
 
 
-class DisplayController:
+class GrabberController:
     @staticmethod
-    async def display_text():
-        while True:
-            # await light_matrix.write("Hi Grachi!")
-            sound.play('Bus Door')
-            time.sleep_ms(1000)
-            # display.image(4)
+    def spin_clockwise():
+        print('clockwise')
+
+    @staticmethod
+    def spin_counter_clockwise():
+        print('counter clockwise')
 
 
 async def main():
-    await DisplayController.display_text()
+    GrabberController.spin_clockwise()
+    GrabberController.spin_counter_clockwise()
+
+    # ignore below
+    await runloop.sleep_ms(1000)
 
 
 runloop.run(main())
