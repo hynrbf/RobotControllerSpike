@@ -6,31 +6,31 @@ from hub import port
 
 class GrabberController:
     @staticmethod
-    def reset():
+    async def reset():
         current_position = motor.absolute_position(port.A)
         print("His current position is: ", current_position)
-        motor.run_to_absolute_position(port.A, 0, 100, direction=motor.SHORTEST_PATH)
-
+        await motor.run_to_absolute_position(port.A, 0, 100, direction=motor.SHORTEST_PATH)
         time.sleep_ms(500)
 
         current_position = motor.absolute_position(port.A)
         print("His current position now: ", current_position)
+        time.sleep_ms(500)
 
     @staticmethod
-    def spin_clockwise():
-        print('clockwise')
-        current_position = motor.absolute_position(port.A)
-        print(current_position)
+    async def spin_clockwise():
+        await motor.run_to_absolute_position(port.A, 0, 600, direction=motor.CLOCKWISE)
+        time.sleep_ms(500)
 
     @staticmethod
-    def spin_counter_clockwise():
-        print('counter clockwise')
+    async def spin_counter_clockwise():
+        await motor.run_to_absolute_position(port.A, 60, 600, direction=motor.COUNTERCLOCKWISE)
+        time.sleep_ms(500)
 
 
 async def main():
-    GrabberController.reset()
-    # GrabberController.spin_clockwise()
-    # GrabberController.spin_counter_clockwise()
+    await GrabberController.reset()
+    await GrabberController.spin_counter_clockwise()
+    await GrabberController.spin_clockwise()
 
     # ignore below
     await runloop.sleep_ms(1000)
