@@ -23,7 +23,8 @@ class GrabberController:
 
     @staticmethod
     async def spin_counter_clockwise():
-        await motor.run_to_absolute_position(port.A, 60, 600, direction=motor.COUNTERCLOCKWISE)
+        # the values of position is 0=base, 90, 180, 270, 360 in clockwise fashion
+        await motor.run_to_absolute_position(port.A, 180, 600, direction=motor.COUNTERCLOCKWISE)
         time.sleep_ms(500)
 
 
