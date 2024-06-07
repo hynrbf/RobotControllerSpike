@@ -2,7 +2,7 @@
 
 2. https://www.youtube.com/watch?v=C05-aLtvSLI&list=PLj_k_RHuTqaUlBoR-8AemA2PeXgZLVBZG
 
-3. sensros spike
+3. sensors spike
 https://education.lego.com/en-us/product-resources/spike-prime/downloads/technical-specifications/
 
 4. version of pybricks we use
