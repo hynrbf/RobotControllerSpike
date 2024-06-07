@@ -4,7 +4,8 @@ from pybricks.tools import wait
 
 
 class WheelController:
-    __left_motor = Motor(Port.F)
+    __left_motor = Motor(Port.E)
+    __right_motor = Motor(Port.F)
 
     @staticmethod
     def move_forward_left_motor():
@@ -12,5 +13,14 @@ class WheelController:
         wait(1500)
 
     @staticmethod
-    def move_backward():
+    def move_backward_left_motor():
+        print("backward")
+
+    @staticmethod
+    def move_forward_right_motor():
+        WheelController.__right_motor.run(500)
+        wait(1500)
+
+    @staticmethod
+    def move_backward_right_motor():
         print("backward")

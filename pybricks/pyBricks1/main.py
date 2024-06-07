@@ -6,6 +6,7 @@ from wheelcontroller import WheelController
 
 def main():
     WheelController.move_forward_left_motor()
+    WheelController.move_forward_right_motor()
 
     # while True:
     # if ColorController.detect_yellow_vegetable():
