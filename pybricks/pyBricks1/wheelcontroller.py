@@ -24,3 +24,9 @@ class WheelController:
     @staticmethod
     def move_backward_right_motor():
         print("backward")
+
+    @staticmethod
+    def move_forward_both_motors():
+        WheelController.__left_motor.run(-500)
+        WheelController.__right_motor.run(500)
+        wait(1500)
