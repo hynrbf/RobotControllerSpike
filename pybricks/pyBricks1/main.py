@@ -11,6 +11,8 @@ def main():
         GripperController.reset_left_arm()
         GripperController.grip_element_using_left_arm()
 
+    GripperController.reset_left_arm()
+    GripperController.reset_right_arm()
     # GripperController.reset_right_arm()
     # GripperController.grip_element_using_right_arm()
     # GripperController.reset_right_arm()
