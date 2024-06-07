@@ -7,7 +7,7 @@ class WheelController:
     __left_motor = Motor(Port.F)
 
     @staticmethod
-    def move_forward():
+    def move_forward_left_motor():
         WheelController.__left_motor.run(500)
         wait(1500)
 
