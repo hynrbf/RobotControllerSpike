@@ -6,32 +6,57 @@ from shared import Shared
 
 
 class ColorController:
-    @staticmethod
-    def get_mat_color(port_to_use: Port = Port.A):
-        sensor = ColorSensor(port_to_use)
-        hub = Shared.hub()
+    __left_sensor = ColorSensor(Port.C)
 
+    @staticmethod
+    def get_mat_color():
         while True:
-            if sensor.color() == Color.RED:
+            if ColorController.__left_sensor.color() == Color.RED:
                 print("Red")
-                hub.display.char("R")
-            elif sensor.color() == Color.WHITE:
+                Shared.hub().display.char("R")
+            elif ColorController.__left_sensor.color() == Color.WHITE:
                 print("White")
-                hub.display.char("W")
-            elif sensor.color() == Color.BLACK:
+                Shared.hub().display.char("W")
+            elif ColorController.__left_sensor.color() == Color.BLACK:
                 print("Black")
-                hub.display.char("B")
-            elif sensor.color() == Color.GREEN:
+                Shared.hub().display.char("B")
+            elif ColorController.__left_sensor.color() == Color.GREEN:
                 print("Green")
-                hub.display.char("G")
-            elif sensor.color() == Color.YELLOW:
+                Shared.hub().display.char("G")
+            elif ColorController.__left_sensor.color() == Color.YELLOW:
                 print("Yellow")
-                hub.display.char("Y")
-            elif sensor.color() == Color.BLUE:
+                Shared.hub().display.char("Y")
+            elif ColorController.__left_sensor.color() == Color.BLUE:
                 print("Blue")
-                hub.display.char("A")
+                Shared.hub().display.char("A")
             else:
                 print("Black")
-                hub.display.char("B")
+                Shared.hub().display.char("B")
 
             wait(100)
+
+    @staticmethod
+    def detect_yellow_vegetable() -> bool:
+        is_detected = False
+
+        while True:
+            if ColorController.__left_sensor.color() == Color.YELLOW:
+                wait(100)
+                Shared.hub().display.char("Y")
+                is_detected = True
+                break
+
+        return is_detected
+
+    @staticmethod
+    def detect_red_vegetable() -> bool:
+        is_detected = False
+
+        while True:
+            if ColorController.__left_sensor.color() == Color.RED:
+                wait(100)
+                Shared.hub().display.char("R")
+                is_detected = True
+                break
+
+        return is_detected
