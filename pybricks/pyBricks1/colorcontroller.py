@@ -10,37 +10,43 @@ class ColorController:
 
     @staticmethod
     def get_mat_color():
-        hub = Shared.hub()
-
         while True:
             if ColorController.__left_sensor.color() == Color.RED:
                 print("Red")
-                hub.display.char("R")
+                Shared.hub().display.char("R")
             elif ColorController.__left_sensor.color() == Color.WHITE:
                 print("White")
-                hub.display.char("W")
+                Shared.hub().display.char("W")
             elif ColorController.__left_sensor.color() == Color.BLACK:
                 print("Black")
-                hub.display.char("B")
+                Shared.hub().display.char("B")
             elif ColorController.__left_sensor.color() == Color.GREEN:
                 print("Green")
-                hub.display.char("G")
+                Shared.hub().display.char("G")
             elif ColorController.__left_sensor.color() == Color.YELLOW:
                 print("Yellow")
-                hub.display.char("Y")
+                Shared.hub().display.char("Y")
             elif ColorController.__left_sensor.color() == Color.BLUE:
                 print("Blue")
-                hub.display.char("A")
+                Shared.hub().display.char("A")
             else:
                 print("Black")
-                hub.display.char("B")
+                Shared.hub().display.char("B")
 
             wait(100)
 
     @staticmethod
     def detect_yellow_vegetable() -> bool:
-        print("yellow detected")
-        return True
+        is_detected = False
+
+        while True:
+            if ColorController.__left_sensor.color() == Color.YELLOW:
+                wait(100)
+                Shared.hub().display.char("Y")
+                is_detected = True
+                break
+
+        return is_detected
 
     @staticmethod
     def detect_red_vegetable() -> bool:
