@@ -1,7 +1,10 @@
 import runloop
 import motor
 import time
+import color_sensor
+import color
 from hub import port
+from hub import light_matrix
 
 
 class GrabberController:
@@ -28,10 +31,39 @@ class GrabberController:
         time.sleep_ms(500)
 
 
+class ColorController:
+    @staticmethod
+    async def get_mat_color(port_to_use: int = port.A):
+        while True:
+            retrieved_color = color_sensor.color(port_to_use)
+
+            if retrieved_color == color.RED:
+                await light_matrix.write('R')
+            elif retrieved_color == color.GREEN:
+                await light_matrix.write('G')
+            elif retrieved_color == color.YELLOW:
+                await light_matrix.write('Y')
+            elif retrieved_color == color.BLUE:
+                await light_matrix.write('A')
+            elif retrieved_color == color.BLACK:
+                await light_matrix.write('B')
+            elif retrieved_color == color.WHITE:
+                await light_matrix.write('W')
+            else:
+                await light_matrix.write('0')
+
+            time.sleep_ms(500)
+
+    @staticmethod
+    async def get_element_color():
+        print('')
+
+
 async def main():
-    await GrabberController.reset()
-    await GrabberController.spin_counter_clockwise()
-    await GrabberController.spin_clockwise()
+    # await GrabberController.reset()
+    # await GrabberController.spin_counter_clockwise()
+    # await GrabberController.spin_clockwise()
+    await ColorController.get_mat_color(port.B)
 
     # ignore below
     await runloop.sleep_ms(1000)
