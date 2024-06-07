@@ -50,5 +50,13 @@ class ColorController:
 
     @staticmethod
     def detect_red_vegetable() -> bool:
-        print("red detected")
-        return True
+        is_detected = False
+
+        while True:
+            if ColorController.__left_sensor.color() == Color.RED:
+                wait(100)
+                Shared.hub().display.char("R")
+                is_detected = True
+                break
+
+        return is_detected
