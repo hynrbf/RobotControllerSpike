@@ -23,6 +23,7 @@ def main():
     # example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
     WheelController.move_wheels_backward_in_straight_line(float(100), Speed.Slow)
 
+    # get red vegetable
     WheelController.move_wheels_forward_in_straight_line(float(100), Speed.Slow)
     WheelController.wheel_left_turn()
     WheelController.move_wheels_forward_in_straight_line(float(500))
