@@ -1,8 +1,6 @@
 from pybricks.pupdevices import Motor
 from pybricks.parameters import Port, Direction, Icon
 from pybricks.tools import wait
-from pybricks.pupdevices import ForceSensor
-
 from shared import Shared, Speed
 
 
@@ -13,7 +11,12 @@ class WheelController:
 
     __left_motor = Motor(Port.E, Direction.COUNTERCLOCKWISE)
     __right_motor = Motor(Port.F)
-    __button = ForceSensor(Port.A)
+
+    @staticmethod
+    def reset_wheels():
+        WheelController.__left_motor.run_target(500, 0)
+        WheelController.__right_motor.run_target(500, 0)
+        wait(100)
 
     @staticmethod
     def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Medium):
@@ -57,10 +60,3 @@ class WheelController:
                                                        WheelController.__wheel_diameter_in_mm,
                                                        WheelController.__axle_track_in_mm)
         wheel_controller.turn(-45)
-
-    @staticmethod
-    def check_when_button_pressed():
-        while True:
-            res = WheelController.__button.touched()
-            print("is touched: ", res)
-            wait(500)
