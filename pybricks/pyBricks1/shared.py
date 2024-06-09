@@ -3,6 +3,12 @@ from pybricks.pupdevices import Motor
 from pybricks.robotics import DriveBase
 
 
+class Speed:
+    Slow = float(100)
+    Medium = float(250)
+    Fast = float(500)
+
+
 class Shared:
     __hub = PrimeHub()
     __wheels_with_gyro = None
@@ -17,5 +23,6 @@ class Shared:
         if Shared.__wheels_with_gyro is None:
             Shared.__wheels_with_gyro = DriveBase(left_motor, right_motor, wheel_diameter=wheel_diameter_in_mm,
                                                   axle_track=axle_track_in_mm)
+            Shared.__wheels_with_gyro.settings(straight_speed=Speed.Medium)
             Shared.__wheels_with_gyro.use_gyro(True)
         return Shared.__wheels_with_gyro

@@ -3,7 +3,7 @@ from pybricks.parameters import Port, Direction
 from pybricks.tools import wait
 from pybricks.pupdevices import ForceSensor
 
-from shared import Shared
+from shared import Shared, Speed
 
 
 class WheelController:
@@ -16,50 +16,20 @@ class WheelController:
     __button = ForceSensor(Port.A)
 
     @staticmethod
-    def move_forward_left_motor():
-        WheelController.__left_motor.run(500)
-        wait(1500)
-
-    @staticmethod
-    def move_backward_left_motor():
-        print("backward")
-
-    @staticmethod
-    def move_forward_right_motor():
-        WheelController.__right_motor.run(500)
-        wait(1500)
-
-    @staticmethod
-    def move_backward_right_motor():
-        print("backward")
-
-    @staticmethod
-    def move_forward_both_motors():
-        while True:
-            if WheelController.__button.touched():
-                WheelController.__left_motor.stop()
-                WheelController.__right_motor.stop()
-                print("Button is touched, motors stopped.")
-                break
-            else:
-                WheelController.__left_motor.run(-500)
-                WheelController.__right_motor.run(500)
-                print("Motors running forward.")
-            wait(100)
-
-    @staticmethod
-    def move_wheels_forward_in_straight_line(distance_in_mm: float):
+    def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Medium):
         wheel_controller = Shared.get_wheels_with_gyro(WheelController.__left_motor, WheelController.__right_motor,
                                                        WheelController.__wheel_diameter_in_mm,
                                                        WheelController.__axle_track_in_mm)
+        wheel_controller.settings(straight_speed=speed)
         wheel_controller.straight(distance_in_mm)
 
     @staticmethod
-    def move_wheels_backward_in_straight_line(distance_in_mm: float):
+    def move_wheels_backward_in_straight_line(distance_in_mm: float, speed: float = Speed.Medium):
         distance_in_mm = distance_in_mm * -1
         wheel_controller = Shared.get_wheels_with_gyro(WheelController.__left_motor, WheelController.__right_motor,
                                                        WheelController.__wheel_diameter_in_mm,
                                                        WheelController.__axle_track_in_mm)
+        wheel_controller.settings(straight_speed=speed)
         wheel_controller.straight(distance_in_mm)
 
     @staticmethod
