@@ -8,7 +8,7 @@ from shared import Shared
 class GripperController:
     # __right_motor = Motor(Port.B)
     __left_motor = Motor(Port.A)
-    __grip_deep = 180
+    __grip_deep = 90
 
     # @staticmethod
     # def reset_right_arm():
