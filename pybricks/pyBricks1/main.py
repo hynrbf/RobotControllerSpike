@@ -47,8 +47,8 @@ def main():
     GripperController.grip_element_using_left_arm()
 
     WheelController.move_wheels_backward_in_straight_line(float(900))
-    WheelController.wheel_right_turn()
-    WheelController.move_wheels_backward_in_straight_line(float(800))
+    # WheelController.wheel_right_turn()
+    # WheelController.move_wheels_backward_in_straight_line(float(800))
 
     # reset all controllers
     GripperController.reset_left_arm()
