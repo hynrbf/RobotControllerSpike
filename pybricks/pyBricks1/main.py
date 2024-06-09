@@ -24,7 +24,7 @@ def main():
     WheelController.move_wheels_backward_in_straight_line(float(100), Speed.Slow)
 
     # get red vegetable
-    WheelController.move_wheels_forward_in_straight_line(float(100), Speed.Slow)
+    WheelController.move_wheels_forward_in_straight_line(float(105), Speed.Slow)
     WheelController.wheel_left_turn()
     WheelController.move_wheels_forward_in_straight_line(float(500))
     get_red_vegetable()
