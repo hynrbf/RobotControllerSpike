@@ -5,8 +5,9 @@ from wheelcontroller import WheelController
 
 
 def main():
-    # example of moving motors and it will stop when bump
-    WheelController.move_wheel_in_straight_line()
+    # example of moving motors straight for 1 meter which is 1000mm
+    distance_in_mm = float(1000)
+    WheelController.move_wheel_in_straight_line(distance_in_mm)
 
     # exampl of gripping when detecting yellow element
     # while True:

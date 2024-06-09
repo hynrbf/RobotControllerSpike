@@ -44,10 +44,10 @@ class WheelController:
             wait(100)
 
     @staticmethod
-    def move_wheel_in_straight_line(distance_in_mm: int):
+    def move_wheel_in_straight_line(distance_in_mm: float):
         # I measured manually and the wheel diameter is 5.6cm and the axle distance is 11.7cm
-        wheel_diameter_in_mm = 56
-        axle_track_in_mm = 56
+        wheel_diameter_in_mm = float(56)
+        axle_track_in_mm = float(117)
         wheel_controller = Shared.get_wheels_with_gyro(WheelController.__left_motor, WheelController.__right_motor,
                                                        wheel_diameter_in_mm,
                                                        axle_track_in_mm)
