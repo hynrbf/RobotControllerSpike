@@ -9,6 +9,14 @@ def main():
     distance_in_mm = float(1000)
     WheelController.move_wheel_in_straight_line(distance_in_mm)
 
+    WheelController.wheel_right_turn()
+    distance_in_mm = float(200)
+    WheelController.move_wheel_in_straight_line(distance_in_mm)
+
+    WheelController.wheel_left_turn()
+    distance_in_mm = float(500)
+    WheelController.move_wheel_in_straight_line(distance_in_mm)
+
     # exampl of gripping when detecting yellow element
     # while True:
     #     if ColorController.detect_yellow_vegetable():

@@ -7,6 +7,10 @@ from shared import Shared
 
 
 class WheelController:
+    # I measured manually and the wheel diameter is 5.6cm and the axle distance is 11.7cm
+    __wheel_diameter_in_mm = float(56)
+    __axle_track_in_mm = float(117)
+
     __left_motor = Motor(Port.E, Direction.COUNTERCLOCKWISE)
     __right_motor = Motor(Port.F)
     __button = ForceSensor(Port.A)
@@ -45,22 +49,24 @@ class WheelController:
 
     @staticmethod
     def move_wheel_in_straight_line(distance_in_mm: float):
-        # I measured manually and the wheel diameter is 5.6cm and the axle distance is 11.7cm
-        wheel_diameter_in_mm = float(56)
-        axle_track_in_mm = float(117)
         wheel_controller = Shared.get_wheels_with_gyro(WheelController.__left_motor, WheelController.__right_motor,
-                                                       wheel_diameter_in_mm,
-                                                       axle_track_in_mm)
+                                                       WheelController.__wheel_diameter_in_mm,
+                                                       WheelController.__axle_track_in_mm)
         wheel_controller.straight(distance_in_mm)
 
-        # # Turn around clockwise by 180 degrees.
-        # WheelController.__drive_base.turn(90)
-        #
-        # # Drive forward again to get back to the start.
-        # WheelController.__drive_base.straight(500)
-        #
-        # # Turn around counterclockwise.
-        # WheelController.__drive_base.turn(-90)
+    @staticmethod
+    def wheel_right_turn():
+        wheel_controller = Shared.get_wheels_with_gyro(WheelController.__left_motor, WheelController.__right_motor,
+                                                       WheelController.__wheel_diameter_in_mm,
+                                                       WheelController.__axle_track_in_mm)
+        wheel_controller.turn(90)
+
+    @staticmethod
+    def wheel_left_turn():
+        wheel_controller = Shared.get_wheels_with_gyro(WheelController.__left_motor, WheelController.__right_motor,
+                                                       WheelController.__wheel_diameter_in_mm,
+                                                       WheelController.__axle_track_in_mm)
+        wheel_controller.turn(-90)
 
     @staticmethod
     def check_when_button_pressed():
