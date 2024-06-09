@@ -5,17 +5,22 @@ from wheelcontroller import WheelController
 
 
 def main():
-    # example of moving motors straight for 1 meter which is 1000mm
-    distance_in_mm = float(1000)
-    WheelController.move_wheel_in_straight_line(distance_in_mm)
+    # example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
+    WheelController.move_wheels_backward_in_straight_line(float(100))
 
-    WheelController.wheel_right_turn()
-    distance_in_mm = float(200)
-    WheelController.move_wheel_in_straight_line(distance_in_mm)
-
+    WheelController.move_wheels_forward_in_straight_line(float(100))
     WheelController.wheel_left_turn()
-    distance_in_mm = float(500)
-    WheelController.move_wheel_in_straight_line(distance_in_mm)
+    WheelController.move_wheels_forward_in_straight_line(float(500))
+
+    WheelController.move_wheels_backward_in_straight_line(float(200))
+    WheelController.wheel_right_turn()
+    WheelController.move_wheels_forward_in_straight_line(float(100))
+    WheelController.wheel_left_turn()
+    WheelController.move_wheels_forward_in_straight_line(float(200))
+
+    WheelController.move_wheels_backward_in_straight_line(float(500))
+    WheelController.wheel_right_turn()
+    WheelController.move_wheels_forward_in_straight_line(float(2000))
 
     # exampl of gripping when detecting yellow element
     # while True:

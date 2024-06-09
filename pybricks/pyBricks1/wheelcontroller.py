@@ -48,7 +48,15 @@ class WheelController:
             wait(100)
 
     @staticmethod
-    def move_wheel_in_straight_line(distance_in_mm: float):
+    def move_wheels_forward_in_straight_line(distance_in_mm: float):
+        wheel_controller = Shared.get_wheels_with_gyro(WheelController.__left_motor, WheelController.__right_motor,
+                                                       WheelController.__wheel_diameter_in_mm,
+                                                       WheelController.__axle_track_in_mm)
+        wheel_controller.straight(distance_in_mm)
+
+    @staticmethod
+    def move_wheels_backward_in_straight_line(distance_in_mm: float):
+        distance_in_mm = distance_in_mm * -1
         wheel_controller = Shared.get_wheels_with_gyro(WheelController.__left_motor, WheelController.__right_motor,
                                                        WheelController.__wheel_diameter_in_mm,
                                                        WheelController.__axle_track_in_mm)
