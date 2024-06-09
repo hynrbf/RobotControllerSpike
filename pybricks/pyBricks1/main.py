@@ -5,17 +5,7 @@ from shared import Speed
 from wheelcontroller import WheelController
 
 
-def main():
-    print("Start.")
-    GripperController.reset_left_arm()
-    # example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
-    WheelController.move_wheels_backward_in_straight_line(float(100), Speed.Slow)
-
-    WheelController.move_wheels_forward_in_straight_line(float(100), Speed.Slow)
-    WheelController.wheel_left_turn()
-    WheelController.move_wheels_forward_in_straight_line(float(500))
-
-    # get vegetable here
+def get_red_vegetable():
     try_count = 1
 
     while True:
@@ -25,6 +15,18 @@ def main():
 
         try_count = try_count + 1
         wait(500)
+
+
+def main():
+    print("Start.")
+    GripperController.reset_left_arm()
+    # example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
+    WheelController.move_wheels_backward_in_straight_line(float(100), Speed.Slow)
+
+    WheelController.move_wheels_forward_in_straight_line(float(100), Speed.Slow)
+    WheelController.wheel_left_turn()
+    WheelController.move_wheels_forward_in_straight_line(float(500))
+    get_red_vegetable()
 
     # get another vegetable
     WheelController.move_wheels_backward_in_straight_line(float(200), Speed.Slow)
@@ -47,7 +49,7 @@ def main():
     WheelController.wheel_right_turn()
     WheelController.move_wheels_backward_in_straight_line(float(800))
 
-    # reset all controllers and sensors
+    # reset all controllers
     GripperController.reset_left_arm()
     WheelController.reset_wheels()
     print("DONE!")
