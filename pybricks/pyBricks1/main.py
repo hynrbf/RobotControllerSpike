@@ -21,7 +21,15 @@ def main():
 
     WheelController.move_wheels_backward_in_straight_line(float(500))
     WheelController.wheel_right_turn()
-    WheelController.move_wheels_forward_in_straight_line(float(2000), Speed.Fast)
+    WheelController.move_wheels_forward_in_straight_line(float(1800), Speed.Fast)
+    WheelController.wheel_slight_left_turn()
+    WheelController.move_wheels_forward_in_straight_line(float(200))
+    WheelController.move_wheels_backward_in_straight_line(float(200))
+    WheelController.wheel_slight_left_turn()
+
+    WheelController.move_wheels_backward_in_straight_line(float(800))
+    WheelController.wheel_right_turn()
+    WheelController.move_wheels_backward_in_straight_line(float(800))
 
     # exampl of gripping when detecting yellow element
     # while True:

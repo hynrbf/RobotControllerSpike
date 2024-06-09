@@ -47,6 +47,13 @@ class WheelController:
         wheel_controller.turn(-90)
 
     @staticmethod
+    def wheel_slight_left_turn():
+        wheel_controller = Shared.get_wheels_with_gyro(WheelController.__left_motor, WheelController.__right_motor,
+                                                       WheelController.__wheel_diameter_in_mm,
+                                                       WheelController.__axle_track_in_mm)
+        wheel_controller.turn(-45)
+
+    @staticmethod
     def check_when_button_pressed():
         while True:
             res = WheelController.__button.touched()

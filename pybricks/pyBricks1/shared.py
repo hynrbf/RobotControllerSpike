@@ -6,7 +6,7 @@ from pybricks.robotics import DriveBase
 class Speed:
     Slow = float(100)
     Medium = float(250)
-    Fast = float(500)
+    Fast = float(400)
 
 
 class Shared:
