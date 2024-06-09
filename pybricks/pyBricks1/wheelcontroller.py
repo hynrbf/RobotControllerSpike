@@ -1,11 +1,13 @@
 from pybricks.pupdevices import Motor
-from pybricks.parameters import Port
+from pybricks.parameters import Port, Direction
 from pybricks.tools import wait
 from pybricks.pupdevices import ForceSensor
 
+from shared import Shared
+
 
 class WheelController:
-    __left_motor = Motor(Port.E)
+    __left_motor = Motor(Port.E, Direction.COUNTERCLOCKWISE)
     __right_motor = Motor(Port.F)
     __button = ForceSensor(Port.A)
 
@@ -40,6 +42,25 @@ class WheelController:
                 WheelController.__right_motor.run(500)
                 print("Motors running forward.")
             wait(100)
+
+    @staticmethod
+    def move_wheel_in_straight_line(distance_in_mm: int):
+        # I measured manually and the wheel diameter is 5.6cm and the axle distance is 11.7cm
+        wheel_diameter_in_mm = 56
+        axle_track_in_mm = 56
+        wheel_controller = Shared.get_wheels_with_gyro(WheelController.__left_motor, WheelController.__right_motor,
+                                                       wheel_diameter_in_mm,
+                                                       axle_track_in_mm)
+        wheel_controller.straight(distance_in_mm)
+
+        # # Turn around clockwise by 180 degrees.
+        # WheelController.__drive_base.turn(90)
+        #
+        # # Drive forward again to get back to the start.
+        # WheelController.__drive_base.straight(500)
+        #
+        # # Turn around counterclockwise.
+        # WheelController.__drive_base.turn(-90)
 
     @staticmethod
     def check_when_button_pressed():
