@@ -20,16 +20,18 @@ def get_red_vegetable():
 def main():
     print("Start.")
     GripperController.reset_left_arm()
+    GripperController.reset_right_arm()
     # example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
     WheelController.move_wheels_backward_in_straight_line(float(100), Speed.Slow)
 
-    # get red vegetable
+    # get red vegetable and yellow
     WheelController.move_wheels_forward_in_straight_line(float(105), Speed.Slow)
     WheelController.wheel_left_turn()
     WheelController.move_wheels_forward_in_straight_line(float(500))
-    get_red_vegetable()
+    GripperController.grip_element_using_left_arm()
+    GripperController.grip_element_using_right_arm()
 
-    # get another vegetable
+    # get another set of vegetable
     WheelController.move_wheels_backward_in_straight_line(float(200), Speed.Slow)
     WheelController.wheel_right_turn()
     WheelController.move_wheels_forward_in_straight_line(float(100), Speed.Slow)
@@ -52,6 +54,7 @@ def main():
 
     # reset all controllers
     GripperController.reset_left_arm()
+    GripperController.reset_right_arm()
     WheelController.reset_wheels()
     print("DONE!")
 
