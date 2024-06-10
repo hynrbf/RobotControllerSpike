@@ -1,5 +1,6 @@
 from pybricks.pupdevices import Motor
 from pybricks.parameters import Port, Icon
+from pybricks.robotics import DriveBase
 from pybricks.tools import wait
 
 from shared import Shared
@@ -8,6 +9,7 @@ from shared import Shared
 class GripperController:
     __right_motor = Motor(Port.B)
     __left_motor = Motor(Port.A)
+    __both_motors = DriveBase(__left_motor, __right_motor, 56, 117)
     __grip_turn_angle = 90
 
     @staticmethod
@@ -49,8 +51,10 @@ class GripperController:
         GripperController.__get_left_arm_angle()
 
     @staticmethod
-    def grab_element_both_arm():
-        print('both')
+    def grip_element_using_both_arms():
+        GripperController.__both_motors.turn(GripperController.__grip_turn_angle)
+        Shared.hub().display.icon(Icon.SAD)
+        wait(500)
 
     @staticmethod
     def __get_right_arm_angle() -> int:

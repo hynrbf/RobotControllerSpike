@@ -1,20 +1,6 @@
-from colorcontroller import ColorController
 from grippercontroller import GripperController
-from pybricks.tools import wait
 from shared import Speed
 from wheelcontroller import WheelController
-
-
-def get_red_vegetable():
-    try_count = 1
-
-    while True:
-        if ColorController.detect_red_vegetable() or try_count > 5:
-            GripperController.grip_element_using_left_arm()
-            break
-
-        try_count = try_count + 1
-        wait(500)
 
 
 def main():
@@ -28,8 +14,7 @@ def main():
     WheelController.move_wheels_forward_in_straight_line(float(105), Speed.Slow)
     WheelController.wheel_left_turn()
     WheelController.move_wheels_forward_in_straight_line(float(500))
-    GripperController.grip_element_using_left_arm()
-    GripperController.grip_element_using_right_arm()
+    GripperController.grip_element_using_both_arms()
 
     # get another set of vegetable
     WheelController.move_wheels_backward_in_straight_line(float(200), Speed.Slow)
