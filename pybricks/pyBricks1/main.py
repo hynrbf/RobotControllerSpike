@@ -8,7 +8,7 @@ def main():
     GripperController.reset_left_arm()
     GripperController.reset_right_arm()
     # example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
-    WheelController.move_wheels_backward_in_straight_line(float(100), Speed.Slow)
+    WheelController.move_wheels_backward_in_straight_line(float(100), Speed.Medium)
 
     # when getting vegetable, yung bigat could affect the gyro, so make sure to compute distance
     # via sensing the white color or ibangga sa edge

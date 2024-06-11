@@ -23,21 +23,21 @@ class WheelController:
         print("State of robot is: ", state)
 
     @staticmethod
-    def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Medium):
+    def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
-        wheel_controller.settings(straight_speed=speed, straight_acceleration=float(150))
+        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Fast)
         wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
         print("Travelled distance in mm: ", travelled_distance)
 
     @staticmethod
-    def move_wheels_backward_in_straight_line(distance_in_mm: float, speed: float = Speed.Medium):
+    def move_wheels_backward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
         Shared.hub().display.icon(Icon.ARROW_DOWN)
         distance_in_mm = distance_in_mm * -1
         wheel_controller = WheelController.__object()
-        wheel_controller.settings(straight_speed=speed, straight_acceleration=float(150))
+        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Fast)
         wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
