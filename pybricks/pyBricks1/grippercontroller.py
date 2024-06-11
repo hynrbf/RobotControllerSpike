@@ -57,6 +57,12 @@ class GripperController:
         wait(500)
 
     @staticmethod
+    def release_element_using_both_arms():
+        GripperController.__both_motors.turn(GripperController.__grip_turn_angle / 2)
+        Shared.hub().display.icon(Icon.SAD)
+        wait(500)
+
+    @staticmethod
     def __get_right_arm_angle() -> int:
         current_angle = GripperController.__right_motor.angle()
         print("right arm current angle", current_angle)
