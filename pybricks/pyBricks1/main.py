@@ -1,10 +1,11 @@
 from grippercontroller import GripperController
 from shared import Speed
 from wheelcontroller import WheelController
+from pybricks import version
 
 
 def main():
-    print("Start.")
+    print("Start, pb version: ", version)
     GripperController.reset_left_arm()
     GripperController.reset_right_arm()
     # example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
@@ -29,7 +30,7 @@ def main():
 
     WheelController.move_wheels_backward_in_straight_line(float(500))
     WheelController.wheel_right_turn()
-    WheelController.move_wheels_forward_in_straight_line(float(1600), Speed.Fast)
+    WheelController.move_wheels_forward_in_straight_line(float(1600))
     WheelController.wheel_slight_left_turn()
     WheelController.move_wheels_forward_in_straight_line(float(400))
     GripperController.reset_left_arm()
@@ -37,17 +38,17 @@ def main():
     WheelController.wheel_slight_left_turn()
     GripperController.grip_element_using_left_arm()
 
-    WheelController.move_wheels_backward_in_straight_line(float(1200), Speed.Fast)
+    WheelController.move_wheels_backward_in_straight_line(float(1200))
     WheelController.move_wheels_forward_in_straight_line(float(100))
     WheelController.wheel_right_turn()
-    WheelController.move_wheels_backward_in_straight_line(float(400), Speed.Fast)
+    WheelController.move_wheels_backward_in_straight_line(float(400))
     GripperController.release_element_using_both_arms()
 
     # go back to starting point
-    WheelController.move_wheels_backward_in_straight_line(float(1600), Speed.Fast)
+    WheelController.move_wheels_backward_in_straight_line(float(1600))
     WheelController.move_wheels_forward_in_straight_line(float(200))
     WheelController.wheel_left_turn()
-    WheelController.move_wheels_forward_in_straight_line(float(800), Speed.Fast)
+    WheelController.move_wheels_forward_in_straight_line(float(800))
     WheelController.wheel_right_turn()
 
     # reset all controllers
