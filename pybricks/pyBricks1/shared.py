@@ -5,7 +5,7 @@ from pybricks.robotics import DriveBase
 
 class Speed:
     Slow = float(100)
-    Medium = float(250)
+    Medium = float(200)
     Fast = float(400)
 
 
@@ -26,5 +26,6 @@ class Shared:
             Shared.__wheels_with_gyro = DriveBase(left_motor, right_motor, wheel_diameter=wheel_diameter_in_mm,
                                                   axle_track=axle_track_in_mm)
             Shared.__wheels_with_gyro.use_gyro(True)
-            Shared.__wheels_with_gyro.settings(straight_speed=Speed.Medium)
+            Shared.__wheels_with_gyro.settings(straight_speed=Speed.Medium, straight_acceleration=float(150))
+
         return Shared.__wheels_with_gyro
