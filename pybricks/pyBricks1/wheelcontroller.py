@@ -11,7 +11,7 @@ class WheelController:
     __axle_track_in_mm = float(117)
 
     __left_motor = Motor(Port.E, Direction.COUNTERCLOCKWISE)
-    __right_motor = Motor(Port.F)
+    __right_motor = Motor(Port.F, )
 
     @staticmethod
     def reset_wheels():
