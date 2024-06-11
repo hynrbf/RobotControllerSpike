@@ -9,6 +9,7 @@ class Speed:
     Fast = float(400)
 
 
+# inspiration https://github.com/FLL-Team-24277/FLL-Fall-2023-Masterpiece/blob/main/samples/base_robot.py
 class Shared:
     __hub = PrimeHub()
     __wheels_with_gyro = None
