@@ -1,5 +1,6 @@
 from pybricks.pupdevices import Motor
 from pybricks.parameters import Port, Icon
+from pybricks.robotics import DriveBase
 from pybricks.tools import wait
 
 from shared import Shared
@@ -8,6 +9,8 @@ from shared import Shared
 class GripperController:
     __right_motor = Motor(Port.B)
     __left_motor = Motor(Port.A)
+    __both_motors = DriveBase(__left_motor, __right_motor, 56, 117)
+    __grip_turn_angle = 90
 
     @staticmethod
     def reset_right_arm():
@@ -22,15 +25,7 @@ class GripperController:
 
     @staticmethod
     def grip_element_using_right_arm():
-        GripperController.__right_motor.run_angle(500, 270, wait=True)
-        Shared.hub().display.icon(Icon.HEART)
-        wait(100)
-
-        GripperController.__get_right_arm_angle()
-
-    @staticmethod
-    def release_element_using_right_arm():
-        GripperController.__right_motor.run_angle(500, -270, wait=True)
+        GripperController.__right_motor.run_angle(500, GripperController.__grip_turn_angle, wait=True)
         Shared.hub().display.icon(Icon.SAD)
         wait(500)
 
@@ -49,23 +44,23 @@ class GripperController:
 
     @staticmethod
     def grip_element_using_left_arm():
-        GripperController.__left_motor.run_angle(500, 270, wait=True)
-        Shared.hub().display.icon(Icon.HEART)
-        wait(100)
-
-        GripperController.__get_left_arm_angle()
-
-    @staticmethod
-    def release_element_using_left_arm():
-        GripperController.__left_motor.run_angle(500, -270, wait=True)
+        GripperController.__left_motor.run_angle(500, -GripperController.__grip_turn_angle, wait=True)
         Shared.hub().display.icon(Icon.SAD)
         wait(500)
 
         GripperController.__get_left_arm_angle()
 
     @staticmethod
-    def grab_element_both_arm():
-        print('both')
+    def grip_element_using_both_arms():
+        GripperController.__both_motors.turn(-(GripperController.__grip_turn_angle / 2))
+        Shared.hub().display.icon(Icon.SAD)
+        wait(500)
+
+    @staticmethod
+    def release_element_using_both_arms():
+        GripperController.__both_motors.turn(GripperController.__grip_turn_angle / 2)
+        Shared.hub().display.icon(Icon.SAD)
+        wait(500)
 
     @staticmethod
     def __get_right_arm_angle() -> int:
