@@ -19,23 +19,31 @@ def main():
     # get another set of vegetable
     WheelController.move_wheels_backward_in_straight_line(float(200), Speed.Slow)
     WheelController.wheel_right_turn()
-    WheelController.move_wheels_forward_in_straight_line(float(100), Speed.Slow)
+    WheelController.move_wheels_forward_in_straight_line(float(300), Speed.Slow)
     WheelController.wheel_left_turn()
+    GripperController.reset_left_arm()
+    GripperController.reset_right_arm()
     WheelController.move_wheels_forward_in_straight_line(float(200), Speed.Slow)
+    GripperController.grip_element_using_both_arms()
 
     WheelController.move_wheels_backward_in_straight_line(float(500))
     WheelController.wheel_right_turn()
-    WheelController.move_wheels_forward_in_straight_line(float(1800), Speed.Fast)
+    WheelController.move_wheels_forward_in_straight_line(float(1600), Speed.Fast)
     WheelController.wheel_slight_left_turn()
-    WheelController.move_wheels_forward_in_straight_line(float(200))
+    WheelController.move_wheels_forward_in_straight_line(float(400))
     GripperController.reset_left_arm()
-    WheelController.move_wheels_backward_in_straight_line(float(200))
+    WheelController.move_wheels_backward_in_straight_line(float(400))
     WheelController.wheel_slight_left_turn()
     GripperController.grip_element_using_left_arm()
 
-    WheelController.move_wheels_backward_in_straight_line(float(900))
-    # WheelController.wheel_right_turn()
-    # WheelController.move_wheels_backward_in_straight_line(float(800))
+    WheelController.move_wheels_backward_in_straight_line(float(1000))
+    WheelController.move_wheels_forward_in_straight_line(float(100))
+    WheelController.wheel_right_turn()
+    WheelController.move_wheels_backward_in_straight_line(float(400))
+    GripperController.reset_right_arm()
+
+    # go back to starting point
+    WheelController.move_wheels_backward_in_straight_line(float(400))
 
     # reset all controllers
     GripperController.reset_left_arm()
