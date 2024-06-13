@@ -6,22 +6,43 @@ from shared import Shared
 
 
 class ColorController:
-    __left_sensor = ColorSensor(Port.C)
+    __front_sensor = ColorSensor(Port.C)
+    __mat_sensor = ColorSensor(Port.D)
+
+    @staticmethod
+    def get_element_color():
+        while True:
+            if ColorController.__front_sensor.color() == Color.RED:
+                print("Red")
+            elif ColorController.__front_sensor.color() == Color.WHITE:
+                print("White")
+            elif ColorController.__front_sensor.color() == Color.GREEN:
+                print("Green")
+            elif ColorController.__front_sensor.color() == Color.YELLOW:
+                print("Yellow")
+            elif ColorController.__front_sensor.color() == Color.BLUE:
+                print("Blue")
+            elif ColorController.__front_sensor.color() == Color.BLACK:
+                print("Black")
+            else:
+                print("Black")
+
+            wait(100)
 
     @staticmethod
     def get_mat_color():
         while True:
-            if ColorController.__left_sensor.color() == Color.RED:
+            if ColorController.__mat_sensor.color() == Color.RED:
                 print("Red")
-            elif ColorController.__left_sensor.color() == Color.WHITE:
+            elif ColorController.__mat_sensor.color() == Color.WHITE:
                 print("White")
-            elif ColorController.__left_sensor.color() == Color.GREEN:
+            elif ColorController.__mat_sensor.color() == Color.GREEN:
                 print("Green")
-            elif ColorController.__left_sensor.color() == Color.YELLOW:
+            elif ColorController.__mat_sensor.color() == Color.YELLOW:
                 print("Yellow")
-            elif ColorController.__left_sensor.color() == Color.BLUE:
+            elif ColorController.__mat_sensor.color() == Color.BLUE:
                 print("Blue")
-            elif ColorController.__left_sensor.color() == Color.BLACK:
+            elif ColorController.__mat_sensor.color() == Color.BLACK:
                 print("Black")
             else:
                 print("Black")
@@ -33,7 +54,7 @@ class ColorController:
         is_detected = False
 
         while True:
-            if ColorController.__left_sensor.color() == Color.YELLOW:
+            if ColorController.__front_sensor.color() == Color.YELLOW:
                 wait(100)
                 Shared.hub().display.char("Y")
                 is_detected = True
@@ -46,7 +67,7 @@ class ColorController:
         is_detected = False
 
         while True:
-            if ColorController.__left_sensor.color() == Color.RED:
+            if ColorController.__front_sensor.color() == Color.RED:
                 wait(100)
                 Shared.hub().display.char("R")
                 is_detected = True
