@@ -10,44 +10,44 @@ class ColorController:
     __mat_sensor = ColorSensor(Port.D)
 
     @staticmethod
-    def get_element_color():
+    async def get_element_color():
         while True:
-            if ColorController.__front_sensor.color() == Color.RED:
+            if await ColorController.__front_sensor.color() == Color.RED:
                 print("Red")
-            elif ColorController.__front_sensor.color() == Color.WHITE:
+            elif await ColorController.__front_sensor.color() == Color.WHITE:
                 print("White")
-            elif ColorController.__front_sensor.color() == Color.GREEN:
+            elif await ColorController.__front_sensor.color() == Color.GREEN:
                 print("Green")
-            elif ColorController.__front_sensor.color() == Color.YELLOW:
+            elif await ColorController.__front_sensor.color() == Color.YELLOW:
                 print("Yellow")
-            elif ColorController.__front_sensor.color() == Color.BLUE:
+            elif await ColorController.__front_sensor.color() == Color.BLUE:
                 print("Blue")
-            elif ColorController.__front_sensor.color() == Color.BLACK:
+            elif await ColorController.__front_sensor.color() == Color.BLACK:
                 print("Black")
             else:
                 print("Black")
 
-            wait(100)
+            await wait(100)
 
     @staticmethod
-    def get_mat_color():
+    async def get_mat_color():
         while True:
-            if ColorController.__mat_sensor.color() == Color.RED:
+            if await ColorController.__mat_sensor.color() == Color.RED:
                 print("Red")
-            elif ColorController.__mat_sensor.color() == Color.WHITE:
+            elif await ColorController.__mat_sensor.color() == Color.WHITE:
                 print("White")
-            elif ColorController.__mat_sensor.color() == Color.GREEN:
+            elif await ColorController.__mat_sensor.color() == Color.GREEN:
                 print("Green")
-            elif ColorController.__mat_sensor.color() == Color.YELLOW:
+            elif await ColorController.__mat_sensor.color() == Color.YELLOW:
                 print("Yellow")
-            elif ColorController.__mat_sensor.color() == Color.BLUE:
+            elif await ColorController.__mat_sensor.color() == Color.BLUE:
                 print("Blue")
-            elif ColorController.__mat_sensor.color() == Color.BLACK:
+            elif await ColorController.__mat_sensor.color() == Color.BLACK:
                 print("Black")
             else:
                 print("Black")
 
-            wait(100)
+            await wait(100)
 
     @staticmethod
     def detect_yellow_vegetable() -> bool:

@@ -14,52 +14,52 @@ class WheelController:
     __right_motor = Motor(Port.F)
 
     @staticmethod
-    def reset_wheels():
-        WheelController.__left_motor.run_target(Speed.Fast, 0)
-        WheelController.__right_motor.run_target(Speed.Fast, 0)
-        wait(100)
+    async def reset_wheels():
+        await WheelController.__left_motor.run_target(Speed.Fast, 0)
+        await WheelController.__right_motor.run_target(Speed.Fast, 0)
+        await wait(100)
 
         state = WheelController.__object().state()
         print("State of robot is: ", state)
 
     @staticmethod
-    def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
+    async def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
         wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Fast)
-        wheel_controller.straight(distance_in_mm)
+        await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
         print("Travelled distance in mm: ", travelled_distance)
 
     @staticmethod
-    def move_wheels_backward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
+    async def move_wheels_backward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
         Shared.hub().display.icon(Icon.ARROW_DOWN)
         distance_in_mm = distance_in_mm * -1
         wheel_controller = WheelController.__object()
         wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Fast)
-        wheel_controller.straight(distance_in_mm)
+        await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
         print("Travelled distance in mm: ", travelled_distance)
 
     @staticmethod
-    def wheel_right_turn():
+    async def wheel_right_turn():
         Shared.hub().display.icon(Icon.ARROW_RIGHT)
         wheel_controller = WheelController.__object()
-        wheel_controller.turn(90)
+        await wheel_controller.turn(90)
 
     @staticmethod
-    def wheel_left_turn():
+    async def wheel_left_turn():
         Shared.hub().display.icon(Icon.ARROW_LEFT)
         wheel_controller = WheelController.__object()
-        wheel_controller.turn(-90)
+        await wheel_controller.turn(-90)
 
     @staticmethod
-    def wheel_slight_left_turn():
+    async def wheel_slight_left_turn():
         Shared.hub().display.icon(Icon.ARROW_LEFT)
         wheel_controller = WheelController.__object()
-        wheel_controller.turn(-45)
+        await wheel_controller.turn(-45)
 
     @staticmethod
     def __get_distance_in_mm() -> int:
