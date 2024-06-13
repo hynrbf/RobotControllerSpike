@@ -13,54 +13,54 @@ class GripperController:
     __grip_turn_angle = 90
 
     @staticmethod
-    def reset_right_arm():
+    async def reset_right_arm():
         Shared.hub().display.icon(Icon.EMPTY)
         GripperController.__get_right_arm_angle()
-        wait(100)
+        await wait(100)
 
-        GripperController.__right_motor.run_target(500, 0)
-        wait(100)
+        await GripperController.__right_motor.run_target(500, 0)
+        await wait(100)
 
         GripperController.__get_right_arm_angle()
 
     @staticmethod
-    def reset_left_arm():
+    async def reset_left_arm():
         Shared.hub().display.icon(Icon.EMPTY)
         GripperController.__get_left_arm_angle()
-        wait(100)
+        await wait(100)
 
-        GripperController.__left_motor.run_target(500, 0)
-        wait(100)
+        await GripperController.__left_motor.run_target(500, 0)
+        await wait(100)
 
         GripperController.__get_left_arm_angle()
 
     @staticmethod
-    def grip_element_using_right_arm():
-        GripperController.__right_motor.run_angle(500, -GripperController.__grip_turn_angle, wait=True)
+    async def grip_element_using_right_arm():
+        await GripperController.__right_motor.run_angle(500, -GripperController.__grip_turn_angle, wait=True)
         Shared.hub().display.icon(Icon.SAD)
-        wait(500)
+        await wait(500)
 
         GripperController.__get_right_arm_angle()
 
     @staticmethod
-    def grip_element_using_left_arm():
-        GripperController.__left_motor.run_angle(500, GripperController.__grip_turn_angle, wait=True)
+    async def grip_element_using_left_arm():
+        await GripperController.__left_motor.run_angle(500, GripperController.__grip_turn_angle, wait=True)
         Shared.hub().display.icon(Icon.SAD)
-        wait(500)
+        await wait(500)
 
         GripperController.__get_left_arm_angle()
 
     @staticmethod
-    def grip_element_using_both_arms():
-        GripperController.__both_motors.turn(GripperController.__grip_turn_angle / 2)
+    async def grip_element_using_both_arms():
+        await GripperController.__both_motors.turn(GripperController.__grip_turn_angle / 2)
         Shared.hub().display.icon(Icon.SAD)
-        wait(500)
+        await wait(500)
 
     @staticmethod
-    def release_element_using_both_arms():
-        GripperController.__both_motors.turn(-(GripperController.__grip_turn_angle / 2))
+    async def release_element_using_both_arms():
+        await GripperController.__both_motors.turn(-(GripperController.__grip_turn_angle / 2))
         Shared.hub().display.icon(Icon.SAD)
-        wait(500)
+        await wait(500)
 
     @staticmethod
     def __get_right_arm_angle() -> int:
