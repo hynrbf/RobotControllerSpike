@@ -52,13 +52,13 @@ class GripperController:
 
     @staticmethod
     def grip_element_using_both_arms():
-        GripperController.__both_motors.turn(-(GripperController.__grip_turn_angle / 2))
+        GripperController.__both_motors.turn(GripperController.__grip_turn_angle / 2)
         Shared.hub().display.icon(Icon.SAD)
         wait(500)
 
     @staticmethod
     def release_element_using_both_arms():
-        GripperController.__both_motors.turn(GripperController.__grip_turn_angle / 2)
+        GripperController.__both_motors.turn(-(GripperController.__grip_turn_angle / 2))
         Shared.hub().display.icon(Icon.SAD)
         wait(500)
 
