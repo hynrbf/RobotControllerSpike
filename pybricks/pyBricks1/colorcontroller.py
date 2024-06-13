@@ -13,25 +13,18 @@ class ColorController:
         while True:
             if ColorController.__left_sensor.color() == Color.RED:
                 print("Red")
-                Shared.hub().display.char("R")
             elif ColorController.__left_sensor.color() == Color.WHITE:
                 print("White")
-                Shared.hub().display.char("W")
-            elif ColorController.__left_sensor.color() == Color.BLACK:
-                print("Black")
-                Shared.hub().display.char("B")
             elif ColorController.__left_sensor.color() == Color.GREEN:
                 print("Green")
-                Shared.hub().display.char("G")
             elif ColorController.__left_sensor.color() == Color.YELLOW:
                 print("Yellow")
-                Shared.hub().display.char("Y")
             elif ColorController.__left_sensor.color() == Color.BLUE:
                 print("Blue")
-                Shared.hub().display.char("A")
+            elif ColorController.__left_sensor.color() == Color.BLACK:
+                print("Black")
             else:
                 print("Black")
-                Shared.hub().display.char("B")
 
             wait(100)
 

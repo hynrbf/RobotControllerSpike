@@ -10,6 +10,9 @@ def main():
     GripperController.reset_left_arm()
     GripperController.reset_right_arm()
     WheelController.reset_wheels()
+
+    # put gripper to close
+    GripperController.grip_element_using_both_arms()
     print("DONE!")
 
 
