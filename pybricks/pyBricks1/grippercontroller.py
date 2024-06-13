@@ -24,14 +24,6 @@ class GripperController:
         GripperController.__get_right_arm_angle()
 
     @staticmethod
-    def grip_element_using_right_arm():
-        GripperController.__right_motor.run_angle(500, GripperController.__grip_turn_angle, wait=True)
-        Shared.hub().display.icon(Icon.SAD)
-        wait(500)
-
-        GripperController.__get_right_arm_angle()
-
-    @staticmethod
     def reset_left_arm():
         Shared.hub().display.icon(Icon.EMPTY)
         GripperController.__get_left_arm_angle()
@@ -43,8 +35,16 @@ class GripperController:
         GripperController.__get_left_arm_angle()
 
     @staticmethod
+    def grip_element_using_right_arm():
+        GripperController.__right_motor.run_angle(500, -GripperController.__grip_turn_angle, wait=True)
+        Shared.hub().display.icon(Icon.SAD)
+        wait(500)
+
+        GripperController.__get_right_arm_angle()
+
+    @staticmethod
     def grip_element_using_left_arm():
-        GripperController.__left_motor.run_angle(500, -GripperController.__grip_turn_angle, wait=True)
+        GripperController.__left_motor.run_angle(500, GripperController.__grip_turn_angle, wait=True)
         Shared.hub().display.icon(Icon.SAD)
         wait(500)
 

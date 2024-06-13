@@ -1,4 +1,3 @@
-from colorcontroller import ColorController
 from grippercontroller import GripperController
 from shared import Speed
 from wheelcontroller import WheelController
