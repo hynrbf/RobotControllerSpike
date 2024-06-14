@@ -25,26 +25,34 @@ async def main():
     # get vegatables
     await WheelController.move_wheels_forward_in_straight_line(float(40))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(300))
+    await WheelController.move_wheels_forward_in_straight_line(float(320), Speed.Medium)
     await GripperController.grip_element_using_both_arms()
 
     # get 2nd vegatables
     await WheelController.move_wheels_backward_in_straight_line(float(150))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(170))
+    await WheelController.move_wheels_forward_in_straight_line(float(180))
     await WheelController.wheel_left_turn()
     await GripperController.release_element_using_both_arms()
-    await WheelController.move_wheels_forward_in_straight_line(float(135))
+    await WheelController.move_wheels_forward_in_straight_line(float(150), Speed.Slow)
     await GripperController.grip_element_using_both_arms()
 
     # going to compose area
-    await WheelController.move_wheels_backward_in_straight_line(float(200))
+    await WheelController.move_wheels_backward_in_straight_line(float(195)) 
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(1670))
     await WheelController.wheel_slight_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(150))
-    await GripperController.reset_left_arm
-   
+    await WheelController.move_wheels_forward_in_straight_line(float(200))
+    await GripperController.reset_left_arm()
+
+    # going to the market area
+    await WheelController.move_wheels_backward_in_straight_line(float(70))
+    await WheelController.wheel_slight_left_turn()
+    await WheelController.move_wheels_backward_in_straight_line(float(810))
+    await WheelController.move_wheels_forward_in_straight_line(float(40))
+    await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_backward_in_straight_line(float(610))
+    await GripperController.reset_right_arm()
     # ignore below, tester only
     # print("Test simple run")
 
