@@ -26,7 +26,7 @@ class WheelController:
     async def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
-        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
+        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Fast)
         await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
@@ -37,7 +37,7 @@ class WheelController:
         Shared.hub().display.icon(Icon.ARROW_DOWN)
         distance_in_mm = distance_in_mm * -1
         wheel_controller = WheelController.__object()
-        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
+        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Fast)
         await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
@@ -60,6 +60,18 @@ class WheelController:
         Shared.hub().display.icon(Icon.ARROW_LEFT)
         wheel_controller = WheelController.__object()
         await wheel_controller.turn(-45)
+
+    # when going towards element make sure to slow down when approaching otherwise matumba yung element sa
+    # lakas ng impact
+    @staticmethod
+    async def move_wheels_towards_element(distance_in_mm: float, speed: float = Speed.Fast):
+        Shared.hub().display.icon(Icon.ARROW_UP)
+        wheel_controller = WheelController.__object()
+        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
+        await wheel_controller.straight(distance_in_mm)
+
+        travelled_distance = WheelController.__get_distance_in_mm()
+        print("Travelled distance in mm: ", travelled_distance)
 
     @staticmethod
     def __get_distance_in_mm() -> int:
