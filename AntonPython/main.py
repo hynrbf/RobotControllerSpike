@@ -57,6 +57,12 @@ async def old():
 #    via sensing the white color or ibangga sa edge
 async def main():
     print("Starting, pb version: ", version)
-    
-
+    wheel_to_butt_distance = float(50)
+    await WheelController.move_wheels_backward_in_straight_line(float(180) - wheel_to_butt_distance)
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(90))
+    await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(570))
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
 run_task(main())

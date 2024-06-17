@@ -94,6 +94,7 @@ class WheelController:
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
         wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
+        await wheel_controller.straight(float(20))
 
         while True:
             if await ColorController.get_mat_color() == Color.RED:
