@@ -91,6 +91,12 @@ class WheelController:
         print("Travelled distance in mm: ", travelled_distance)
 
     @staticmethod
+    async def wheel_u_turn_right():
+        Shared.hub().display.icon(Icon.ARROW_RIGHT)
+        wheel_controller = WheelController.__object()
+        await wheel_controller.turn(180)
+
+    @staticmethod
     async def move_wheels_towards_element_then_stop_at_marker(speed: float = Speed.Slow):
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
@@ -177,11 +183,27 @@ class WheelController:
         wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
 
         while True:
-            if await ColorController.get_mat_color() == Color.WHITE:
-                wheel_controller.drive(speed * -1, 0)
-            else:
+            if await ColorController.get_mat_color() == Color.RED:
                 wheel_controller.stop()
                 break
+            elif await ColorController.get_mat_color() == Color.BROWN:
+                wheel_controller.stop()
+                break
+            elif await ColorController.get_mat_color() == Color.GREEN:
+                wheel_controller.stop()
+                break
+            elif await ColorController.get_mat_color() == Color.YELLOW:
+                wheel_controller.stop()
+                break
+            elif await ColorController.get_mat_color() == Color.BLUE:
+                wheel_controller.stop()
+                break
+            elif await ColorController.get_mat_color() == Color.WHITE:
+                wheel_controller.drive(speed * -1, 0)
+            elif await ColorController.get_mat_color() == Color.BLACK:
+                wheel_controller.drive(speed * -1, 0)
+            else:
+                wheel_controller.drive(speed * -1, 0)
 
             await wait(100)
 
