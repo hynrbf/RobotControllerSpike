@@ -35,14 +35,14 @@ async def main():
     await GripperController.grip_element_using_both_arms()
 
     # going long straight
-    await WheelController.move_wheels_backward_in_straight_line(float(185))
+    await WheelController.move_wheels_backward_in_straight_line(float(175))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(1600))
     await WheelController.wheel_u_turn_right()
     await WheelController.wheel_slight_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(220))
+    await WheelController.move_wheels_forward_in_straight_line(float(240))
     await GripperController.reset_left_arm()
-    await WheelController.move_wheels_backward_in_straight_line(float(220))
+    await WheelController.move_wheels_backward_in_straight_line(float(240))
     await WheelController.wheel_slight_left_turn()
     await GripperController.grip_element_using_left_arm()
 
