@@ -6,7 +6,7 @@ from pybricks.tools import run_task
 
 async def main():
     print("Start, pb version: ", version)
-    await WheelController.move_wheels_towards_element_then_stop_at_marker()
+    await WheelController.move_wheels_forward_while_in_white_line()
     print("DONE!")
 
 
