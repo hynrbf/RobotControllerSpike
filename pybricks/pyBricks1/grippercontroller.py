@@ -9,7 +9,7 @@ from shared import Shared
 class GripperController:
     __right_motor = Motor(Port.B)
     __left_motor = Motor(Port.A)
-    __both_motors = DriveBase(__left_motor, __right_motor, 56, 65)
+    __both_motors = DriveBase(__left_motor, __right_motor, 56, 60)
     __grip_turn_angle = 90
 
     @staticmethod
