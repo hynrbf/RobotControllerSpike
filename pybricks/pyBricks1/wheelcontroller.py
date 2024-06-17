@@ -98,6 +98,8 @@ class WheelController:
         while True:
             if await ColorController.get_mat_color() == Color.RED:
                 wheel_controller.drive(speed, 0)
+            elif await ColorController.get_mat_color() == Color.BROWN:
+                wheel_controller.drive(speed, 0)
             elif await ColorController.get_mat_color() == Color.GREEN:
                 wheel_controller.drive(speed, 0)
             elif await ColorController.get_mat_color() == Color.YELLOW:
@@ -118,8 +120,37 @@ class WheelController:
             await wait(100)
 
         wheel_controller.stop()
-        travelled_distance = WheelController.__get_distance_in_mm()
-        print("Travelled distance in mm: ", travelled_distance)
+
+    @staticmethod
+    async def move_wheels_towards_water_tower_stop_at_brown_marker(speed: float = Speed.Slow):
+        Shared.hub().display.icon(Icon.ARROW_UP)
+        wheel_controller = WheelController.__object()
+        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
+
+        while True:
+            if await ColorController.get_mat_color() == Color.RED:
+                wheel_controller.stop()
+                break
+            elif await ColorController.get_mat_color() == Color.BROWN:
+                wheel_controller.stop()
+                break
+            elif await ColorController.get_mat_color() == Color.GREEN:
+                wheel_controller.drive(speed, 0)
+            elif await ColorController.get_mat_color() == Color.YELLOW:
+                wheel_controller.drive(speed, 0)
+            elif await ColorController.get_mat_color() == Color.BLUE:
+                wheel_controller.drive(speed, 0)
+            elif await ColorController.get_mat_color() == Color.WHITE:
+                wheel_controller.drive(speed, 0)
+            elif await ColorController.get_mat_color() == Color.BLACK:
+                wheel_controller.drive(speed, 0)
+            else:
+                wheel_controller.drive(speed, 0)
+
+            await wait(100)
+
+        await wheel_controller.straight(float(10))
+        wheel_controller.stop()
 
     @staticmethod
     def __get_distance_in_mm() -> int:
