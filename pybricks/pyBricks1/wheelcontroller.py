@@ -171,6 +171,23 @@ class WheelController:
         wheel_controller.stop()
 
     @staticmethod
+    async def move_wheels_backward_while_in_white_line(speed: float = Speed.Fast):
+        Shared.hub().display.icon(Icon.ARROW_UP)
+        wheel_controller = WheelController.__object()
+        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
+
+        while True:
+            if await ColorController.get_mat_color() == Color.WHITE:
+                wheel_controller.drive(speed * -1, 0)
+            else:
+                wheel_controller.stop()
+                break
+
+            await wait(100)
+
+        wheel_controller.stop()
+
+    @staticmethod
     def __get_distance_in_mm() -> int:
         wheel_controller = WheelController.__object()
         return wheel_controller.distance()

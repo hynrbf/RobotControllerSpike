@@ -9,7 +9,7 @@ from shared import Shared
 class GripperController:
     __right_motor = Motor(Port.B)
     __left_motor = Motor(Port.A)
-    __both_motors = DriveBase(__left_motor, __right_motor, 56, 80)
+    __both_motors = DriveBase(__left_motor, __right_motor, 56, 65)
     __grip_turn_angle = 90
 
     @staticmethod
@@ -52,13 +52,13 @@ class GripperController:
 
     @staticmethod
     async def grip_element_using_both_arms():
-        await GripperController.__both_motors.turn(GripperController.__grip_turn_angle / 2)
+        await GripperController.__both_motors.turn(GripperController.__grip_turn_angle)
         Shared.hub().display.icon(Icon.SAD)
         await wait(500)
 
     @staticmethod
     async def release_element_using_both_arms():
-        await GripperController.__both_motors.turn(-(GripperController.__grip_turn_angle / 2))
+        await GripperController.__both_motors.turn(-(GripperController.__grip_turn_angle))
         Shared.hub().display.icon(Icon.SAD)
         await wait(500)
 
