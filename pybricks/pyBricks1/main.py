@@ -20,49 +20,44 @@ async def main():
     await WheelController.move_wheels_backward_in_straight_line(float(170) - wheel_to_butt_distance, Speed.Medium)
 
     # get red vegetable and yellow
-    await WheelController.move_wheels_forward_in_straight_line(float(40))
+    await WheelController.move_wheels_forward_in_straight_line(float(50))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(250) + left_turn_variance_to_left_wheel)
+    await WheelController.move_wheels_towards_element(float(250) + left_turn_variance_to_left_wheel)
     await GripperController.grip_element_using_both_arms()
 
     # get another set of vegetable
     await WheelController.move_wheels_backward_in_straight_line(float(150))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(140))
+    await WheelController.move_wheels_forward_in_straight_line(float(180))
     await WheelController.wheel_left_turn()
     await GripperController.release_element_using_both_arms()
-    await WheelController.move_wheels_forward_in_straight_line(float(120))
+    await WheelController.move_wheels_towards_element(float(130))
     await GripperController.grip_element_using_both_arms()
 
     # going long straight
-    await WheelController.move_wheels_backward_in_straight_line(float(160))
-    await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(1600))
+    await WheelController.move_wheels_backward_in_straight_line(float(175))
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_backward_in_straight_line(float(1600))
+    await WheelController.wheel_u_turn_right()
     await WheelController.wheel_slight_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(210))
+    await WheelController.move_wheels_forward_in_straight_line(float(240))
     await GripperController.reset_left_arm()
-    await WheelController.move_wheels_backward_in_straight_line(float(210))
+    await WheelController.move_wheels_backward_in_straight_line(float(240))
     await WheelController.wheel_slight_left_turn()
     await GripperController.grip_element_using_left_arm()
 
     # going to red market
     await WheelController.move_wheels_backward_in_straight_line(float(800))
-    await WheelController.move_wheels_forward_in_straight_line(float(120))
+    await WheelController.move_wheels_forward_in_straight_line(float(50))
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(600))
     await GripperController.release_element_using_both_arms()
+    await WheelController.move_wheels_backward_in_straight_line(float(200))
 
-    # go back to starting point
-    await WheelController.move_wheels_backward_in_straight_line(float(1600))
-    await WheelController.move_wheels_forward_in_straight_line(float(200))
-    await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(800))
-    await WheelController.wheel_right_turn()
-
-    # reset all controllers
-    await GripperController.reset_left_arm()
-    await GripperController.reset_right_arm()
-    await WheelController.reset_wheels()
+    # # reset all controllers
+    # await GripperController.reset_left_arm()
+    # await GripperController.reset_right_arm()
+    # await WheelController.reset_wheels()
     print("DONE!")
 
     # ignore below, tester only
