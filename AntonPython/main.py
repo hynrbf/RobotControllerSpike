@@ -5,12 +5,7 @@ from pybricks import version
 from pybricks.tools import run_task
 
 
-# Notes:
-# 1) example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
-# 2) when getting vegetable, yung bigat could affect the gyro, so make sure to compute distance
-#    via sensing the white color or ibangga sa edge
-async def main():
-    print("Starting, pb version: ", version)
+async def old():
     # await GripperController.grip_element_using_left_arm()
     # await GripperController.reset_left_arm()
     # await GripperController.grip_element_using_right_arm()
@@ -55,5 +50,13 @@ async def main():
     # ignore below, tester only
     # print("Test simple run")
 
+
+# Notes:
+# 1) example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
+# 2) when getting vegetable, yung bigat could affect the gyro, so make sure to compute distance
+#    via sensing the white color or ibangga sa edge
+async def main():
+    print("Starting, pb version: ", version)
+    
 
 run_task(main())
