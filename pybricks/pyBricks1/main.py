@@ -24,7 +24,7 @@ async def main():
     # get vegatables
     await WheelController.move_wheels_forward_in_straight_line(float(40))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(320), Speed.Medium)
+    await WheelController.move_wheels_towards_element(float(320))
     await GripperController.grip_element_using_both_arms()
 
     # get 2nd vegatables
@@ -33,7 +33,7 @@ async def main():
     await WheelController.move_wheels_forward_in_straight_line(float(180))
     await WheelController.wheel_left_turn()
     await GripperController.release_element_using_both_arms()
-    await WheelController.move_wheels_forward_in_straight_line(float(150), Speed.Slow)
+    await WheelController.move_wheels_towards_element(float(150))
     await GripperController.grip_element_using_both_arms()
 
     # going to compose area
