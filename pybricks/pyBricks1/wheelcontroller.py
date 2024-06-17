@@ -72,10 +72,10 @@ class WheelController:
         await wheel_controller.turn(-90)
 
     @staticmethod
-    async def wheel_slight_left_turn():
+    async def wheel_slight_left_turn(angle: float = 45):
         Shared.hub().display.icon(Icon.ARROW_LEFT)
         wheel_controller = WheelController.__object()
-        await wheel_controller.turn(-45)
+        await wheel_controller.turn(-angle)
 
     # when going towards element make sure to slow down when approaching otherwise matumba yung element sa
     # lakas ng impact

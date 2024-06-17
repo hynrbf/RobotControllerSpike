@@ -70,11 +70,20 @@ async def main():
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(70))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(1160))
+    await WheelController.move_wheels_forward_in_straight_line(float(1167))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_towards_water_tower_stop_at_brown_marker()
     await GripperController.hook_element_using_left_arm()
     await WheelController.move_wheels_backward_in_straight_line(float(100), Speed.Slow)
+    await WheelController.wheel_slight_left_turn(20)
+    await WheelController.move_wheels_forward_in_straight_line(float(100), Speed.Slow)
+    await WheelController.move_wheels_backward_in_straight_line(float(100), Speed.Slow)
+    await GripperController.reset_left_arm()
+    await WheelController.move_wheels_forward_in_straight_line(float(115))
+    await GripperController.hook_element_using_left_arm()
+    await WheelController.move_wheels_backward_in_straight_line(float(50))
+
+
 
     print("DONE!")
 
