@@ -149,7 +149,7 @@ class WheelController:
 
             await wait(100)
 
-        await wheel_controller.straight(float(10))
+        await wheel_controller.straight(float(20))
         wheel_controller.stop()
 
     @staticmethod
