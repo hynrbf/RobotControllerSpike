@@ -1,7 +1,9 @@
 from pybricks.pupdevices import Motor
-from pybricks.parameters import Port, Direction, Icon
+from pybricks.parameters import Port, Direction, Icon, Color
 from pybricks.robotics import DriveBase
 from pybricks.tools import wait
+
+from colorcontroller import ColorController
 from shared import Shared, Speed
 
 
@@ -50,9 +52,23 @@ class WheelController:
         await wheel_controller.turn(90)
 
     @staticmethod
+    async def wheel_right_turn_slowly():
+        Shared.hub().display.icon(Icon.ARROW_RIGHT)
+        wheel_controller = WheelController.__object()
+        wheel_controller.settings(turn_rate=180)
+        await wheel_controller.turn(90)
+
+    @staticmethod
     async def wheel_left_turn():
         Shared.hub().display.icon(Icon.ARROW_LEFT)
         wheel_controller = WheelController.__object()
+        await wheel_controller.turn(-90)
+
+    @staticmethod
+    async def wheel_left_turn_slowly():
+        Shared.hub().display.icon(Icon.ARROW_LEFT)
+        wheel_controller = WheelController.__object()
+        wheel_controller.settings(turn_rate=180)
         await wheel_controller.turn(-90)
 
     @staticmethod
@@ -70,6 +86,38 @@ class WheelController:
         wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
         await wheel_controller.straight(distance_in_mm)
 
+        travelled_distance = WheelController.__get_distance_in_mm()
+        print("Travelled distance in mm: ", travelled_distance)
+
+    @staticmethod
+    async def move_wheels_towards_element_then_stop_at_marker(speed: float = Speed.Slow):
+        Shared.hub().display.icon(Icon.ARROW_UP)
+        wheel_controller = WheelController.__object()
+        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
+
+        while True:
+            if await ColorController.get_mat_color() == Color.RED:
+                wheel_controller.drive(speed, 0)
+            elif await ColorController.get_mat_color() == Color.GREEN:
+                wheel_controller.drive(speed, 0)
+            elif await ColorController.get_mat_color() == Color.YELLOW:
+                wheel_controller.drive(speed, 0)
+            elif await ColorController.get_mat_color() == Color.BLUE:
+                wheel_controller.drive(speed, 0)
+            elif await ColorController.get_mat_color() == Color.WHITE:
+                await wheel_controller.straight(float(30))
+                wheel_controller.stop()
+                break
+            elif await ColorController.get_mat_color() == Color.BLACK:
+                wheel_controller.stop()
+                break
+            else:
+                wheel_controller.stop()
+                break
+
+            await wait(100)
+
+        wheel_controller.stop()
         travelled_distance = WheelController.__get_distance_in_mm()
         print("Travelled distance in mm: ", travelled_distance)
 
