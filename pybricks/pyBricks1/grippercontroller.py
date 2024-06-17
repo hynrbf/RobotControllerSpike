@@ -63,6 +63,13 @@ class GripperController:
         await wait(500)
 
     @staticmethod
+    async def hook_element_using_left_arm():
+        await GripperController.__left_motor.run_angle(500, 45, wait=True)
+        await wait(500)
+
+        GripperController.__get_left_arm_angle()
+
+    @staticmethod
     def __get_right_arm_angle() -> int:
         current_angle = GripperController.__right_motor.angle()
         print("right arm current angle", current_angle)
