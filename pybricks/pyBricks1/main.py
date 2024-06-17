@@ -20,7 +20,7 @@ async def main():
     await WheelController.move_wheels_backward_in_straight_line(float(170) - wheel_to_butt_distance, Speed.Medium)
 
     # get red vegetable and yellow
-    await WheelController.move_wheels_forward_in_straight_line(float(60))
+    await WheelController.move_wheels_forward_in_straight_line(float(50))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_towards_element(float(250) + left_turn_variance_to_left_wheel)
     await GripperController.grip_element_using_both_arms()

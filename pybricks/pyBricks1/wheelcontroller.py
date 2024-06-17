@@ -60,6 +60,21 @@ class WheelController:
         await wheel_controller.turn(90)
 
     @staticmethod
+    async def wheel_u_turn_right():
+        Shared.hub().display.icon(Icon.ARROW_RIGHT)
+        wheel_controller = WheelController.__object()
+        await wheel_controller.turn(180)
+
+    @staticmethod
+    async def wheel_right_turn_with_angle(angle: float = 90):
+        if angle < 0:
+            angle = angle * -1
+
+        Shared.hub().display.icon(Icon.ARROW_RIGHT)
+        wheel_controller = WheelController.__object()
+        await wheel_controller.turn(angle)
+
+    @staticmethod
     async def wheel_left_turn():
         Shared.hub().display.icon(Icon.ARROW_LEFT)
         wheel_controller = WheelController.__object()
@@ -78,6 +93,21 @@ class WheelController:
         wheel_controller = WheelController.__object()
         await wheel_controller.turn(-45)
 
+    @staticmethod
+    async def wheel_left_turn_with_angle(angle: float = -90):
+        if angle > 0:
+            angle = angle * -1
+
+        Shared.hub().display.icon(Icon.ARROW_RIGHT)
+        wheel_controller = WheelController.__object()
+        await wheel_controller.turn(angle)
+
+    @staticmethod
+    async def wheel_u_turn_left():
+        Shared.hub().display.icon(Icon.ARROW_RIGHT)
+        wheel_controller = WheelController.__object()
+        await wheel_controller.turn(-180)
+
     # when going towards element make sure to slow down when approaching otherwise matumba yung element sa
     # lakas ng impact
     @staticmethod
@@ -89,12 +119,6 @@ class WheelController:
 
         travelled_distance = WheelController.__get_distance_in_mm()
         print("Travelled distance in mm: ", travelled_distance)
-
-    @staticmethod
-    async def wheel_u_turn_right():
-        Shared.hub().display.icon(Icon.ARROW_RIGHT)
-        wheel_controller = WheelController.__object()
-        await wheel_controller.turn(180)
 
     @staticmethod
     async def move_wheels_towards_element_then_stop_at_marker(speed: float = Speed.Slow):
@@ -159,6 +183,7 @@ class WheelController:
         await wheel_controller.straight(float(20))
         wheel_controller.stop()
 
+    # moving wheels while tracing the white and black line
     @staticmethod
     async def move_wheels_forward_while_in_white_line(speed: float = Speed.Fast):
         Shared.hub().display.icon(Icon.ARROW_UP)
