@@ -1,3 +1,4 @@
+from colorcontroller import ColorController
 from wheelcontroller import WheelController
 from pybricks import version
 from pybricks.tools import run_task
@@ -5,7 +6,7 @@ from pybricks.tools import run_task
 
 async def main():
     print("Start, pb version: ", version)
-    await WheelController.move_wheels_forward_in_straight_line(float(320) - float(60))
+    await WheelController.move_wheels_towards_element_using_sensor()
     print("DONE!")
 
 
