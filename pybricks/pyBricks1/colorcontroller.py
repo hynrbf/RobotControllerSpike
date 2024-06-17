@@ -10,44 +10,16 @@ class ColorController:
     __mat_sensor = ColorSensor(Port.D)
 
     @staticmethod
-    async def get_element_color():
-        while True:
-            if await ColorController.__front_sensor.color() == Color.RED:
-                print("Red")
-            elif await ColorController.__front_sensor.color() == Color.WHITE:
-                print("White")
-            elif await ColorController.__front_sensor.color() == Color.GREEN:
-                print("Green")
-            elif await ColorController.__front_sensor.color() == Color.YELLOW:
-                print("Yellow")
-            elif await ColorController.__front_sensor.color() == Color.BLUE:
-                print("Blue")
-            elif await ColorController.__front_sensor.color() == Color.BLACK:
-                print("Black")
-            else:
-                print("Black")
-
-            await wait(100)
+    async def get_element_color() -> Color:
+        color = await ColorController.__front_sensor.color()
+        print("Color: ", color)
+        return color
 
     @staticmethod
-    async def get_mat_color():
-        while True:
-            if await ColorController.__mat_sensor.color() == Color.RED:
-                print("Red")
-            elif await ColorController.__mat_sensor.color() == Color.WHITE:
-                print("White")
-            elif await ColorController.__mat_sensor.color() == Color.GREEN:
-                print("Green")
-            elif await ColorController.__mat_sensor.color() == Color.YELLOW:
-                print("Yellow")
-            elif await ColorController.__mat_sensor.color() == Color.BLUE:
-                print("Blue")
-            elif await ColorController.__mat_sensor.color() == Color.BLACK:
-                print("Black")
-            else:
-                print("Black")
-
-            await wait(100)
+    async def get_mat_color() -> Color:
+        color = await ColorController.__mat_sensor.color()
+        print("Color: ", color)
+        return color
 
     @staticmethod
     async def detect_yellow_vegetable() -> bool:
