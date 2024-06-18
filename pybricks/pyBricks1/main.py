@@ -59,30 +59,28 @@ async def old_code():
     await WheelController.reset_wheels()
 
 
-# Notes:
 # 1) example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
 # 2) when getting vegetable, yung bigat could affect the gyro, so make sure to compute distance
 #    via sensing the white color or ibangga sa edge
 
 async def main():
     print("Start, pb version: ", version)
-    await WheelController.move_wheels_backward_in_straight_line(float(30))
+    await WheelController.move_wheels_backward_in_straight_line(float(50))
+    await WheelController.move_wheels_forward_in_straight_line(float(30))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(70))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(1167))
+    await WheelController.move_wheels_forward_in_straight_line(float(1161), Speed.Medium)
     await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(100), Speed.Slow)
     await WheelController.move_wheels_towards_water_tower_stop_at_brown_marker()
     await GripperController.hook_element_using_left_arm()
-    await WheelController.move_wheels_backward_in_straight_line(float(100), Speed.Slow)
-    await WheelController.wheel_slight_left_turn(20)
-    await WheelController.move_wheels_forward_in_straight_line(float(100), Speed.Slow)
-    await WheelController.move_wheels_backward_in_straight_line(float(100), Speed.Slow)
-    await GripperController.reset_left_arm()
-    await WheelController.move_wheels_forward_in_straight_line(float(115))
-    await GripperController.hook_element_using_left_arm()
-    await WheelController.move_wheels_backward_in_straight_line(float(50))
-
+    await WheelController.move_wheels_backward_in_straight_line(float(100))
+    await wheelcontroller.wheel_left_turn()
+    await WheelController.move_wheels_backward_in_straight_line(float(30), Speed.Slow)
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(40), Speed.Slow)
+    await WheelController.wheel_right_turn()
 
 
     print("DONE!")
