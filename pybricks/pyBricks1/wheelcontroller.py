@@ -10,8 +10,8 @@ from shared import Shared, Speed
 class WheelController:
     # I measured manually and the wheel diameter is 5.6cm and the axle distance is 11.7cm float(117)
     # when double wheels wheel diameter is 5.6cm and the axle distance is 17.4cm
-    __wheel_diameter_in_mm = float(56)
-    __axle_track_in_mm = float(174)
+    __wheel_diameter_in_mm = float(55)
+    __axle_track_in_mm = float(185)
 
     __left_motor = Motor(Port.E, Direction.COUNTERCLOCKWISE)
     __right_motor = Motor(Port.F)
