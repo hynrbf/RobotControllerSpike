@@ -2,7 +2,7 @@ from grippercontroller import GripperController
 from shared import Speed
 from wheelcontroller import WheelController
 from pybricks import version
-from pybricks.tools import run_task
+from pybricks.tools import run_task, multitask
 
 
 # Notes:
@@ -36,8 +36,7 @@ async def getting_vegetables():
     # going long straight
     await WheelController.move_wheels_backward_in_straight_line(float(195))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_backward_in_straight_line(float(400))
-    await WheelController.move_wheels_forward_in_straight_line(float(1670) + float(400))
+    await WheelController.move_wheels_forward_in_straight_line(float(1670))
     await WheelController.wheel_slight_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(240))
     await GripperController.reset_left_arm()
@@ -45,26 +44,26 @@ async def getting_vegetables():
     await WheelController.wheel_slight_left_turn()
     await GripperController.grip_element_using_left_arm()
 
-    # going to red market
-    await WheelController.move_wheels_backward_in_straight_line(float(550))
-    await WheelController.move_wheels_forward_in_straight_line(float(70))
-    await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_backward_in_straight_line(float(600))
-    await GripperController.release_element_using_both_arms()
-    await WheelController.move_wheels_backward_in_straight_line(float(200))
-    await WheelController.wheel_left_turn()
-    await WheelController.wheel_slight_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(310))
-    await WheelController.wheel_slight_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(210))
-    await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(130))
-    await GripperController.grip_element_using_both_arms()
+    # # going to red market
+    # await WheelController.move_wheels_backward_in_straight_line(float(550))
+    # await WheelController.move_wheels_forward_in_straight_line(float(70))
+    # await WheelController.wheel_right_turn()
+    # await WheelController.move_wheels_backward_in_straight_line(float(600))
+    # await GripperController.release_element_using_both_arms()
+    # await WheelController.move_wheels_backward_in_straight_line(float(200))
+    # await WheelController.wheel_left_turn()
+    # await WheelController.wheel_slight_left_turn()
+    # await WheelController.move_wheels_forward_in_straight_line(float(310))
+    # await WheelController.wheel_slight_left_turn()
+    # await WheelController.move_wheels_forward_in_straight_line(float(210))
+    # await WheelController.wheel_left_turn()
+    # await WheelController.move_wheels_forward_in_straight_line(float(130))
+    # await GripperController.grip_element_using_both_arms()
 
 
 async def main():
     print("Start, pb version: ", version)
-    await getting_vegetables()
+    await multitask(getting_vegetables(), WheelController.debug())
 
     # # reset all controllers
     # await GripperController.reset_left_arm()

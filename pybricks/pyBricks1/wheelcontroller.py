@@ -29,7 +29,8 @@ class WheelController:
     async def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
-        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Fast)
+        wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
+                                  turn_acceleration=None)
         await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
@@ -40,7 +41,8 @@ class WheelController:
         Shared.hub().display.icon(Icon.ARROW_DOWN)
         distance_in_mm = distance_in_mm * -1
         wheel_controller = WheelController.__object()
-        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Fast)
+        wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
+                                  turn_acceleration=None)
         await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
@@ -245,9 +247,10 @@ class WheelController:
             else:
                 hub.light.on(Color.RED)
 
-            heading = hub.imu.heading()
-            hub.display.number(round(heading))
-            print("{:.1f}".format(heading))
+            yaw_angle = hub.imu.heading()
+            heading_angle = WheelController.__get_heading_angle(yaw_angle)
+            hub.display.number(round(yaw_angle))
+            print('yaw_angle= ', "{:.1f}".format(yaw_angle), 'heading_angle= ', "{:.1f}".format(heading_angle))
             await wait(25)
 
             # # You can easily reset the heading to arbitrary values.
@@ -256,7 +259,7 @@ class WheelController:
             #     hub.imu.reset_heading(0)
 
     @staticmethod
-    def get_heading_angle(yaw_angle):
+    def __get_heading_angle(yaw_angle):
         if yaw_angle <= 0:
             heading_angle = (-yaw_angle % 360)
         else:
