@@ -58,7 +58,7 @@ class GripperController:
 
     @staticmethod
     async def release_element_using_both_arms():
-        await GripperController.__both_motors.turn(-(GripperController.__grip_turn_angle))
+        await GripperController.__both_motors.turn(-GripperController.__grip_turn_angle)
         Shared.hub().display.icon(Icon.SAD)
         await wait(500)
 
