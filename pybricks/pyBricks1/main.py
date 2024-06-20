@@ -101,6 +101,7 @@ async def water_the_green_plants():
     await WheelController.wheel_left_turn()
     await multitask(GripperController.grip_element_using_both_arms(),
                     WheelController.move_wheels_forward_in_straight_line(float(180)))
+    await WheelController.move_wheels_backward_in_straight_line(float(220))
 
 
 # 1) example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
