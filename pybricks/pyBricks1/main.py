@@ -27,17 +27,19 @@ async def hook_element():
 
 # Anton's code
 async def get_the_vegetables():
-    await GripperController.reset_left_arm()
-    await GripperController.reset_right_arm()
-    wheel_to_butt_distance = float(50)
-    left_turn_variance_to_left_wheel = float(60)
-    right_turn_variance_to_right_wheel = float(60)
-    await WheelController.move_wheels_backward_in_straight_line(float(170) - wheel_to_butt_distance, Speed.Medium)
+    # await GripperController.reset_left_arm()
+    # await GripperController.reset_right_arm()
+    # wheel_to_butt_distance = float(50)
+    # left_turn_variance_to_left_wheel = float(60)
+    # right_turn_variance_to_right_wheel = float(60)
+    # await WheelController.move_wheels_backward_in_straight_line(float(170) - wheel_to_butt_distance, Speed.Medium)
 
     # get red vegetable and yellow
+    left_turn_variance_to_left_wheel = float(60)
     await WheelController.move_wheels_forward_in_straight_line(float(50))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(250) + left_turn_variance_to_left_wheel)
+    # original float(250)
+    await WheelController.move_wheels_forward_in_straight_line(float(200) + left_turn_variance_to_left_wheel)
     await GripperController.grip_element_using_both_arms()
 
     # get another set of vegetable
@@ -45,12 +47,13 @@ async def get_the_vegetables():
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(180))
     await WheelController.wheel_left_turn()
-    await GripperController.release_element_using_both_arms()
-    await WheelController.move_wheels_forward_in_straight_line(float(140))
+    await multitask(GripperController.release_element_using_both_arms(),
+                    WheelController.move_wheels_forward_in_straight_line(float(140)))
     await GripperController.grip_element_using_both_arms()
 
     # going long straight
-    await WheelController.move_wheels_backward_in_straight_line(float(195))
+    # original float(195)
+    await WheelController.move_wheels_backward_in_straight_line(float(205))
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(1670))
     await WheelController.wheel_slight_left_turn()
@@ -102,7 +105,8 @@ async def water_the_green_plants():
                     WheelController.move_wheels_forward_in_straight_line(float(180)))
     await WheelController.move_wheels_backward_in_straight_line(float(220))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_backward_in_straight_line(float(900))
+    await multitask(GripperController.release_element_using_both_arms(),
+                    WheelController.move_wheels_backward_in_straight_line(float(900)))
 
 
 # 1) example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
