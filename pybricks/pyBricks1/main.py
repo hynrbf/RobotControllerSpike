@@ -5,12 +5,28 @@ from pybricks import version
 from pybricks.tools import run_task, multitask
 
 
-# Notes:
-# 1) example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
-# 2) when getting vegetable, yung bigat could affect the gyro, so make sure to compute distance
-#    via sensing the white color or ibangga sa edge
+async def hook_element():
+    print("Start, pb version: ", version)
+    await WheelController.move_wheels_backward_in_straight_line(float(50))
+    await WheelController.move_wheels_forward_in_straight_line(float(30))
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(70))
+    await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(1161), Speed.Medium)
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(100), Speed.Slow)
+    await WheelController.move_wheels_towards_water_tower_stop_at_brown_marker()
+    await GripperController.hook_element_using_left_arm()
+    await WheelController.move_wheels_backward_in_straight_line(float(100))
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_backward_in_straight_line(float(30), Speed.Slow)
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(40), Speed.Slow)
+    await WheelController.wheel_right_turn()
 
-async def getting_vegetables():
+
+# Anton's code
+async def get_the_vegetables():
     await GripperController.reset_left_arm()
     await GripperController.reset_right_arm()
     wheel_to_butt_distance = float(50)
@@ -61,14 +77,43 @@ async def getting_vegetables():
     await GripperController.grip_element_using_both_arms()
 
 
+# Alfeo's code
+async def water_the_green_plants():
+    await WheelController.move_wheels_forward_in_straight_line(float(50))
+    await GripperController.grip_element_using_left_arm()
+    await WheelController.wheel_left_turn_with_angle(float(30))
+    await WheelController.move_wheels_forward_in_straight_line(float(160))
+    await WheelController.wheel_right_turn_with_angle(float(30))
+    await WheelController.move_wheels_forward_in_straight_line(float(300))
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(60))
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
+    await WheelController.move_wheels_backward_in_straight_line(float(30))
+    await multitask(GripperController.reset_left_arm(),
+                    WheelController.move_wheels_backward_in_straight_line(float(90)))
+    await GripperController.grip_element_using_left_arm()
+    await WheelController.move_wheels_forward_in_straight_line(float(60))
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
+    await WheelController.move_wheels_backward_in_straight_line(float(90))
+    await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(160))
+    await WheelController.wheel_left_turn()
+    await multitask(GripperController.grip_element_using_both_arms(),
+                    WheelController.move_wheels_forward_in_straight_line(float(180)))
+    await WheelController.move_wheels_backward_in_straight_line(float(220))
+    await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_backward_in_straight_line(float(900))
+
+
+# 1) example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
+# 2) when getting vegetable, yung bigat could affect the gyro, so make sure to compute distance
+#    via sensing the white color or ibangga sa edge
+
 async def main():
     print("Start, pb version: ", version)
-    await multitask(getting_vegetables(), WheelController.debug())
-
-    # # reset all controllers
-    # await GripperController.reset_left_arm()
-    # await GripperController.reset_right_arm()
-    # await WheelController.reset_wheels()
+    await water_the_green_plants()
+    await get_the_vegetables()
+    # await multitask(get_the_vegetables(), WheelController.debug())
     print("DONE!")
 
     # ignore below, tester only

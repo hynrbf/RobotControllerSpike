@@ -3,26 +3,22 @@ from grippercontroller import GripperController
 from shared import Speed
 from wheelcontroller import WheelController
 from pybricks import version
-from pybricks.tools import run_task, multitask
-from pybricks.tools import wait
-
-
-async def move_gripper():
-    while True:
-        await GripperController.grip_element_using_both_arms()
-        await wait(100)
-        await GripperController.release_element_using_both_arms()
-        await wait(100)
+from pybricks.tools import run_task
+from pybricks.tools import wait, multitask
 
 
 async def main():
     print("Start, pb version: ", version)
-    # await WheelController.move_wheels_towards_element_then_stop_at_marker()
-    # await WheelController.wheel_right_turn()
-    # await GripperController.grip_element_using_right_arm()
-    # await GripperController.grip_element_using_left_arm()
+    await WheelController.move_wheels_forward_in_straight_line(float(60))
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
+    await WheelController.move_wheels_backward_in_straight_line(float(20))
+    await multitask(GripperController.reset_left_arm(),
+                    WheelController.move_wheels_backward_in_straight_line(float(100)))
+    await GripperController.grip_element_using_left_arm()
+    await WheelController.move_wheels_forward_in_straight_line(float(60))
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
+    await WheelController.move_wheels_backward_in_straight_line(float(60))
 
-    # await multitask(WheelController.move_wheels_forward_while_in_white_line(Speed.Medium), move_gripper())
     print("DONE!")
 
 

@@ -124,8 +124,9 @@ class WheelController:
         travelled_distance = WheelController.__get_distance_in_mm()
         print("Travelled distance in mm: ", travelled_distance)
 
+    # moving towards element
     @staticmethod
-    async def move_wheels_towards_element_then_stop_at_marker(speed: float = Speed.Slow):
+    async def move_wheels_towards_element_then_stop_at_marker(speed: float = Speed.Medium):
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
         wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
