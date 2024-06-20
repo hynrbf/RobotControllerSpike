@@ -126,10 +126,10 @@ class WheelController:
 
     # moving towards element
     @staticmethod
-    async def move_wheels_towards_element_then_stop_at_marker(speed: float = Speed.Fast):
+    async def move_wheels_towards_element_then_stop_at_marker(speed: float = Speed.Medium):
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
-        wheel_controller.settings(straight_speed=speed)
+        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
 
         while True:
             if await ColorController.get_mat_color() == Color.RED:
