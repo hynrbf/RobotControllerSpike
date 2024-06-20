@@ -10,8 +10,7 @@ from pybricks.tools import run_task
 # 2) when getting vegetable, yung bigat could affect the gyro, so make sure to compute distance
 #    via sensing the white color or ibangga sa edge
 
-async def main():
-    print("Start, pb version: ", version)
+async def getting_vegetables():
     await GripperController.reset_left_arm()
     await GripperController.reset_right_arm()
     wheel_to_butt_distance = float(50)
@@ -58,11 +57,16 @@ async def main():
     await WheelController.wheel_left_turn()
     await WheelController.wheel_slight_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(310))
-    await WheelController.wheel_slight_left_turn
+    await WheelController.wheel_slight_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(210))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(130))
     await GripperController.grip_element_using_both_arms()
+
+
+async def main():
+    print("Start, pb version: ", version)
+    await getting_vegetables()
 
     # # reset all controllers
     # await GripperController.reset_left_arm()
