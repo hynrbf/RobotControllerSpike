@@ -13,7 +13,7 @@ async def main():
     await WheelController.reset_wheels()
 
     # put gripper to close
-    await GripperController.grip_element_using_both_arms()
+    # await GripperController.grip_element_using_both_arms()
     print("DONE!")
 
 
