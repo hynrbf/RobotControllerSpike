@@ -33,7 +33,7 @@ class WheelController:
         await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
-        print("Travelled distance in mm: ", travelled_distance)
+        # print("Travelled distance in mm: ", travelled_distance)
 
     @staticmethod
     async def move_wheels_backward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
@@ -44,7 +44,7 @@ class WheelController:
         await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
-        print("Travelled distance in mm: ", travelled_distance)
+        # print("Travelled distance in mm: ", travelled_distance)
 
     @staticmethod
     async def wheel_right_turn():
@@ -118,7 +118,7 @@ class WheelController:
         await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
-        print("Travelled distance in mm: ", travelled_distance)
+        # print("Travelled distance in mm: ", travelled_distance)
 
     @staticmethod
     async def move_wheels_towards_element_then_stop_at_marker(speed: float = Speed.Slow):
@@ -233,6 +233,36 @@ class WheelController:
             await wait(100)
 
         wheel_controller.stop()
+
+    # debugging while wheels moving
+    @staticmethod
+    async def debug():
+        hub = Shared.hub()
+
+        while True:
+            if hub.imu.stationary():
+                hub.light.on(Color.GREEN)
+            else:
+                hub.light.on(Color.RED)
+
+            heading = hub.imu.heading()
+            hub.display.number(round(heading))
+            print("{:.1f}".format(heading))
+            await wait(25)
+
+            # # You can easily reset the heading to arbitrary values.
+            # # No special wait operations are required here. Just reset and go.
+            # if hub.buttons.pressed():
+            #     hub.imu.reset_heading(0)
+
+    @staticmethod
+    def get_heading_angle(yaw_angle):
+        if yaw_angle <= 0:
+            heading_angle = (-yaw_angle % 360)
+        else:
+            heading_angle = 360 - (yaw_angle % 360)
+
+        return heading_angle
 
     @staticmethod
     def __get_distance_in_mm() -> int:
