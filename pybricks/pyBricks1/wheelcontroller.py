@@ -196,7 +196,7 @@ class WheelController:
             if hub.imu.stationary():
                 hub.light.on(Color.BLUE)
             else:
-                hub.light.on(Color.RED)
+                hub.light.on(Color.GREEN)
 
             yaw_angle = hub.imu.heading()
             heading_angle = WheelController.__get_heading_angle(yaw_angle)
