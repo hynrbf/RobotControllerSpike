@@ -17,12 +17,13 @@ async def move_gripper():
 
 async def main():
     print("Start, pb version: ", version)
+    # await WheelController.move_wheels_towards_element_then_stop_at_marker()
     # await WheelController.move_wheels_forward_while_in_white_line()
-    # await WheelController.move_wheels_backward_while_in_white_line()
+    await WheelController.wheel_right_turn()
     # await GripperController.grip_element_using_right_arm()
     # await GripperController.grip_element_using_left_arm()
 
-    await multitask(WheelController.move_wheels_forward_while_in_white_line(Speed.Medium), move_gripper())
+    # await multitask(WheelController.move_wheels_forward_while_in_white_line(Speed.Medium), move_gripper())
     print("DONE!")
 
 
