@@ -21,7 +21,7 @@ async def getting_vegetables():
     # get red vegetable and yellow
     await WheelController.move_wheels_forward_in_straight_line(float(50))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_towards_element(float(250) + left_turn_variance_to_left_wheel)
+    await WheelController.move_wheels_forward_in_straight_line(float(250) + left_turn_variance_to_left_wheel)
     await GripperController.grip_element_using_both_arms()
 
     # get another set of vegetable
@@ -30,7 +30,7 @@ async def getting_vegetables():
     await WheelController.move_wheels_forward_in_straight_line(float(180))
     await WheelController.wheel_left_turn()
     await GripperController.release_element_using_both_arms()
-    await WheelController.move_wheels_towards_element(float(140))
+    await WheelController.move_wheels_forward_in_straight_line(float(140))
     await GripperController.grip_element_using_both_arms()
 
     # going long straight

@@ -29,24 +29,26 @@ class WheelController:
     async def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
+        # reset to None when moving straight, otherwise the yaw angle becomes not good
         wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
                                   turn_acceleration=None)
         await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
-        # print("Travelled distance in mm: ", travelled_distance)
+        print("Travelled distance in mm: ", travelled_distance)
 
     @staticmethod
     async def move_wheels_backward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
         Shared.hub().display.icon(Icon.ARROW_DOWN)
         distance_in_mm = distance_in_mm * -1
         wheel_controller = WheelController.__object()
+        # reset to None when moving straight, otherwise the yaw angle becomes not good
         wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
                                   turn_acceleration=None)
         await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
-        # print("Travelled distance in mm: ", travelled_distance)
+        print("Travelled distance in mm: ", travelled_distance)
 
     @staticmethod
     async def wheel_right_turn():
@@ -120,7 +122,7 @@ class WheelController:
         await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
-        # print("Travelled distance in mm: ", travelled_distance)
+        print("Travelled distance in mm: ", travelled_distance)
 
     @staticmethod
     async def move_wheels_towards_element_then_stop_at_marker(speed: float = Speed.Slow):
@@ -190,7 +192,9 @@ class WheelController:
     async def move_wheels_forward_while_in_white_line(speed: float = Speed.Fast):
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
-        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
+        # reset to None when moving straight, otherwise the yaw angle becomes not good
+        wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
+                                  turn_acceleration=None)
 
         while True:
             if await ColorController.get_mat_color() == Color.WHITE:
@@ -207,7 +211,9 @@ class WheelController:
     async def move_wheels_backward_while_in_white_line(speed: float = Speed.Fast):
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
-        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
+        # reset to None when moving straight, otherwise the yaw angle becomes not good
+        wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
+                                  turn_acceleration=None)
 
         while True:
             if await ColorController.get_mat_color() == Color.RED:
@@ -243,7 +249,7 @@ class WheelController:
 
         while True:
             if hub.imu.stationary():
-                hub.light.on(Color.GREEN)
+                hub.light.on(Color.BLUE)
             else:
                 hub.light.on(Color.RED)
 
