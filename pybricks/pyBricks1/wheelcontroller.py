@@ -29,7 +29,9 @@ class WheelController:
     async def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
-        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Fast)
+        # reset to None when moving straight, otherwise the yaw angle becomes not good
+        wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
+                                  turn_acceleration=None)
         await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
@@ -40,7 +42,9 @@ class WheelController:
         Shared.hub().display.icon(Icon.ARROW_DOWN)
         distance_in_mm = distance_in_mm * -1
         wheel_controller = WheelController.__object()
-        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Fast)
+        # reset to None when moving straight, otherwise the yaw angle becomes not good
+        wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
+                                  turn_acceleration=None)
         await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
@@ -183,56 +187,36 @@ class WheelController:
         await wheel_controller.straight(float(20))
         wheel_controller.stop()
 
-    # moving wheels while tracing the white and black line
+    # debugging while wheels moving
     @staticmethod
-    async def move_wheels_forward_while_in_white_line(speed: float = Speed.Fast):
-        Shared.hub().display.icon(Icon.ARROW_UP)
-        wheel_controller = WheelController.__object()
-        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
+    async def debug():
+        hub = Shared.hub()
 
         while True:
-            if await ColorController.get_mat_color() == Color.WHITE:
-                wheel_controller.drive(speed, 0)
+            if hub.imu.stationary():
+                hub.light.on(Color.BLUE)
             else:
-                wheel_controller.stop()
-                break
+                hub.light.on(Color.GREEN)
 
-            await wait(100)
+            yaw_angle = hub.imu.heading()
+            heading_angle = WheelController.__get_heading_angle(yaw_angle)
+            hub.display.number(round(yaw_angle))
+            print('yaw_angle= ', "{:.1f}".format(yaw_angle), 'heading_angle= ', "{:.1f}".format(heading_angle))
+            await wait(25)
 
-        wheel_controller.stop()
+            # # You can easily reset the heading to arbitrary values.
+            # # No special wait operations are required here. Just reset and go.
+            # if hub.buttons.pressed():
+            #     hub.imu.reset_heading(0)
 
     @staticmethod
-    async def move_wheels_backward_while_in_white_line(speed: float = Speed.Fast):
-        Shared.hub().display.icon(Icon.ARROW_UP)
-        wheel_controller = WheelController.__object()
-        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
+    def __get_heading_angle(yaw_angle):
+        if yaw_angle <= 0:
+            heading_angle = (-yaw_angle % 360)
+        else:
+            heading_angle = 360 - (yaw_angle % 360)
 
-        while True:
-            if await ColorController.get_mat_color() == Color.RED:
-                wheel_controller.stop()
-                break
-            elif await ColorController.get_mat_color() == Color.BROWN:
-                wheel_controller.stop()
-                break
-            elif await ColorController.get_mat_color() == Color.GREEN:
-                wheel_controller.stop()
-                break
-            elif await ColorController.get_mat_color() == Color.YELLOW:
-                wheel_controller.stop()
-                break
-            elif await ColorController.get_mat_color() == Color.BLUE:
-                wheel_controller.stop()
-                break
-            elif await ColorController.get_mat_color() == Color.WHITE:
-                wheel_controller.drive(speed * -1, 0)
-            elif await ColorController.get_mat_color() == Color.BLACK:
-                wheel_controller.drive(speed * -1, 0)
-            else:
-                wheel_controller.drive(speed * -1, 0)
-
-            await wait(100)
-
-        wheel_controller.stop()
+        return heading_angle
 
     @staticmethod
     def __get_distance_in_mm() -> int:
