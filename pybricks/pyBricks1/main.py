@@ -79,12 +79,7 @@ async def hook_element():
     await WheelController.wheel_right_turn()
 
 
-# 1) example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
-# 2) when getting vegetable, yung bigat could affect the gyro, so make sure to compute distance
-#    via sensing the white color or ibangga sa edge
-
-async def main():
-    print("Start, pb version: ", version)
+async def water_the_green_plants():
     await WheelController.move_wheels_forward_in_straight_line(float(50))
     await GripperController.grip_element_using_left_arm()
     await WheelController.wheel_left_turn_with_angle(float(30))
@@ -94,11 +89,23 @@ async def main():
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.move_wheels_towards_element_then_stop_at_marker()
-    await multitask(WheelController.move_wheels_backward_in_straight_line(float(120)),
-                    GripperController.reset_left_arm())
+    await WheelController.move_wheels_backward_in_straight_line(float(30))
+    await multitask(GripperController.reset_left_arm(),
+                    WheelController.move_wheels_backward_in_straight_line(float(90)))
     await GripperController.grip_element_using_left_arm()
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.move_wheels_towards_element_then_stop_at_marker()
+    await WheelController.move_wheels_backward_in_straight_line(float(90))
+    await WheelController.wheel_right_turn()
+
+
+# 1) example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
+# 2) when getting vegetable, yung bigat could affect the gyro, so make sure to compute distance
+#    via sensing the white color or ibangga sa edge
+
+async def main():
+    print("Start, pb version: ", version)
+    await water_the_green_plants()
     print("DONE!")
 
     # ignore below, tester only
