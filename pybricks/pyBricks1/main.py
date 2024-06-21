@@ -93,7 +93,8 @@ async def water_if_green_plant() -> bool:
         await WheelController.move_wheels_backward_in_straight_line(float(150))
         is_green_detected = True
     else:
-        await WheelController.move_wheels_forward_in_straight_line(float(90))
+        await multitask(GripperController.grip_element_using_both_arms(),
+                        WheelController.move_wheels_forward_in_straight_line(float(90)))
         await WheelController.move_wheels_backward_in_straight_line(float(220))
 
     return is_green_detected
@@ -114,7 +115,7 @@ async def water_the_green_plants():
     if is_green_detected:
         await WheelController.wheel_right_turn()
         await multitask(GripperController.release_element_using_both_arms(),
-                        WheelController.move_wheels_backward_in_straight_line(float(800)))
+                        WheelController.move_wheels_backward_in_straight_line(float(650)))
         return
 
     await WheelController.wheel_right_turn()
@@ -122,11 +123,25 @@ async def water_the_green_plants():
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.move_wheels_towards_element_then_stop_at_marker()
-    await water_if_green_plant()
+
+    is_green_detected = await water_if_green_plant()
+
+    if is_green_detected:
+        await WheelController.wheel_right_turn()
+        await multitask(GripperController.release_element_using_both_arms(),
+                        WheelController.move_wheels_backward_in_straight_line(float(750)))
+        return
 
     await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(165))
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(60))
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
+
+    await water_if_green_plant()
+    await WheelController.wheel_right_turn()
     await multitask(GripperController.release_element_using_both_arms(),
-                    WheelController.move_wheels_backward_in_straight_line(float(800)))
+                    WheelController.move_wheels_backward_in_straight_line(float(950)))
 
 
 # 1) example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
