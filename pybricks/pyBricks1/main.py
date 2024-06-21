@@ -53,7 +53,7 @@ async def get_the_vegetables():
 
     # going long straight
     # original float(195)
-    await WheelController.move_wheels_backward_in_straight_line(float(205))
+    await WheelController.move_wheels_backward_in_straight_line(float(260))
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(1670))
     await WheelController.wheel_slight_left_turn()
