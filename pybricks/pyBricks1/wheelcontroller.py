@@ -8,9 +8,9 @@ from shared import Shared, Speed
 
 
 class WheelController:
-    # I measured manually and the wheel diameter is 5.6cm and the axle distance is 11.7cm float(117)
-    # when double wheels wheel diameter is 5.6cm and the axle distance is 17.4cm
-    __wheel_diameter_in_mm = float(55)
+    # I measured manually and the wheel diameter is 5.6cm and the axle distance is 11.7cm float(117) for blue wheels
+    # 2nd black wheels, wheel diameter is 5.5cm and the axle distance is 18.5cm
+    __wheel_diameter_in_mm = float(80)
     __axle_track_in_mm = float(185)
 
     __left_motor = Motor(Port.E, Direction.COUNTERCLOCKWISE)
@@ -30,7 +30,7 @@ class WheelController:
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
         # reset to None when moving straight, otherwise the yaw angle becomes not good
-        wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
+        wheel_controller.settings(straight_speed=speed, straight_acceleration=None, turn_rate=None,
                                   turn_acceleration=None)
         await wheel_controller.straight(distance_in_mm)
 
