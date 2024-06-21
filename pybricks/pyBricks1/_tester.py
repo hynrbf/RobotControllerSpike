@@ -9,21 +9,8 @@ from pybricks.tools import wait, multitask
 
 async def main():
     print("Start, pb version: ", version)
-    await WheelController.move_wheels_forward_in_straight_line(float(60))
-    await WheelController.move_wheels_towards_element_then_stop_at_marker()
-
-    if await ColorController.detect_green_vegetable():
-        await WheelController.move_wheels_backward_in_straight_line(float(30))
-        await multitask(GripperController.reset_left_arm(),
-                        WheelController.move_wheels_backward_in_straight_line(float(90)))
-        await GripperController.grip_element_using_left_arm()
-        await WheelController.move_wheels_forward_in_straight_line(float(60))
-        await WheelController.move_wheels_towards_element_then_stop_at_marker()
-    else:
-        await WheelController.move_wheels_forward_in_straight_line(float(180))
-
-    await WheelController.move_wheels_backward_in_straight_line(float(220))
-    await WheelController.wheel_right_turn()
+    result = await ColorController.detect_green_vegetable()
+    print("result: ", result)
     print("DONE!")
 
 
