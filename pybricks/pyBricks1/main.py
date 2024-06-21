@@ -28,15 +28,15 @@ async def hook_element():
 
 # Anton's code
 async def get_the_vegetables():
-    # await GripperController.reset_left_arm()
-    # await GripperController.reset_right_arm()
-    # wheel_to_butt_distance = float(50)
-    # left_turn_variance_to_left_wheel = float(60)
-    # right_turn_variance_to_right_wheel = float(60)
-    # await WheelController.move_wheels_backward_in_straight_line(float(170) - wheel_to_butt_distance, Speed.Medium)
+    await GripperController.reset_left_arm()
+    await GripperController.reset_right_arm()
+    wheel_to_butt_distance = float(50)
+    left_turn_variance_to_left_wheel = float(60)
+    right_turn_variance_to_right_wheel = float(60)
+    await WheelController.move_wheels_backward_in_straight_line(float(170) - wheel_to_butt_distance)
 
     # get red vegetable and yellow
-    left_turn_variance_to_left_wheel = float(60)
+    #  left_turn_variance_to_left_wheel = float(60)
     await WheelController.move_wheels_forward_in_straight_line(float(50))
     await WheelController.wheel_left_turn()
     # original float(250)
@@ -53,11 +53,11 @@ async def get_the_vegetables():
     await GripperController.grip_element_using_both_arms()
 
     # going long straight to the compose area
-    await WheelController.move_wheels_backward_in_straight_line(float(250))
+    await WheelController.move_wheels_backward_in_straight_line(float(160))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(1670))
+    await WheelController.move_wheels_forward_in_straight_line(float(1670), True)
     await WheelController.wheel_slight_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(240))
+    await WheelController.move_wheels_forward_in_straight_line(float(260))
     await multitask(GripperController.reset_left_arm(),
                     WheelController.move_wheels_backward_in_straight_line(float(430)))
     await multitask(WheelController.wheel_slight_left_turn(), GripperController.grip_element_using_left_arm())
