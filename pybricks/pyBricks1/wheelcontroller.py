@@ -30,7 +30,7 @@ class WheelController:
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
         # reset to None when moving straight, otherwise the yaw angle becomes not good
-        wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
+        wheel_controller.settings(straight_speed=speed, straight_acceleration=None, turn_rate=None,
                                   turn_acceleration=None)
         await wheel_controller.straight(distance_in_mm)
 
