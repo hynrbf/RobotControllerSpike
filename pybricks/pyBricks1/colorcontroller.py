@@ -24,14 +24,19 @@ class ColorController:
     @staticmethod
     async def detect_yellow_vegetable() -> bool:
         count = 1
+        is_detected = False
 
         while True:
-            if count > 5:
+            if count > 3:
                 is_detected = False
                 break
 
-            if await ColorController.__front_sensor.color() == Color.YELLOW:
-                Shared.hub().display.char("Y")
+            color = await ColorController.__front_sensor.hsv()
+            color_int = color.h
+            print("Color detected: ", color_int)
+
+            if 40 <= color_int <= 65:
+                Shared.hub().display.char("R")
                 is_detected = True
                 break
 
@@ -43,13 +48,18 @@ class ColorController:
     @staticmethod
     async def detect_red_vegetable() -> bool:
         count = 1
+        is_detected = False
 
         while True:
-            if count > 5:
+            if count > 3:
                 is_detected = False
                 break
 
-            if await ColorController.__front_sensor.color() == Color.RED:
+            color = await ColorController.__front_sensor.hsv()
+            color_int = color.h
+            print("Color detected: ", color_int)
+
+            if 340 <= color_int <= 360:
                 Shared.hub().display.char("R")
                 is_detected = True
                 break
