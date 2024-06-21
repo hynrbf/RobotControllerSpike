@@ -23,26 +23,73 @@ class ColorController:
 
     @staticmethod
     async def detect_yellow_vegetable() -> bool:
+        count = 1
         is_detected = False
 
         while True:
-            if await ColorController.__front_sensor.color() == Color.YELLOW:
-                await wait(100)
-                Shared.hub().display.char("Y")
+            if count > 3:
+                is_detected = False
+                break
+
+            color = await ColorController.__front_sensor.hsv()
+            color_int = color.h
+            print("Color detected: ", color_int)
+
+            if 40 <= color_int <= 65:
+                Shared.hub().display.char("R")
                 is_detected = True
                 break
+
+            count = count + 1
+            await wait(100)
 
         return is_detected
 
     @staticmethod
     async def detect_red_vegetable() -> bool:
+        count = 1
         is_detected = False
 
         while True:
-            if await ColorController.__front_sensor.color() == Color.RED:
-                await wait(100)
+            if count > 3:
+                is_detected = False
+                break
+
+            color = await ColorController.__front_sensor.hsv()
+            color_int = color.h
+            print("Color detected: ", color_int)
+
+            if 340 <= color_int <= 360:
                 Shared.hub().display.char("R")
                 is_detected = True
                 break
+
+            count = count + 1
+            await wait(100)
+
+        return is_detected
+
+    @staticmethod
+    async def detect_green_vegetable() -> bool:
+        count = 1
+        is_detected = False
+
+        while True:
+            if count > 3:
+                is_detected = False
+                break
+
+            color = await ColorController.__front_sensor.hsv()
+            color_int = color.h
+            print("Color detected: ", color_int)
+
+            # tested and found out green always at Color(h=156, s=78, v=64), so we be safe at 100 - 165
+            if 110 <= color_int <= 165:
+                Shared.hub().display.char("G")
+                is_detected = True
+                break
+
+            count = count + 1
+            await wait(100)
 
         return is_detected
