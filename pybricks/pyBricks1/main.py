@@ -99,7 +99,7 @@ async def water_the_green_plants():
         await GripperController.grip_element_using_left_arm()
         await WheelController.move_wheels_forward_in_straight_line(float(60))
         await WheelController.move_wheels_towards_element_then_stop_at_marker()
-        await WheelController.move_wheels_backward_in_straight_line(float(180))
+        await WheelController.move_wheels_backward_in_straight_line(float(150))
     else:
         await WheelController.move_wheels_forward_in_straight_line(float(90))
         await WheelController.move_wheels_backward_in_straight_line(float(220))
@@ -117,7 +117,7 @@ async def water_the_green_plants():
         await GripperController.grip_element_using_left_arm()
         await WheelController.move_wheels_forward_in_straight_line(float(60))
         await WheelController.move_wheels_towards_element_then_stop_at_marker()
-        await WheelController.move_wheels_backward_in_straight_line(float(180))
+        await WheelController.move_wheels_backward_in_straight_line(float(150))
     else:
         await WheelController.move_wheels_forward_in_straight_line(float(90))
         await WheelController.move_wheels_backward_in_straight_line(float(220))

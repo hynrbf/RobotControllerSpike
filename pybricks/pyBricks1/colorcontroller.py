@@ -64,7 +64,7 @@ class ColorController:
         count = 1
 
         while True:
-            if count > 5:
+            if count > 10:
                 is_detected = False
                 break
 
