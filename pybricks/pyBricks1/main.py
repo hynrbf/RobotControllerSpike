@@ -40,7 +40,7 @@ async def get_the_vegetables():
     await WheelController.move_wheels_forward_in_straight_line(float(50))
     await WheelController.wheel_left_turn()
     # original float(250)
-    await WheelController.move_wheels_forward_in_straight_line(float(200) + left_turn_variance_to_left_wheel)
+    await WheelController.move_wheels_forward_in_straight_line(float(190) + left_turn_variance_to_left_wheel)
     await GripperController.grip_element_using_both_arms()
 
     # get another set of vegetable
@@ -53,7 +53,7 @@ async def get_the_vegetables():
     await GripperController.grip_element_using_both_arms()
 
     # going long straight to the compose area
-    await WheelController.move_wheels_backward_in_straight_line(float(200))
+    await WheelController.move_wheels_backward_in_straight_line(float(190))
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(1670))
     await WheelController.wheel_slight_left_turn()
@@ -94,6 +94,9 @@ async def get_the_vegetables_at_the_market():
     await WheelController.wheel_right_turn_with_angle(float(20))
     await WheelController.move_wheels_backward_in_straight_line(float(400))
     await GripperController.reset_left_arm()
+    await WheelController.move_wheels_backward_in_straight_line(float(20))
+    await WheelController.move_wheels_forward_in_straight_line(float(60))
+    await WheelController.wheel_right_turn()
 
 
 # Alfeo's code
