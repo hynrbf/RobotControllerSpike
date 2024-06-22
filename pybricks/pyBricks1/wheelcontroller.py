@@ -132,6 +132,7 @@ class WheelController:
         wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
 
         while True:
+            # correct this getting mat color because this is not accurate, use the hsv instead
             if await ColorController.get_mat_color() == Color.RED:
                 wheel_controller.drive(speed, 0)
             elif await ColorController.get_mat_color() == Color.BROWN:
