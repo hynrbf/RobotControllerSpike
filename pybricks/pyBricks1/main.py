@@ -66,7 +66,7 @@ async def get_the_vegetables():
     await WheelController.move_wheels_backward_in_straight_line(float(430))
     await WheelController.move_wheels_forward_in_straight_line(float(70))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_backward_in_straight_line(float(600))
+    await WheelController.move_wheels_backward_in_straight_line(float(800))
     await GripperController.release_element_using_both_arms()
     await WheelController.move_wheels_backward_in_straight_line(float(200))
     await WheelController.wheel_left_turn()
