@@ -96,8 +96,9 @@ async def get_the_vegetables_at_the_market():
     await GripperController.reset_left_arm()
     await WheelController.move_wheels_backward_in_straight_line(float(100))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(60))
+    await WheelController.move_wheels_forward_in_straight_line(float(200))
     await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(200))
 
 
 # Alfeo's code
