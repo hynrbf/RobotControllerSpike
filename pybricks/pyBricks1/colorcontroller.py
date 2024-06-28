@@ -10,16 +10,54 @@ class ColorController:
     __mat_sensor = ColorSensor(Port.D)
 
     @staticmethod
-    async def get_element_color() -> Color:
-        color = await ColorController.__front_sensor.color()
-        print("Color: ", color)
-        return color
+    async def detect_white_or_black_mat_color() -> bool:
+        count = 1
+        is_detected = False
+
+        while True:
+            if count > 3:
+                is_detected = False
+                break
+
+            color = await ColorController.__mat_sensor.hsv()
+            color_int = color.h
+            print("Color detected: ", color_int)
+
+            # imperfect color of mat so hsv of white is 170 - 190, while black 220 - 245
+            if 170 <= color_int <= 245:
+                Shared.hub().display.char("W")
+                is_detected = True
+                break
+
+            count = count + 1
+            await wait(100)
+
+        return is_detected
 
     @staticmethod
-    async def get_mat_color() -> Color:
-        color = await ColorController.__mat_sensor.color()
-        print("Color: ", color)
-        return color
+    async def detect_brown_mat_color() -> bool:
+        count = 1
+        is_detected = False
+
+        while True:
+            if count > 3:
+                is_detected = False
+                break
+
+            color = await ColorController.__mat_sensor.hsv()
+            color_int = color.h
+            print("Color detected: ", color_int)
+
+            # imperfect color of mat so hsv of brown is 320 - 360
+            if 320 <= color_int <= 360:
+                Shared.hub().display.char("B")
+                is_detected = True
+                break
+
+            count = count + 1
+            await wait(100)
+
+        return is_detected
 
     @staticmethod
     async def detect_yellow_vegetable() -> bool:

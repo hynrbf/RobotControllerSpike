@@ -8,12 +8,9 @@ async def main():
     print("Start, pb version: ", version)
 
     # reset all controllers
-    await GripperController.reset_left_arm()
-    await GripperController.reset_right_arm()
+    # gripper should be in reset position to know to set in start that the arms is in release=0 position
+    await GripperController.reset_both_arms()
     await WheelController.reset_wheels()
-
-    # put gripper to close
-    await GripperController.grip_element_using_both_arms()
     print("DONE!")
 
 
