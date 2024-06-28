@@ -132,27 +132,11 @@ class WheelController:
         wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
 
         while True:
-            # correct this getting mat color because this is not accurate, use the hsv instead
-            if await ColorController.get_mat_color() == Color.RED:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.BROWN:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.GREEN:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.YELLOW:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.BLUE:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.WHITE:
-                await wheel_controller.straight(float(30))
-                wheel_controller.stop()
-                break
-            elif await ColorController.get_mat_color() == Color.BLACK:
+            if await ColorController.detect_white_or_black_mat_color():
                 wheel_controller.stop()
                 break
             else:
-                wheel_controller.stop()
-                break
+                wheel_controller.drive(speed, 0)
 
             await wait(100)
 
@@ -165,22 +149,9 @@ class WheelController:
         wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
 
         while True:
-            if await ColorController.get_mat_color() == Color.RED:
+            if await ColorController.detect_brown_mat_color():
                 wheel_controller.stop()
                 break
-            elif await ColorController.get_mat_color() == Color.BROWN:
-                wheel_controller.stop()
-                break
-            elif await ColorController.get_mat_color() == Color.GREEN:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.YELLOW:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.BLUE:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.WHITE:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.BLACK:
-                wheel_controller.drive(speed, 0)
             else:
                 wheel_controller.drive(speed, 0)
 

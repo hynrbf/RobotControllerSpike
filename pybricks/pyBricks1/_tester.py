@@ -9,7 +9,7 @@ from pybricks.tools import wait, multitask
 
 async def main():
     print("Start, pb version: ", version)
-    result = await ColorController.detect_yellow_vegetable()
+    result = await ColorController.detect_brown_mat_color()
     print("result: ", result)
     print("DONE!")
 
