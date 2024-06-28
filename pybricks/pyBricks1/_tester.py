@@ -9,8 +9,9 @@ from pybricks.tools import wait, multitask
 
 async def main():
     print("Start, pb version: ", version)
-    result = await ColorController.detect_yellow_vegetable()
-    print("result: ", result)
+    await GripperController.release_element_using_both_arms()
+    await wait(500)
+    await GripperController.grip_element_using_both_arms()
     print("DONE!")
 
 
