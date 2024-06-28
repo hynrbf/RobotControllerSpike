@@ -9,7 +9,9 @@ from pybricks.tools import wait, multitask
 
 async def main():
     print("Start, pb version: ", version)
-    await WheelController.move_wheels_towards_element_then_stop_at_marker()
+    await GripperController.release_element_using_both_arms()
+    await wait(500)
+    await GripperController.grip_element_using_both_arms()
     print("DONE!")
 
 
