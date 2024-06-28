@@ -9,8 +9,7 @@ from pybricks.tools import wait, multitask
 
 async def main():
     print("Start, pb version: ", version)
-    result = await ColorController.detect_brown_mat_color()
-    print("result: ", result)
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
     print("DONE!")
 
 
