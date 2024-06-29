@@ -105,7 +105,11 @@ async def get_the_vegetables_at_the_market():
     await multitask(WheelController.move_wheels_forward_in_straight_line(float(900)),
                     GripperController.grip_element_using_both_arms())
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(500))
+    await WheelController.move_wheels_forward_in_straight_line(float(470))
+    await WheelController.wheel_slight_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(150))
+    await multitask(GripperController.release_element_using_both_arms(),
+                    WheelController.move_wheels_backward_in_straight_line(float(150)))
 
 
 # Alfeo's code

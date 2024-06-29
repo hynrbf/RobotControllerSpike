@@ -64,6 +64,12 @@ class WheelController:
         await wheel_controller.turn(90)
 
     @staticmethod
+    async def wheel_slight_right_turn():
+        Shared.hub().display.icon(Icon.ARROW_LEFT)
+        wheel_controller = WheelController.__object()
+        await wheel_controller.turn(45)
+
+    @staticmethod
     async def wheel_u_turn_right():
         Shared.hub().display.icon(Icon.ARROW_RIGHT)
         wheel_controller = WheelController.__object()
