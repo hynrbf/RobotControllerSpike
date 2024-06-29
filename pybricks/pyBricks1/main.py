@@ -74,7 +74,7 @@ async def get_the_vegetables_at_the_market():
     print("start")
     await WheelController.move_wheels_backward_in_straight_line(float(180))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_backward_in_straight_line(float(70))
+    await WheelController.move_wheels_backward_in_straight_line(float(80))
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(140))
@@ -130,7 +130,7 @@ async def water_if_green_plant() -> bool:
         is_green_detected = True
     else:
         await multitask(GripperController.grip_element_using_both_arms(),
-                        WheelController.move_wheels_forward_in_straight_line(float(90)))
+                        WheelController.move_wheels_forward_in_straight_line(float(100)))
         await WheelController.move_wheels_backward_in_straight_line(float(220))
 
     return is_green_detected
