@@ -85,16 +85,16 @@ async def get_the_vegetables_at_the_market():
         await WheelController.move_wheels_forward_in_straight_line(float(30))
         await GripperController.grip_element_using_right_arm()
 
-    await WheelController.wheel_left_turn_with_angle(float(20))
-    await WheelController.move_wheels_forward_in_straight_line(float(30))
+    await WheelController.wheel_right_turn_with_angle(float(20))
+    await WheelController.move_wheels_forward_in_straight_line(float(40))
     is_yellow = await ColorController.detect_yellow_vegetable()
 
     if is_yellow:
         await WheelController.wheel_right_turn_with_angle(float(20))
         await WheelController.move_wheels_forward_in_straight_line(float(60))
-        await GripperController.grip_element_using_right_arm()
+        await GripperController.grip_element_using_left_arm()
 
-    await WheelController.wheel_right_turn_with_angle(float(20))
+    await WheelController.wheel_left_turn_with_angle(float(20))
     await WheelController.move_wheels_backward_in_straight_line(float(380))
     await GripperController.reset_left_arm()
     await WheelController.move_wheels_backward_in_straight_line(float(100))
