@@ -9,9 +9,10 @@ from pybricks.tools import wait, multitask
 
 async def main():
     print("Start, pb version: ", version)
-    await GripperController.release_element_using_both_arms()
-    await wait(500)
+    #code to hook the element
     await GripperController.grip_element_using_both_arms()
+    await WheelController.move_wheels_forward_in_straight_line(float(80))
+    await multitask(GripperController.reset_left_arm(), WheelController.move_wheels_forward_in_straight_line(float(10)))
     print("DONE!")
 
 
