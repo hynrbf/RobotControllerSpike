@@ -66,18 +66,18 @@ async def get_the_vegetables():
     await WheelController.move_wheels_backward_in_straight_line(float(570))
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_backward_in_straight_line(float(800))
+    await WheelController.move_wheels_backward_in_straight_line(float(400))
     await GripperController.release_element_using_both_arms()
 
 
 async def get_the_vegetables_at_the_market():
     print("start")
-    await WheelController.move_wheels_backward_in_straight_line(float(180))
+    await WheelController.move_wheels_backward_in_straight_line(float(120))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(80))
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(140))
+    await WheelController.move_wheels_forward_in_straight_line(float(640))
     is_red = await ColorController.detect_red_vegetable()
 
     if is_red:
