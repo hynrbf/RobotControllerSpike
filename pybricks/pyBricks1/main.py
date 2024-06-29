@@ -74,23 +74,23 @@ async def get_the_vegetables_at_the_market():
     print("start")
     await WheelController.move_wheels_backward_in_straight_line(float(120))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_backward_in_straight_line(float(80))
+    await WheelController.move_wheels_backward_in_straight_line(float(90))
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(640))
+    await WheelController.move_wheels_forward_in_straight_line(float(600))
     is_red = await ColorController.detect_red_vegetable()
 
     if is_red:
-        await WheelController.wheel_right_turn_with_angle(float(20))
+        await WheelController.wheel_left_turn_with_angle(float(20))
         await WheelController.move_wheels_forward_in_straight_line(float(30))
-        await GripperController.grip_element_using_left_arm()
+        await GripperController.grip_element_using_right_arm()
 
     await WheelController.wheel_left_turn_with_angle(float(20))
     await WheelController.move_wheels_forward_in_straight_line(float(30))
     is_yellow = await ColorController.detect_yellow_vegetable()
 
     if is_yellow:
-        await WheelController.wheel_left_turn_with_angle(float(20))
+        await WheelController.wheel_right_turn_with_angle(float(20))
         await WheelController.move_wheels_forward_in_straight_line(float(60))
         await GripperController.grip_element_using_right_arm()
 
