@@ -64,6 +64,12 @@ class WheelController:
         await wheel_controller.turn(90)
 
     @staticmethod
+    async def wheel_slight_right_turn():
+        Shared.hub().display.icon(Icon.ARROW_LEFT)
+        wheel_controller = WheelController.__object()
+        await wheel_controller.turn(45)
+
+    @staticmethod
     async def wheel_u_turn_right():
         Shared.hub().display.icon(Icon.ARROW_RIGHT)
         wheel_controller = WheelController.__object()
@@ -129,7 +135,7 @@ class WheelController:
     async def move_wheels_towards_element_then_stop_at_marker():
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
-        await wheel_controller.straight(float(80))
+        await wheel_controller.straight(float(70))
 
         while True:
             if await ColorController.detect_white_or_black_mat_color():
