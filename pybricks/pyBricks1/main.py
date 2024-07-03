@@ -90,8 +90,7 @@ async def get_the_vegetables():
     left_turn_variance_to_left_wheel = float(60)
     await WheelController.move_wheels_forward_in_straight_line(float(50))
     await WheelController.wheel_left_turn()
-    # original float(250)
-    await WheelController.move_wheels_forward_in_straight_line(float(160) + left_turn_variance_to_left_wheel)
+    await WheelController.move_wheels_forward_in_straight_line(float(140) + left_turn_variance_to_left_wheel)
     await GripperController.grip_element_using_both_arms()
 
     # get another set of vegetable
@@ -100,11 +99,11 @@ async def get_the_vegetables():
     await WheelController.move_wheels_forward_in_straight_line(float(180))
     await WheelController.wheel_left_turn()
     await multitask(GripperController.release_element_using_both_arms(),
-                    WheelController.move_wheels_forward_in_straight_line(float(135), Speed.Slow))
+                    WheelController.move_wheels_forward_in_straight_line(float(140), Speed.Slow))
     await GripperController.grip_element_using_both_arms()
 
     # going long straight to the compose area
-    await WheelController.move_wheels_backward_in_straight_line(float(175))
+    await WheelController.move_wheels_backward_in_straight_line(float(200))
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(1670), Speed.Straight)
     await WheelController.wheel_slight_left_turn()
