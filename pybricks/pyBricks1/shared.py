@@ -4,6 +4,7 @@ from pybricks.robotics import DriveBase
 
 
 class Speed:
+    Straight = None
     Slow = float(100)
     Medium = float(200)
     Fast = float(400)

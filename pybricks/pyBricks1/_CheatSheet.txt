@@ -7,3 +7,9 @@ await WheelController.move_wheels_backward_in_straight_line(float(150), True) - 
 2. left and right turn
 await WheelController.wheel_right_turn()
 await WheelController.wheel_left_turn()
+
+
+3. things to avoid
+avoid ma over distance and masabit
+check body na nde tabingi
+always press wheel para kapit

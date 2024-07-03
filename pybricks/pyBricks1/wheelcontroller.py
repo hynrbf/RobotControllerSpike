@@ -27,27 +27,41 @@ class WheelController:
         print("State of robot is: ", state)
 
     @staticmethod
-    async def move_wheels_forward_in_straight_line(distance_in_mm: float):
+    async def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
 
-        # reset to None when moving straight, otherwise the yaw angle becomes not good
-        wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
-                                  turn_acceleration=None)
+        if speed == Speed.Straight:
+            # reset to None when moving straight, otherwise the yaw angle becomes not good
+            wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
+                                      turn_acceleration=None)
+        elif speed == Speed.Fast:
+            print("Faster forward")
+        else:
+            wheel_controller.settings(straight_speed=speed, straight_acceleration=None, turn_rate=None,
+                                      turn_acceleration=None)
+
         await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
         print("Travelled distance in mm: ", travelled_distance)
 
     @staticmethod
-    async def move_wheels_backward_in_straight_line(distance_in_mm: float, with_brake: bool = False):
+    async def move_wheels_backward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast,
+                                                    with_brake: bool = False):
         Shared.hub().display.icon(Icon.ARROW_DOWN)
         distance_in_mm = distance_in_mm * -1
         wheel_controller = WheelController.__object()
 
-        # reset to None when moving straight, otherwise the yaw angle becomes not good
-        wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
-                                  turn_acceleration=None)
+        if speed == Speed.Straight:
+            # reset to None when moving straight, otherwise the yaw angle becomes not good
+            wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
+                                      turn_acceleration=None)
+        elif speed == Speed.Fast:
+            print("Faster backward")
+        else:
+            wheel_controller.settings(straight_speed=speed, straight_acceleration=None, turn_rate=None,
+                                      turn_acceleration=None)
 
         if with_brake:
             await wheel_controller.straight(distance=distance_in_mm, then=Stop.BRAKE)
@@ -149,7 +163,7 @@ class WheelController:
                 wheel_controller.stop()
                 break
             else:
-                # you can be fast here otherwise bump the element
+                # you can be fast here otherwise bump the element, same as Medium Fast
                 wheel_controller.drive(Speed.Slow, 0)
 
             await wait(100)
