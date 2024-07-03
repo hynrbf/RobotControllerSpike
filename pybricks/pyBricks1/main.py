@@ -35,22 +35,32 @@ async def get_the_vegetables_at_the_market():
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(100))
     is_red = await ColorController.detect_red_vegetable()
+    is_yellow = await ColorController.detect_yellow_vegetable()
+    is_red_first = is_red and not is_yellow
 
-    if is_red:
+    if is_red_first:
         await WheelController.wheel_right_turn_with_angle(float(20))
         await WheelController.move_wheels_forward_in_straight_line(float(40))
         await GripperController.grip_element_using_left_arm()
+        await WheelController.wheel_left_turn_with_angle(float(20))
 
-    await WheelController.wheel_left_turn_with_angle(float(20))
-    await WheelController.move_wheels_forward_in_straight_line(float(40))
-    is_yellow = await ColorController.detect_yellow_vegetable()
-
-    if is_yellow:
+        await WheelController.move_wheels_forward_in_straight_line(float(40))
         await WheelController.wheel_left_turn_with_angle(float(20))
         await WheelController.move_wheels_forward_in_straight_line(float(60))
         await GripperController.grip_element_using_right_arm()
+        await WheelController.wheel_right_turn_with_angle(float(20))
+    else:
+        await WheelController.wheel_left_turn_with_angle(float(20))
+        await WheelController.move_wheels_forward_in_straight_line(float(40))
+        await GripperController.grip_element_using_right_arm()
+        await WheelController.wheel_left_turn_with_angle(float(20))
 
-    await WheelController.wheel_right_turn_with_angle(float(20))
+        await WheelController.move_wheels_forward_in_straight_line(float(40))
+        await WheelController.wheel_right_turn_with_angle(float(20))
+        await WheelController.move_wheels_forward_in_straight_line(float(60))
+        await GripperController.grip_element_using_left_arm()
+        await WheelController.wheel_left_turn_with_angle(float(20))
+
     await WheelController.move_wheels_backward_in_straight_line(float(380))
     await GripperController.reset_left_arm()
     await WheelController.move_wheels_backward_in_straight_line(float(100))
