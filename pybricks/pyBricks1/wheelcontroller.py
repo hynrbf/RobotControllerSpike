@@ -8,10 +8,10 @@ from shared import Shared, Speed
 
 
 class WheelController:
-    # I measured manually and the wheel diameter is 5.6cm and the axle distance is 11.7cm float(117) for blue wheels
-    # 2nd black wheels, wheel diameter is 5.5cm and the axle distance is 18.5cm
-    __wheel_diameter_in_mm = float(80)
-    __axle_track_in_mm = float(175)
+    # I measured manually and the wheel diameter is 5.6cm and the axle distance is 11.7cm float(117)
+    # when double wheels wheel diameter is 5.6cm and the axle distance is 17.4cm
+    __wheel_diameter_in_mm = float(55)
+    __axle_track_in_mm = float(185)
 
     __left_motor = Motor(Port.E, Direction.COUNTERCLOCKWISE)
     __right_motor = Motor(Port.F)
@@ -26,24 +26,25 @@ class WheelController:
         print("State of robot is: ", state)
 
     @staticmethod
-    async def move_wheels_forward_in_straight_line(distance_in_mm: float, is_reset: bool = False):
+    async def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
-
-        if is_reset:
-            wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
-                                      turn_acceleration=None)
-            print("Reset settings")
-
+        # reset to None when moving straight, otherwise the yaw angle becomes not good
+        wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
+                                  turn_acceleration=None)
         await wheel_controller.straight(distance_in_mm)
+
         travelled_distance = WheelController.__get_distance_in_mm()
         print("Travelled distance in mm: ", travelled_distance)
 
     @staticmethod
-    async def move_wheels_backward_in_straight_line(distance_in_mm: float):
+    async def move_wheels_backward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
         Shared.hub().display.icon(Icon.ARROW_DOWN)
         distance_in_mm = distance_in_mm * -1
         wheel_controller = WheelController.__object()
+        # reset to None when moving straight, otherwise the yaw angle becomes not good
+        wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
+                                  turn_acceleration=None)
         await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
@@ -54,6 +55,19 @@ class WheelController:
         Shared.hub().display.icon(Icon.ARROW_RIGHT)
         wheel_controller = WheelController.__object()
         await wheel_controller.turn(90)
+
+    @staticmethod
+    async def wheel_right_turn_slowly():
+        Shared.hub().display.icon(Icon.ARROW_RIGHT)
+        wheel_controller = WheelController.__object()
+        wheel_controller.settings(turn_rate=180)
+        await wheel_controller.turn(90)
+
+    @staticmethod
+    async def wheel_slight_right_turn():
+        Shared.hub().display.icon(Icon.ARROW_LEFT)
+        wheel_controller = WheelController.__object()
+        await wheel_controller.turn(45)
 
     @staticmethod
     async def wheel_u_turn_right():
@@ -74,6 +88,13 @@ class WheelController:
     async def wheel_left_turn():
         Shared.hub().display.icon(Icon.ARROW_LEFT)
         wheel_controller = WheelController.__object()
+        await wheel_controller.turn(-90)
+
+    @staticmethod
+    async def wheel_left_turn_slowly():
+        Shared.hub().display.icon(Icon.ARROW_LEFT)
+        wheel_controller = WheelController.__object()
+        wheel_controller.settings(turn_rate=180)
         await wheel_controller.turn(-90)
 
     @staticmethod
@@ -111,62 +132,35 @@ class WheelController:
 
     # moving towards element
     @staticmethod
-    async def move_wheels_towards_element_then_stop_at_marker(speed: float = Speed.Medium):
+    async def move_wheels_towards_element_then_stop_at_marker():
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
-        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
+        await wheel_controller.straight(float(70))
 
         while True:
-            if await ColorController.get_mat_color() == Color.RED:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.BROWN:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.GREEN:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.YELLOW:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.BLUE:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.WHITE:
-                await wheel_controller.straight(float(30))
-                wheel_controller.stop()
-                break
-            elif await ColorController.get_mat_color() == Color.BLACK:
+            if await ColorController.detect_white_or_black_mat_color():
                 wheel_controller.stop()
                 break
             else:
-                wheel_controller.stop()
-                break
+                # you can be fast here otherwise bump the element
+                wheel_controller.drive(Speed.Slow, 0)
 
             await wait(100)
 
         wheel_controller.stop()
 
     @staticmethod
-    async def move_wheels_towards_water_tower_stop_at_brown_marker(speed: float = Speed.Slow):
+    async def move_wheels_towards_water_tower_stop_at_brown_marker():
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
-        wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
 
         while True:
-            if await ColorController.get_mat_color() == Color.RED:
+            if await ColorController.detect_brown_mat_color():
                 wheel_controller.stop()
                 break
-            elif await ColorController.get_mat_color() == Color.BROWN:
-                wheel_controller.stop()
-                break
-            elif await ColorController.get_mat_color() == Color.GREEN:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.YELLOW:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.BLUE:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.WHITE:
-                wheel_controller.drive(speed, 0)
-            elif await ColorController.get_mat_color() == Color.BLACK:
-                wheel_controller.drive(speed, 0)
             else:
-                wheel_controller.drive(speed, 0)
+                # you can be fast here otherwise bump the element
+                wheel_controller.drive(Speed.Slow, 0)
 
             await wait(100)
 
