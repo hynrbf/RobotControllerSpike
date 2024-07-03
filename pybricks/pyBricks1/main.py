@@ -38,35 +38,33 @@ async def get_the_vegetables_at_the_market():
     is_yellow = await ColorController.detect_yellow_vegetable()
     is_red_first = is_red and not is_yellow
 
+    await WheelController.wheel_right_turn_with_angle(float(20))
+    await WheelController.move_wheels_forward_in_straight_line(float(40))
+    await GripperController.grip_element_using_left_arm()
+    await WheelController.wheel_left_turn_with_angle(float(20))
+
+    await WheelController.move_wheels_forward_in_straight_line(float(40))
+    await WheelController.wheel_left_turn_with_angle(float(20))
+    await WheelController.move_wheels_forward_in_straight_line(float(60))
+    await GripperController.grip_element_using_right_arm()
+    await WheelController.wheel_right_turn_with_angle(float(20))
+
     if is_red_first:
-        await WheelController.wheel_right_turn_with_angle(float(20))
-        await WheelController.move_wheels_forward_in_straight_line(float(40))
-        await GripperController.grip_element_using_left_arm()
-        await WheelController.wheel_left_turn_with_angle(float(20))
-
-        await WheelController.move_wheels_forward_in_straight_line(float(40))
-        await WheelController.wheel_left_turn_with_angle(float(20))
-        await WheelController.move_wheels_forward_in_straight_line(float(60))
-        await GripperController.grip_element_using_right_arm()
-        await WheelController.wheel_right_turn_with_angle(float(20))
+        await WheelController.move_wheels_backward_in_straight_line(float(380))
+        await GripperController.reset_left_arm()
+        await WheelController.move_wheels_backward_in_straight_line(float(100))
+        await WheelController.wheel_right_turn()
+        await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
+        await WheelController.move_wheels_forward_in_straight_line(float(200))
     else:
-        await WheelController.wheel_left_turn_with_angle(float(20))
-        await WheelController.move_wheels_forward_in_straight_line(float(40))
-        await GripperController.grip_element_using_right_arm()
-        await WheelController.wheel_left_turn_with_angle(float(20))
+        await WheelController.wheel_u_turn_right()
+        await multitask(WheelController.move_wheels_forward_in_straight_line(float(380)),
+                        GripperController.reset_right_arm())
+        await WheelController.move_wheels_backward_in_straight_line(float(100))
+        await WheelController.wheel_left_turn()
+        await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
+        await WheelController.move_wheels_forward_in_straight_line(float(200))
 
-        await WheelController.move_wheels_forward_in_straight_line(float(40))
-        await WheelController.wheel_right_turn_with_angle(float(20))
-        await WheelController.move_wheels_forward_in_straight_line(float(60))
-        await GripperController.grip_element_using_left_arm()
-        await WheelController.wheel_left_turn_with_angle(float(20))
-
-    await WheelController.move_wheels_backward_in_straight_line(float(380))
-    await GripperController.reset_left_arm()
-    await WheelController.move_wheels_backward_in_straight_line(float(100))
-    await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
-    await WheelController.move_wheels_forward_in_straight_line(float(200))
     await WheelController.wheel_right_turn()
     await multitask(WheelController.move_wheels_forward_in_straight_line(float(900), Speed.Straight),
                     GripperController.grip_element_using_both_arms())
@@ -155,7 +153,7 @@ async def water_the_green_plants_and_move_decay_plants():
     if is_green_detected:
         await WheelController.wheel_right_turn()
         await multitask(GripperController.release_element_using_both_arms(),
-                        WheelController.move_wheels_backward_in_straight_line(float(500)))
+                        WheelController.move_wheels_backward_in_straight_line(float(500), Speed.Straight))
         await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
         return
 
@@ -170,7 +168,8 @@ async def water_the_green_plants_and_move_decay_plants():
     if is_green_detected:
         await WheelController.wheel_right_turn()
         await multitask(GripperController.release_element_using_both_arms(),
-                        WheelController.move_wheels_backward_in_straight_line(float(750)))
+                        WheelController.move_wheels_backward_in_straight_line(float(600), Speed.Straight))
+        await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
         return
 
     await WheelController.wheel_right_turn()
@@ -182,7 +181,8 @@ async def water_the_green_plants_and_move_decay_plants():
     await water_if_green_plant()
     await WheelController.wheel_right_turn()
     await multitask(GripperController.release_element_using_both_arms(),
-                    WheelController.move_wheels_backward_in_straight_line(float(950)))
+                    WheelController.move_wheels_backward_in_straight_line(float(800), Speed.Straight))
+    await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
 
 
 # 1) example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
