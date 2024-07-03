@@ -8,10 +8,10 @@ from shared import Shared, Speed
 
 
 class WheelController:
-    # I measured manually and the wheel diameter is 5.6cm and the axle distance is 11.7cm float(117)
-    # when double wheels wheel diameter is 5.6cm and the axle distance is 17.4cm
-    __wheel_diameter_in_mm = float(55)
-    __axle_track_in_mm = float(185)
+    # I measured manually and the wheel diameter is 5.6cm and the axle distance is 11.7cm float(117) for blue wheels
+    # 2nd black wheels, wheel diameter is 5.5cm and the axle distance is 18.5cm
+    __wheel_diameter_in_mm = float(80)
+    __axle_track_in_mm = float(175)
 
     __left_motor = Motor(Port.E, Direction.COUNTERCLOCKWISE)
     __right_motor = Motor(Port.F)
@@ -26,9 +26,10 @@ class WheelController:
         print("State of robot is: ", state)
 
     @staticmethod
-    async def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
+    async def move_wheels_forward_in_straight_line(distance_in_mm: float):
         Shared.hub().display.icon(Icon.ARROW_UP)
         wheel_controller = WheelController.__object()
+
         # reset to None when moving straight, otherwise the yaw angle becomes not good
         wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
                                   turn_acceleration=None)
@@ -38,10 +39,11 @@ class WheelController:
         print("Travelled distance in mm: ", travelled_distance)
 
     @staticmethod
-    async def move_wheels_backward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
+    async def move_wheels_backward_in_straight_line(distance_in_mm: float):
         Shared.hub().display.icon(Icon.ARROW_DOWN)
         distance_in_mm = distance_in_mm * -1
         wheel_controller = WheelController.__object()
+
         # reset to None when moving straight, otherwise the yaw angle becomes not good
         wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
                                   turn_acceleration=None)
