@@ -132,7 +132,7 @@ async def water_if_green_plant() -> bool:
     return is_green_detected
 
 
-async def water_the_green_plants():
+async def water_the_green_plants_and_move_decay_plants():
     await WheelController.move_wheels_forward_in_straight_line(float(50))
     await GripperController.grip_element_using_left_arm()
     await WheelController.wheel_left_turn_with_angle(float(30))
@@ -182,7 +182,7 @@ async def water_the_green_plants():
 
 async def main():
     print("Start, pb version: ", version)
-    await water_the_green_plants()
+    await water_the_green_plants_and_move_decay_plants()
     await get_the_vegetables()
     await get_the_vegetables_at_the_market()
     # await multitask(get_the_vegetables(), WheelController.debug())
