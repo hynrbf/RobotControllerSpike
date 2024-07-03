@@ -28,7 +28,8 @@ async def hook_element():
 
 # Anton's code
 async def get_the_vegetables_at_the_market():
-    await WheelController.move_wheels_backward_in_straight_line(float(600))
+    await multitask(GripperController.release_element_using_both_arms(),
+                    WheelController.move_wheels_backward_in_straight_line(float(600)))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(90), with_brake=True)
     await WheelController.move_wheels_forward_in_straight_line(float(80))
@@ -39,7 +40,7 @@ async def get_the_vegetables_at_the_market():
     is_red_got_first = is_red and not is_yellow
 
     await WheelController.wheel_right_turn_with_angle(float(20))
-    await WheelController.move_wheels_forward_in_straight_line(float(40))
+    await WheelController.move_wheels_forward_in_straight_line(float(50))
     await GripperController.grip_element_using_left_arm()
     await WheelController.wheel_left_turn_with_angle(float(20))
 
@@ -121,7 +122,6 @@ async def get_the_vegetables():
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(400))
-    await GripperController.release_element_using_both_arms()
 
 
 # Alfeo's code
