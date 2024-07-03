@@ -1,0 +1,9 @@
+1. moving wheels
+await WheelController.move_wheels_forward_in_straight_line(float(100))
+
+await WheelController.move_wheels_backward_in_straight_line(float(100))
+await WheelController.move_wheels_backward_in_straight_line(float(150), True) - pambangga sa wall
+
+2. left and right turn
+await WheelController.wheel_right_turn()
+await WheelController.wheel_left_turn()

@@ -1,5 +1,5 @@
 from pybricks.pupdevices import Motor
-from pybricks.parameters import Port, Direction, Icon, Color
+from pybricks.parameters import Port, Direction, Icon, Color, Stop
 from pybricks.robotics import DriveBase
 from pybricks.tools import wait
 
@@ -40,7 +40,7 @@ class WheelController:
         print("Travelled distance in mm: ", travelled_distance)
 
     @staticmethod
-    async def move_wheels_backward_in_straight_line(distance_in_mm: float):
+    async def move_wheels_backward_in_straight_line(distance_in_mm: float, with_brake: bool = False):
         Shared.hub().display.icon(Icon.ARROW_DOWN)
         distance_in_mm = distance_in_mm * -1
         wheel_controller = WheelController.__object()
@@ -48,7 +48,11 @@ class WheelController:
         # reset to None when moving straight, otherwise the yaw angle becomes not good
         wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
                                   turn_acceleration=None)
-        await wheel_controller.straight(distance_in_mm)
+
+        if with_brake:
+            await wheel_controller.straight(distance=distance_in_mm, then=Stop.BRAKE)
+        else:
+            await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
         print("Travelled distance in mm: ", travelled_distance)
