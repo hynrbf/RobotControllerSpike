@@ -29,7 +29,7 @@ async def hook_element():
 # Anton's code
 async def get_the_vegetables_at_the_market():
     await multitask(GripperController.release_element_using_both_arms(),
-                    WheelController.move_wheels_backward_in_straight_line(float(600)))
+                    WheelController.move_wheels_backward_in_straight_line(float(560)))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(90), with_brake=True)
     await WheelController.move_wheels_forward_in_straight_line(float(80))
