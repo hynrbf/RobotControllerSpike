@@ -155,3 +155,27 @@ class ColorController:
             await wait(100)
 
         return is_detected
+
+    @staticmethod
+    async def detect_brown_vegetable() -> bool:
+        count = 1
+
+        while True:
+            if count > 3:
+                is_detected = False
+                break
+
+            color = await ColorController.__front_sensor.hsv()
+            color_int = color.h
+            print("Color detected: ", color_int)
+
+            # tested and found out green always at Color(h=156, s=78, v=64), so we be safe at 100 - 165
+            if 17 <= color_int <= 21:
+                Shared.hub().display.char("G")
+                is_detected = True
+                break
+
+            count = count + 1
+            await wait(100)
+
+        return is_detected
