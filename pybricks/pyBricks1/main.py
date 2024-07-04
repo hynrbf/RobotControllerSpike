@@ -34,7 +34,7 @@ async def get_the_vegetables_at_the_market():
     await WheelController.move_wheels_backward_in_straight_line(float(90), with_brake=True)
     await WheelController.move_wheels_forward_in_straight_line(float(80))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(90))
+    await WheelController.move_wheels_forward_in_straight_line(float(100))
     is_red = await ColorController.detect_red_vegetable()
     is_yellow = await ColorController.detect_yellow_vegetable()
     is_red_got_first = is_red and not is_yellow
