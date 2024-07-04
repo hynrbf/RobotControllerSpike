@@ -115,10 +115,10 @@ async def get_the_vegetables():
     await multitask(GripperController.reset_left_arm(),
                     WheelController.move_wheels_backward_in_straight_line(float(400)))
     await multitask(WheelController.wheel_slight_left_turn(), GripperController.grip_element_using_left_arm())
-
+adwsa
     # going to red market
     await WheelController.move_wheels_backward_in_straight_line(float(400))
-    await WheelController.move_wheels_backward_in_straight_line(float(170), with_brake=True)
+    await WheelController.move_wheels_backward_in_straight_line(float(185), with_brake=True)
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(475))
@@ -137,8 +137,8 @@ async def water_if_green_plant() -> bool:
         await WheelController.move_wheels_backward_in_straight_line(float(130))
         is_green_detected = True
     else:
-        await multitask(GripperController.grip_element_using_both_arms(),
-                        WheelController.move_wheels_forward_in_straight_line(float(120)))
+        await GripperController.grip_element_using_both_arms()
+        await WheelController.move_wheels_forward_in_straight_line(float(120))
         await WheelController.move_wheels_backward_in_straight_line(float(220))
 
     return is_green_detected
