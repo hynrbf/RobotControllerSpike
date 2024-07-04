@@ -145,3 +145,14 @@ class GripperController:
         current_angle = GripperController.__left_motor.angle()
         print("left arm current angle", current_angle)
         return current_angle
+
+    @staticmethod
+    async def sleeping_using_both_arms():
+        grip_turn_angle_for_me = 180
+        await GripperController.__both_motors.turn(grip_turn_angle_for_me)
+        GripperController.__right_motor_position = HandPosition.Grip
+        GripperController.__left_motor_position = HandPosition.Grip
+        print("Right hand pos: ", GripperController.__right_motor_position)
+        print("Left hand pos: ", GripperController.__left_motor_position)
+        Shared.hub().display.icon(Icon.SAD)
+        await wait(500)
