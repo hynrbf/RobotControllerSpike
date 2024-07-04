@@ -113,7 +113,7 @@ async def get_the_vegetables():
     await WheelController.wheel_slight_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(310))
     await multitask(GripperController.reset_left_arm(),
-                    WheelController.move_wheels_backward_in_straight_line(float(500)))
+                    WheelController.move_wheels_backward_in_straight_line(float(450)))
     await multitask(WheelController.wheel_slight_left_turn(), GripperController.grip_element_using_left_arm())
 
     # going to red market
@@ -121,7 +121,7 @@ async def get_the_vegetables():
     await WheelController.move_wheels_backward_in_straight_line(float(170), with_brake=True)
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_backward_in_straight_line(float(400))
+    await WheelController.move_wheels_backward_in_straight_line(float(475))
 
 
 # Alfeo's code
