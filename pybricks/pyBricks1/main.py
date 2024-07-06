@@ -26,6 +26,10 @@ async def hook_element():
     await WheelController.wheel_right_turn()
 
 
+async def get_water_elements():
+    await WheelController.wheel_slight_right_turn()
+
+
 # Anton's code
 async def get_the_vegetables_at_the_market():
     await multitask(GripperController.release_element_using_both_arms(),
@@ -79,7 +83,7 @@ async def get_the_vegetables_at_the_market():
     await WheelController.wheel_slight_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(300))
     await multitask(GripperController.release_element_using_both_arms(),
-                    WheelController.move_wheels_backward_in_straight_line(float(300)))
+                    WheelController.move_wheels_backward_in_straight_line(float(250)))
 
 
 async def get_the_vegetables():
@@ -117,7 +121,7 @@ async def get_the_vegetables():
     await multitask(WheelController.wheel_slight_left_turn(), GripperController.grip_element_using_left_arm())
     # going to red market
     await WheelController.move_wheels_backward_in_straight_line(float(400))
-    await WheelController.move_wheels_backward_in_straight_line(float(200), with_brake=True)
+    await WheelController.move_wheels_backward_in_straight_line(float(300), with_brake=True)
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(475))
@@ -193,11 +197,13 @@ async def water_the_green_plants_and_move_decay_plants():
 # 2) when getting vegetable, yung bigat could affect the gyro, so make sure to compute distance
 #    via sensing the white color or ibangga sa edge
 
+
 async def main():
     print("Start, pb version: ", version)
     await water_the_green_plants_and_move_decay_plants()
     await get_the_vegetables()
     await get_the_vegetables_at_the_market()
+    await get_water_elements()
     # await multitask(get_the_vegetables(), WheelController.debug())
     print("DONE!")
 
