@@ -115,10 +115,9 @@ async def get_the_vegetables():
     await multitask(GripperController.reset_left_arm(),
                     WheelController.move_wheels_backward_in_straight_line(float(400)))
     await multitask(WheelController.wheel_slight_left_turn(), GripperController.grip_element_using_left_arm())
-adwsa
     # going to red market
     await WheelController.move_wheels_backward_in_straight_line(float(400))
-    await WheelController.move_wheels_backward_in_straight_line(float(185), with_brake=True)
+    await WheelController.move_wheels_backward_in_straight_line(float(195), with_brake=True)
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(475))
