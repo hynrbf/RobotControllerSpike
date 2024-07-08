@@ -95,10 +95,9 @@ async def get_the_vegetables():
     # await WheelController.move_wheels_backward_in_straight_line(float(170) - wheel_to_butt_distance, Speed.Medium)
 
     # get red vegetable and yellow
-    left_turn_variance_to_left_wheel = float(60)
     await WheelController.move_wheels_forward_in_straight_line(float(50))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(140) + left_turn_variance_to_left_wheel)
+    await WheelController.move_wheels_forward_in_straight_line(float(200))
     await GripperController.grip_element_using_both_arms()
 
     # get another set of vegetable
