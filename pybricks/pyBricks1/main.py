@@ -32,6 +32,8 @@ async def get_water_elements():
 
 # Anton's code
 async def get_the_vegetables_at_the_market():
+    await WheelController.wheel_slight_left_turn()
+    await WheelController.wheel_slight_right_turn()
     await multitask(GripperController.release_element_using_both_arms(),
                     WheelController.move_wheels_backward_in_straight_line(float(560)))
     await WheelController.wheel_left_turn()
@@ -110,15 +112,17 @@ async def get_the_vegetables():
     await GripperController.grip_element_using_both_arms()
 
     # going long straight to the compose area
-    await WheelController.move_wheels_backward_in_straight_line(float(180))
+    await WheelController.move_wheels_backward_in_straight_line(float(160))
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(1670), Speed.Straight)
     await WheelController.wheel_slight_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(310))
-    await WheelController.wheel_right_turn_with_angle(float(360))
+    await WheelController.wheel_slight_right_turn()
+    await WheelController.wheel_slight_left_turn()
     await multitask(GripperController.reset_left_arm(),
                     WheelController.move_wheels_backward_in_straight_line(float(400)))
     await multitask(WheelController.wheel_slight_left_turn(), GripperController.grip_element_using_left_arm())
+
     # going to red market
     await WheelController.move_wheels_backward_in_straight_line(float(400))
     await WheelController.move_wheels_backward_in_straight_line(float(300), with_brake=True)
