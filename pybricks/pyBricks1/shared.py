@@ -7,7 +7,7 @@ class Speed:
     Straight = None
     Slow = float(150)
     Medium = float(300)
-    # 600 is max, but sometimes gyro make mistakes so, I guess 500 is sweet spot
+    # 600 is max, but sometimes gyro make mistakes so, I guess 500 makes little mistake so 450 is sweet spot
     Fast = float(450)
 
 
