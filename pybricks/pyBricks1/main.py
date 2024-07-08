@@ -97,7 +97,7 @@ async def get_the_vegetables():
     # get red vegetable and yellow
     await WheelController.move_wheels_forward_in_straight_line(float(50))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(200))
+    await WheelController.move_wheels_forward_in_straight_line(float(200), Speed.Medium)
     await GripperController.grip_element_using_both_arms()
 
     # get another set of vegetable
@@ -106,15 +106,16 @@ async def get_the_vegetables():
     await WheelController.move_wheels_forward_in_straight_line(float(180))
     await WheelController.wheel_left_turn()
     await multitask(GripperController.release_element_using_both_arms(),
-                    WheelController.move_wheels_forward_in_straight_line(float(140), Speed.Slow))
+                    WheelController.move_wheels_forward_in_straight_line(float(140), float(100)))
     await GripperController.grip_element_using_both_arms()
 
     # going long straight to the compose area
     await WheelController.move_wheels_backward_in_straight_line(float(200))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(1670))
+    await WheelController.move_wheels_forward_in_straight_line(float(1670), Speed.Straight)
     await WheelController.wheel_slight_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(310))
+    await WheelController.wheel_right_turn_with_angle(float(360))
     await multitask(GripperController.reset_left_arm(),
                     WheelController.move_wheels_backward_in_straight_line(float(400)))
     await multitask(WheelController.wheel_slight_left_turn(), GripperController.grip_element_using_left_arm())
@@ -150,7 +151,7 @@ async def water_the_green_plants_and_move_decay_plants():
     await WheelController.move_wheels_forward_in_straight_line(float(210))
     await multitask(GripperController.grip_element_using_both_arms(),
                     WheelController.wheel_right_turn_with_angle(float(20)))
-    await WheelController.move_wheels_forward_in_straight_line(float(305))
+    await WheelController.move_wheels_forward_in_straight_line(float(315))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.move_wheels_towards_element_then_stop_at_marker()
