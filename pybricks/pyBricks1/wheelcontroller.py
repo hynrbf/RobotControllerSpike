@@ -2,6 +2,7 @@ from pybricks.pupdevices import Motor
 from pybricks.parameters import Port, Direction, Icon, Color, Stop
 from pybricks.robotics import DriveBase
 from pybricks.tools import wait
+
 from colorcontroller import ColorController
 from shared import Shared, Speed
 
@@ -9,7 +10,7 @@ from shared import Shared, Speed
 class WheelController:
     # I measured manually and the wheel diameter is 5.6cm and the axle distance is 11.7cm float(117) for blue wheels
     # 2nd black wheels, wheel diameter is 5.5cm and the axle distance is 18.5cm
-    # 3rd big wheels, wheel diameter is 8cm and the axle distance is 17.5cm
+    # 3rd big wheels, wheel diameter is 8cm and the axle distance is 16cm, 17.5cm
     __wheel_diameter_in_mm = float(80)
     __axle_track_in_mm = float(175)
 
@@ -74,14 +75,12 @@ class WheelController:
     async def wheel_right_turn():
         Shared.hub().display.icon(Icon.ARROW_RIGHT)
         wheel_controller = WheelController.__object()
-        wheel_controller.use_gyro(False)
         await wheel_controller.turn(90)
 
     @staticmethod
     async def wheel_right_turn_slowly():
         Shared.hub().display.icon(Icon.ARROW_RIGHT)
         wheel_controller = WheelController.__object()
-        wheel_controller.use_gyro(False)
         wheel_controller.settings(turn_rate=180)
         await wheel_controller.turn(90)
 
@@ -89,14 +88,12 @@ class WheelController:
     async def wheel_slight_right_turn():
         Shared.hub().display.icon(Icon.ARROW_LEFT)
         wheel_controller = WheelController.__object()
-        wheel_controller.use_gyro(False)
         await wheel_controller.turn(45)
 
     @staticmethod
     async def wheel_u_turn_right():
         Shared.hub().display.icon(Icon.ARROW_RIGHT)
         wheel_controller = WheelController.__object()
-        wheel_controller.use_gyro(False)
         await wheel_controller.turn(180)
 
     @staticmethod
@@ -106,21 +103,18 @@ class WheelController:
 
         Shared.hub().display.icon(Icon.ARROW_RIGHT)
         wheel_controller = WheelController.__object()
-        wheel_controller.use_gyro(False)
         await wheel_controller.turn(angle)
 
     @staticmethod
     async def wheel_left_turn():
         Shared.hub().display.icon(Icon.ARROW_LEFT)
         wheel_controller = WheelController.__object()
-        wheel_controller.use_gyro(False)
         await wheel_controller.turn(-90)
 
     @staticmethod
     async def wheel_left_turn_slowly():
         Shared.hub().display.icon(Icon.ARROW_LEFT)
         wheel_controller = WheelController.__object()
-        wheel_controller.use_gyro(False)
         wheel_controller.settings(turn_rate=180)
         await wheel_controller.turn(-90)
 
@@ -128,7 +122,6 @@ class WheelController:
     async def wheel_slight_left_turn():
         Shared.hub().display.icon(Icon.ARROW_LEFT)
         wheel_controller = WheelController.__object()
-        wheel_controller.use_gyro(False)
         await wheel_controller.turn(-45)
 
     @staticmethod
@@ -138,14 +131,12 @@ class WheelController:
 
         Shared.hub().display.icon(Icon.ARROW_RIGHT)
         wheel_controller = WheelController.__object()
-        wheel_controller.use_gyro(False)
         await wheel_controller.turn(angle)
 
     @staticmethod
     async def wheel_u_turn_left():
         Shared.hub().display.icon(Icon.ARROW_RIGHT)
         wheel_controller = WheelController.__object()
-        wheel_controller.use_gyro(False)
         await wheel_controller.turn(-180)
 
     # when going towards element make sure to slow down when approaching otherwise matumba yung element sa
