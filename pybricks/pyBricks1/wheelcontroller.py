@@ -10,9 +10,9 @@ from shared import Shared, Speed
 class WheelController:
     # I measured manually and the wheel diameter is 5.6cm and the axle distance is 11.7cm float(117) for blue wheels
     # 2nd black wheels, wheel diameter is 5.5cm and the axle distance is 18.5cm
-    # 3rd big wheels, wheel diameter is 8cm and the axle distance is 16cm
+    # 3rd big wheels, wheel diameter is 8cm and the axle distance is 16cm, 17.5cm
     __wheel_diameter_in_mm = float(80)
-    __axle_track_in_mm = float(160)
+    __axle_track_in_mm = float(175)
 
     __left_motor = Motor(Port.E, Direction.COUNTERCLOCKWISE)
     __right_motor = Motor(Port.F)
@@ -28,13 +28,14 @@ class WheelController:
 
     @staticmethod
     async def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
-        Shared.hub().display.icon(Icon.ARROW_UP)
+        Shared.hub().display.icon(Icon.ARROW_DOWN)
         wheel_controller = WheelController.__object()
 
         if speed == Speed.Straight:
             # reset to None when moving straight, otherwise the yaw angle becomes not good
             wheel_controller.settings(straight_speed=None, straight_acceleration=None, turn_rate=None,
                                       turn_acceleration=None)
+            print("Straight only")
         elif speed == Speed.Fast:
             print("Faster forward")
         else:
@@ -49,7 +50,7 @@ class WheelController:
     @staticmethod
     async def move_wheels_backward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast,
                                                     with_brake: bool = False):
-        Shared.hub().display.icon(Icon.ARROW_DOWN)
+        Shared.hub().display.icon(Icon.ARROW_UP)
         distance_in_mm = distance_in_mm * -1
         wheel_controller = WheelController.__object()
 
@@ -73,13 +74,13 @@ class WheelController:
 
     @staticmethod
     async def wheel_right_turn():
-        Shared.hub().display.icon(Icon.ARROW_RIGHT)
+        Shared.hub().display.icon(Icon.ARROW_LEFT)
         wheel_controller = WheelController.__object()
         await wheel_controller.turn(90)
 
     @staticmethod
     async def wheel_right_turn_slowly():
-        Shared.hub().display.icon(Icon.ARROW_RIGHT)
+        Shared.hub().display.icon(Icon.ARROW_LEFT)
         wheel_controller = WheelController.__object()
         wheel_controller.settings(turn_rate=180)
         await wheel_controller.turn(90)
@@ -92,7 +93,7 @@ class WheelController:
 
     @staticmethod
     async def wheel_u_turn_right():
-        Shared.hub().display.icon(Icon.ARROW_RIGHT)
+        Shared.hub().display.icon(Icon.ARROW_LEFT)
         wheel_controller = WheelController.__object()
         await wheel_controller.turn(180)
 
@@ -101,26 +102,26 @@ class WheelController:
         if angle < 0:
             angle = angle * -1
 
-        Shared.hub().display.icon(Icon.ARROW_RIGHT)
+        Shared.hub().display.icon(Icon.ARROW_LEFT)
         wheel_controller = WheelController.__object()
         await wheel_controller.turn(angle)
 
     @staticmethod
     async def wheel_left_turn():
-        Shared.hub().display.icon(Icon.ARROW_LEFT)
+        Shared.hub().display.icon(Icon.ARROW_RIGHT)
         wheel_controller = WheelController.__object()
         await wheel_controller.turn(-90)
 
     @staticmethod
     async def wheel_left_turn_slowly():
-        Shared.hub().display.icon(Icon.ARROW_LEFT)
+        Shared.hub().display.icon(Icon.ARROW_RIGHT)
         wheel_controller = WheelController.__object()
         wheel_controller.settings(turn_rate=180)
         await wheel_controller.turn(-90)
 
     @staticmethod
     async def wheel_slight_left_turn():
-        Shared.hub().display.icon(Icon.ARROW_LEFT)
+        Shared.hub().display.icon(Icon.ARROW_RIGHT)
         wheel_controller = WheelController.__object()
         await wheel_controller.turn(-45)
 
@@ -143,7 +144,7 @@ class WheelController:
     # lakas ng impact
     @staticmethod
     async def move_wheels_towards_element(distance_in_mm: float, speed: float = Speed.Fast):
-        Shared.hub().display.icon(Icon.ARROW_UP)
+        Shared.hub().display.icon(Icon.ARROW_DOWN)
         wheel_controller = WheelController.__object()
         wheel_controller.settings(straight_speed=speed, straight_acceleration=Speed.Slow)
         await wheel_controller.straight(distance_in_mm)
@@ -154,9 +155,9 @@ class WheelController:
     # moving towards element
     @staticmethod
     async def move_wheels_towards_element_then_stop_at_marker():
-        Shared.hub().display.icon(Icon.ARROW_UP)
+        Shared.hub().display.icon(Icon.ARROW_DOWN)
         wheel_controller = WheelController.__object()
-        await wheel_controller.straight(float(70))
+        await wheel_controller.straight(float(60))
 
         while True:
             if await ColorController.detect_white_or_black_mat_color():
@@ -172,7 +173,7 @@ class WheelController:
 
     @staticmethod
     async def move_wheels_towards_water_tower_stop_at_brown_marker():
-        Shared.hub().display.icon(Icon.ARROW_UP)
+        Shared.hub().display.icon(Icon.ARROW_DOWN)
         wheel_controller = WheelController.__object()
 
         while True:
