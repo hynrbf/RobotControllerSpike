@@ -14,3 +14,4 @@ avoid ma over distance and masabit
 check body na nde tabingi
 always press wheel para kapit
 never put the hub in stand position, the gyro will be bad
+check the color light have lights

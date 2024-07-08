@@ -5,9 +5,9 @@ from pybricks.robotics import DriveBase
 
 class Speed:
     Straight = None
-    Slow = float(100)
-    Medium = float(200)
-    Fast = float(400)
+    Slow = float(150)
+    Medium = float(300)
+    Fast = float(600)
 
 
 # inspiration https://github.com/FLL-Team-24277/FLL-Fall-2023-Masterpiece/blob/main/samples/base_robot.py
