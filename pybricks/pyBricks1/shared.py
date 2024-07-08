@@ -32,6 +32,7 @@ class Shared:
                                                turn_acceleration=None)
             return Shared.__wheels_with_gyro
 
+        Shared.__wheels_with_gyro.use_gyro(True)
         Shared.__wheels_with_gyro.settings(straight_speed=Speed.Fast, straight_acceleration=None, turn_rate=360,
                                            turn_acceleration=None)
         return Shared.__wheels_with_gyro
