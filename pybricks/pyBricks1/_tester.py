@@ -14,6 +14,8 @@ async def main():
     await wait(500)
     await WheelController.wheel_left_turn()
 
+    await WheelController.move_wheels_forward_in_straight_line(float(1000))
+
     print("DONE!")
 
 
