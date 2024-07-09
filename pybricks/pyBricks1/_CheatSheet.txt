@@ -10,6 +10,8 @@ await WheelController.wheel_left_turn()
 
 
 3. things to avoid
+robot to test gripper and wheel
+
 avoid ma over distance and masabit
 check body na nde tabingi
 always press wheel para kapit
