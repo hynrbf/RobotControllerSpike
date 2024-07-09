@@ -165,7 +165,7 @@ async def water_the_green_plants_and_move_decay_plants():
     if is_green_detected:
         await WheelController.wheel_right_turn()
         await multitask(GripperController.release_element_using_both_arms(),
-                        WheelController.move_wheels_backward_in_straight_line(float(500)))
+                        WheelController.move_wheels_backward_in_straight_line(float(500), Speed.Straight))
         await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
         return
 
@@ -180,7 +180,7 @@ async def water_the_green_plants_and_move_decay_plants():
     if is_green_detected:
         await WheelController.wheel_right_turn()
         await multitask(GripperController.release_element_using_both_arms(),
-                        WheelController.move_wheels_backward_in_straight_line(float(600)))
+                        WheelController.move_wheels_backward_in_straight_line(float(600), Speed.Straight))
         await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
         return
 
@@ -193,7 +193,7 @@ async def water_the_green_plants_and_move_decay_plants():
     await water_if_green_plant()
     await WheelController.wheel_right_turn()
     await multitask(GripperController.release_element_using_both_arms(),
-                    WheelController.move_wheels_backward_in_straight_line(float(800)))
+                    WheelController.move_wheels_backward_in_straight_line(float(800), Speed.Straight))
     await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
 
 
@@ -204,6 +204,8 @@ async def water_the_green_plants_and_move_decay_plants():
 
 async def main():
     print("Start, pb version: ", version)
+    await GripperController.reset_both_arms()
+
     await water_the_green_plants_and_move_decay_plants()
     await get_the_vegetables()
     await get_the_vegetables_at_the_market()
