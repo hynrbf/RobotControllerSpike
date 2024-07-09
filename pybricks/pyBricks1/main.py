@@ -195,7 +195,7 @@ async def water_the_green_plants_and_move_decay_plants():
 
 async def main():
     print("Start, pb version: ", version)
-    await GripperController.reset_both_arms()
+    await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm())
 
     await water_the_green_plants_and_move_decay_plants()
     await get_the_vegetables()
