@@ -36,12 +36,12 @@ async def get_the_vegetables_at_the_market():
     # await WheelController.wheel_left_turn()
     # await WheelController.wheel_right_turn()
     await multitask(GripperController.release_element_using_both_arms(),
-                    WheelController.move_wheels_backward_in_straight_line(float(425)))
+                    WheelController.move_wheels_backward_in_straight_line(float(470)))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(90), with_brake=True)
     await WheelController.move_wheels_forward_in_straight_line(float(50))
     await WheelController.wheel_left_turn_with_angle(float(90))
-    await WheelController.move_wheels_forward_in_straight_line(float(185))
+    await WheelController.move_wheels_forward_in_straight_line(float(180))
     is_red = await ColorController.detect_red_vegetable()
     is_yellow = await ColorController.detect_yellow_vegetable()
     is_red_got_first = is_red and not is_yellow
@@ -156,7 +156,7 @@ async def water_the_green_plants_and_move_decay_plants():
     await WheelController.move_wheels_forward_in_straight_line(float(210))
     await multitask(GripperController.grip_element_using_both_arms(),
                     WheelController.wheel_right_turn_with_angle(float(20)))
-    await WheelController.move_wheels_forward_in_straight_line(float(315))
+    await WheelController.move_wheels_forward_in_straight_line(float(310))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.move_wheels_towards_element_then_stop_at_marker()
@@ -170,7 +170,7 @@ async def water_the_green_plants_and_move_decay_plants():
         return
 
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(165))
+    await WheelController.move_wheels_forward_in_straight_line(float(160))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(30))
     await WheelController.move_wheels_towards_element_then_stop_at_marker()
