@@ -170,7 +170,7 @@ async def water_the_green_plants_and_move_decay_plants():
         return
 
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(160))
+    await WheelController.move_wheels_forward_in_straight_line(float(155))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(30))
     await WheelController.move_wheels_towards_element_then_stop_at_marker()
