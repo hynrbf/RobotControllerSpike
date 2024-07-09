@@ -114,15 +114,17 @@ class GripperController:
 
     @staticmethod
     async def hook_element_downwards(speed: float = Speed.Fast, angle: int = 45):
-        await GripperController.__left_motor.run_angle(speed, angle, wait=True)
+        angle = angle * -1
+        await GripperController.__right_motor.run_angle(speed, angle, wait=True)
         await wait(500)
 
         GripperController.__get_left_arm_angle()
 
     @staticmethod
     async def hook_element_upwards(speed: float = Speed.Fast, angle: int = 45):
-        angle = angle * -1
-        await GripperController.__left_motor.run_angle(speed, angle, wait=True)
+        # left motor will be negative, but we will use right
+        # angle = angle * -1
+        await GripperController.__right_motor.run_angle(speed, angle, wait=True)
         await wait(500)
 
         GripperController.__get_left_arm_angle()
