@@ -28,9 +28,9 @@ async def main():
 
     await WheelController.move_wheels_forward_in_straight_line(float(30), Speed.Slow)
     await GripperController.hook_element_upwards(angle=25)
-    await WheelController.move_wheels_backward_in_straight_line(float(50), Speed.Slow)
-    await WheelController.move_wheels_forward_in_straight_line(float(65), Speed.Slow)
-    await WheelController.move_wheels_backward_in_straight_line(float(65), Speed.Slow)
+    await WheelController.move_wheels_backward_in_straight_line(float(50))
+    await WheelController.move_wheels_forward_in_straight_line(float(70))
+    await WheelController.move_wheels_backward_in_straight_line(float(65))
     await GripperController.hook_element_downwards(angle=25)
     await WheelController.move_wheels_backward_in_straight_line(float(20), Speed.Slow)
     await WheelController.wheel_right_turn_with_angle(15)
@@ -41,8 +41,12 @@ async def main():
                     WheelController.move_wheels_forward_in_straight_line(float(120)))
 
     await GripperController.hook_element_downwards_using_left(angle=20)
-    await WheelController.move_wheels_backward_in_straight_line(float(90))
+    await WheelController.move_wheels_backward_in_straight_line(float(70))
     await WheelController.wheel_right_turn_with_angle(75)
+    await WheelController.move_wheels_forward_in_straight_line(float(280))
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(60))
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
 
     print("DONE!")
 
