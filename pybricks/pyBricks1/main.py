@@ -8,12 +8,13 @@ from pybricks.tools import run_task, multitask
 
 async def get_water_elements():
     # await WheelController.wheel_slight_right_turn()
-    await WheelController.move_wheels_backward_in_straight_line(float(745), Speed.Straight)
-    await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_towards_water_tower_stop_at_brown_marker()
-    await GripperController.hook_element_using_left_arm()
-    # await WheelController.move_wheels_backward_in_straight_line(float(100))
+    # await WheelController.move_wheels_backward_in_straight_line(float(745), Speed.Straight)
     # await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(40))
+    await GripperController.hook_element_upwards(angle=20)
+    await WheelController.move_wheels_backward_in_straight_line(float(50))
+    await WheelController.move_wheels_forward_in_straight_line(float(50))
+    await WheelController.move_wheels_backward_in_straight_line(float(50))
     # await WheelController.move_wheels_backward_in_straight_line(float(30), Speed.Slow)
     # await WheelController.wheel_left_turn()
     # await WheelController.move_wheels_forward_in_straight_line(float(40), Speed.Slow)

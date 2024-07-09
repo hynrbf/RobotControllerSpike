@@ -1,6 +1,6 @@
-# from colorcontroller import ColorController
-# from grippercontroller import GripperController
-# from shared import Speed
+from colorcontroller import ColorController
+from grippercontroller import GripperController
+from shared import Speed
 from wheelcontroller import WheelController
 from pybricks import version
 from pybricks.tools import run_task
@@ -26,7 +26,11 @@ async def main():
     # await wait(1000)
     # await WheelController.wheel_right_turn()
 
-    await WheelController.move_wheels_forward_in_straight_line(float(2000))
+    await WheelController.move_wheels_forward_in_straight_line(float(40))
+    await GripperController.hook_element_upwards(angle=20)
+    await WheelController.move_wheels_backward_in_straight_line(float(50))
+    await WheelController.move_wheels_forward_in_straight_line(float(150))
+    await WheelController.move_wheels_backward_in_straight_line(float(150))
     print("DONE!")
 
 
