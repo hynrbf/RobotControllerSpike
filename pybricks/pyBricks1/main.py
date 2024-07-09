@@ -245,11 +245,11 @@ async def water_the_green_plants_and_move_decay_plants():
 
 async def main():
     print("Start, pb version: ", version)
-    # await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm())
-    #
-    # await water_the_green_plants_and_move_decay_plants()
-    # await get_the_vegetables()
-    # await get_the_vegetables_at_the_market()
+    await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm())
+
+    await water_the_green_plants_and_move_decay_plants()
+    await get_the_vegetables()
+    await get_the_vegetables_at_the_market()
     await get_water_elements()
     # await multitask(get_the_vegetables(), WheelController.debug())
     print("DONE!")
