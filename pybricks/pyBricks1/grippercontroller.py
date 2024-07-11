@@ -55,7 +55,8 @@ class GripperController:
         if GripperController.__right_motor_position == HandPosition.Grip:
             return
 
-        await GripperController.__right_motor.run_angle(500, -GripperController.__grip_turn_angle, wait=True)
+        await GripperController.__right_motor.run_angle(500, -GripperController.__grip_turn_angle, wait=True,
+                                                        then=Stop.BRAKE)
         GripperController.__right_motor_position = HandPosition.Grip
         Shared.hub().display.icon(Icon.SAD)
         await wait(500)
@@ -67,7 +68,8 @@ class GripperController:
         if GripperController.__left_motor_position == HandPosition.Grip:
             return
 
-        await GripperController.__left_motor.run_angle(500, GripperController.__grip_turn_angle, wait=True)
+        await GripperController.__left_motor.run_angle(500, GripperController.__grip_turn_angle, wait=False,
+                                                       then=Stop.BRAKE)
         GripperController.__left_motor_position = HandPosition.Grip
         Shared.hub().display.icon(Icon.SAD)
         await wait(500)

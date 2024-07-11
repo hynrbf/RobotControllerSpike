@@ -21,13 +21,14 @@ async def water_green_plant_only():
 
 async def get_water_elements():
     await WheelController.wheel_slight_right_turn()
+    await WheelController.wheel_u_turn_right()
     await multitask(GripperController.grip_element_using_both_arms(),
-                    WheelController.move_wheels_backward_in_straight_line(float(860), Speed.Straight))
-    await WheelController.wheel_left_turn()
+                    WheelController.move_wheels_forward_in_straight_line(float(860), Speed.Straight))
+    await WheelController.wheel_right_turn()
 
     # base brown or blue line to get the water from tower
     await WheelController.move_wheels_forward_in_straight_line(float(30), Speed.Slow, True)
-    await GripperController.hook_element_upwards(angle=25, do_wait=False)
+    await GripperController.hook_element_upwards(angle=25)
     await WheelController.move_wheels_backward_in_straight_line(float(50))
     await WheelController.move_wheels_forward_in_straight_line(float(70), with_brake=True)
     await WheelController.move_wheels_backward_in_straight_line(float(65))
