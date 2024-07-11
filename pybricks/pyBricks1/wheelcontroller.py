@@ -189,34 +189,6 @@ class WheelController:
         await wheel_controller.straight(float(20))
         wheel_controller.stop()
 
-    @staticmethod
-    async def move_wheels_back_then_stop_at_center_line():
-        Shared.hub().display.icon(Icon.ARROW_DOWN)
-        wheel_controller = WheelController.__object()
-        await wheel_controller.straight(-float(50))
-        detect_count = 0
-
-        while True:
-            if await ColorController.detect_white_or_black_mat_color():
-                detect_count = detect_count + 1
-                print("detect count: ", detect_count)
-
-                if detect_count > 1:
-                    print("stop")
-                    wheel_controller.stop()
-                    break
-                else:
-                    print("back")
-                    wheel_controller.drive(-Speed.Slow, 0)
-            else:
-                print("back")
-                # you can be fast here otherwise bump the element, same as Medium Fast
-                wheel_controller.drive(-Speed.Slow, 0)
-
-            await wait(500)
-
-        wheel_controller.stop()
-
     # debugging while wheels moving
     @staticmethod
     async def debug():

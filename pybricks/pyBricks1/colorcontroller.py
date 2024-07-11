@@ -17,7 +17,7 @@ class ColorController:
         while True:
             if count > 3:
                 is_detected = False
-                # break
+                break
 
             color = await ColorController.__mat_sensor.hsv()
             color_int = color.h
@@ -25,31 +25,6 @@ class ColorController:
 
             # imperfect color of mat so hsv of white is 170 - 190, while black 220 - 245
             if 170 <= color_int <= 245:
-                Shared.hub().display.char("W")
-                is_detected = True
-                # break
-
-            count = count + 1
-            await wait(100)
-
-        return is_detected
-
-    @staticmethod
-    async def detect_white_mat_color() -> bool:
-        count = 1
-        is_detected = False
-
-        while True:
-            if count > 3:
-                is_detected = False
-                break
-
-            color = await ColorController.__mat_sensor.hsv()
-            color_int = color.h
-            print("Color detected: ", color_int)
-
-            # imperfect color of mat so hsv of white is 170 - 190
-            if 170 <= color_int <= 190:
                 Shared.hub().display.char("W")
                 is_detected = True
                 break
