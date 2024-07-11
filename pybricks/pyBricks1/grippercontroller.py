@@ -1,5 +1,5 @@
 from pybricks.pupdevices import Motor
-from pybricks.parameters import Port, Icon, Stop
+from pybricks.parameters import Port, Icon
 from pybricks.robotics import DriveBase
 from pybricks.tools import wait
 
@@ -55,8 +55,7 @@ class GripperController:
         if GripperController.__right_motor_position == HandPosition.Grip:
             return
 
-        await GripperController.__right_motor.run_angle(500, -GripperController.__grip_turn_angle, wait=True,
-                                                        then=Stop.BRAKE)
+        await GripperController.__right_motor.run_angle(500, -GripperController.__grip_turn_angle, wait=True)
         GripperController.__right_motor_position = HandPosition.Grip
         Shared.hub().display.icon(Icon.SAD)
         await wait(500)
@@ -68,8 +67,7 @@ class GripperController:
         if GripperController.__left_motor_position == HandPosition.Grip:
             return
 
-        await GripperController.__left_motor.run_angle(500, GripperController.__grip_turn_angle, wait=False,
-                                                       then=Stop.BRAKE)
+        await GripperController.__left_motor.run_angle(500, GripperController.__grip_turn_angle, wait=True)
         GripperController.__left_motor_position = HandPosition.Grip
         Shared.hub().display.icon(Icon.SAD)
         await wait(500)
@@ -126,7 +124,7 @@ class GripperController:
     async def hook_element_upwards(speed: float = Speed.Fast, angle: int = 45):
         # left motor will be negative, but we will use right
         # angle = angle * -1
-        await GripperController.__right_motor.run_angle(speed, angle, wait=True, then=Stop.BRAKE)
+        await GripperController.__right_motor.run_angle(speed, angle, wait=True)
         await wait(500)
 
         GripperController.__get_left_arm_angle()
