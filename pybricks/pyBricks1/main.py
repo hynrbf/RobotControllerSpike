@@ -22,7 +22,7 @@ async def water_green_plant_only():
 async def get_water_elements():
     await WheelController.wheel_slight_right_turn()
     await multitask(GripperController.grip_element_using_both_arms(),
-                    WheelController.move_wheels_backward_in_straight_line(float(830), Speed.Straight))
+                    WheelController.move_wheels_backward_in_straight_line(float(850), Speed.Straight))
     await WheelController.wheel_left_turn()
 
     # base brown or blue line to get the water from tower
@@ -125,13 +125,6 @@ async def get_the_vegetables_at_the_market():
 
 
 async def get_the_vegetables():
-    # await GripperController.reset_left_arm()
-    # await GripperController.reset_right_arm()
-    # wheel_to_butt_distance = float(50)
-    # left_turn_variance_to_left_wheel = float(60)
-    # right_turn_variance_to_right_wheel = float(60)
-    # await WheelController.move_wheels_backward_in_straight_line(float(170) - wheel_to_butt_distance, Speed.Medium)
-
     # get red vegetable and yellow
     await WheelController.move_wheels_forward_in_straight_line(float(50))
     await WheelController.wheel_left_turn()
