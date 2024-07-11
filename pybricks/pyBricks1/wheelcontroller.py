@@ -27,7 +27,8 @@ class WheelController:
         print("State of robot is: ", state)
 
     @staticmethod
-    async def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
+    async def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast,
+                                                   with_brake: bool = False):
         Shared.hub().display.icon(Icon.ARROW_DOWN)
         wheel_controller = WheelController.__object()
 
@@ -42,7 +43,10 @@ class WheelController:
             wheel_controller.settings(straight_speed=speed, straight_acceleration=None, turn_rate=None,
                                       turn_acceleration=None)
 
-        await wheel_controller.straight(distance_in_mm)
+        if with_brake:
+            await wheel_controller.straight(distance=distance_in_mm, then=Stop.BRAKE)
+        else:
+            await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
         print("Travelled distance in mm: ", travelled_distance)
