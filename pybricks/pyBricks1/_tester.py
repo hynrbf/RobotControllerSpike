@@ -23,7 +23,9 @@ async def test_gripper():
 
 async def main():
     print("Start, pb version: ", version)
-    await test_wheel()
+    await multitask(WheelController.move_wheels_backward_in_straight_line(float(400), float(100)),
+                    ColorController.detect_white_or_black_mat_color())
+    # await WheelController.move_wheels_back_then_stop_at_center_line()
 
     print("DONE!")
 
