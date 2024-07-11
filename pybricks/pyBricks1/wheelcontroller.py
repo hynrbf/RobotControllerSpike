@@ -169,7 +169,7 @@ class WheelController:
                 break
             else:
                 # you can be fast here otherwise bump the element, same as Medium Fast
-                wheel_controller.drive(Speed.Slow, 0)
+                wheel_controller.drive(float(100), 0)
 
             await wait(100)
 
