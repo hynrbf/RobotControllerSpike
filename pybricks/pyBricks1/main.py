@@ -141,7 +141,7 @@ async def get_the_vegetables():
     # get red vegetable and yellow
     await WheelController.move_wheels_forward_in_straight_line(float(50))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(205), Speed.Medium)
+    await WheelController.move_wheels_forward_in_straight_line(float(195), Speed.Medium)
     await GripperController.grip_element_using_both_arms()
 
     # get another set of vegetable
@@ -179,9 +179,9 @@ async def water_if_green_plant() -> bool:
 
     if await ColorController.detect_green_vegetable():
         await WheelController.move_wheels_backward_in_straight_line(float(30), Speed.Straight)
-        await multitask(GripperController.reset_left_arm(),
+        await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm(),
                         WheelController.move_wheels_backward_in_straight_line(float(100), Speed.Straight))
-        await GripperController.grip_element_using_left_arm()
+        await GripperController.grip_element_using_both_arms()
         await WheelController.move_wheels_towards_element_then_stop_at_marker()
         await WheelController.move_wheels_backward_in_straight_line(float(110), Speed.Straight)
         is_green_detected = True
@@ -205,7 +205,7 @@ async def water_the_green_plants_and_move_decay_plants():
 
     # go to 2nd one
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(157))
+    await WheelController.move_wheels_forward_in_straight_line(float(160), Speed.Straight)
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(30))
     await WheelController.move_wheels_towards_element_then_stop_at_marker()
@@ -213,7 +213,7 @@ async def water_the_green_plants_and_move_decay_plants():
 
     # go to 3rd one
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(162))
+    await WheelController.move_wheels_forward_in_straight_line(float(160), Speed.Straight)
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(30))
     await WheelController.move_wheels_towards_element_then_stop_at_marker()
