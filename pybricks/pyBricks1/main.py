@@ -190,9 +190,9 @@ async def water_if_green_plant(count_tries_to_detect_green: int) -> bool:
 
         if count_tries_to_detect_green >= 2:
             await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm(),
-                            WheelController.move_wheels_backward_in_straight_line(float(230), Speed.Straight))
+                            WheelController.move_wheels_backward_in_straight_line(float(240), Speed.Straight))
         else:
-            await WheelController.move_wheels_backward_in_straight_line(float(230), Speed.Straight)
+            await WheelController.move_wheels_backward_in_straight_line(float(240), Speed.Straight)
 
     return is_green_detected
 
@@ -245,7 +245,7 @@ async def main():
 
     await water_the_green_plants_and_move_decay_plants()
     await get_the_vegetables()
-    # await get_the_vegetables_at_the_market()
+    await get_the_vegetables_at_the_market()
     # await get_water_elements()
     # await multitask(get_the_vegetables(), WheelController.debug())
     print("DONE!")

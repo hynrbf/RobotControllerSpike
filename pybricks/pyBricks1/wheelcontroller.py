@@ -157,7 +157,7 @@ class WheelController:
     async def move_wheels_towards_element_then_stop_at_marker():
         Shared.hub().display.icon(Icon.ARROW_DOWN)
         wheel_controller = WheelController.__object()
-        await wheel_controller.straight(float(40))
+        await wheel_controller.straight(float(50))
 
         while True:
             if await ColorController.detect_white_or_black_mat_color():
