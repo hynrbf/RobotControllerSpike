@@ -30,8 +30,9 @@ async def move_rotten_plant():
 async def get_water_elements():
     # position to center line
     await WheelController.wheel_right_turn_with_angle(float(135))
-    await WheelController.move_wheels_backward_in_straight_line(float(500), with_brake=True)
-    await WheelController.move_wheels_forward_in_straight_line(float(300))
+    await WheelController.move_wheels_backward_in_straight_line(float(400), with_brake=True)
+    await multitask(WheelController.move_wheels_forward_in_straight_line(float(300)),
+                    GripperController.grip_element_using_both_arms())
     await WheelController.wheel_right_turn()
 
     # go to 1st green square
@@ -170,9 +171,9 @@ async def get_the_vegetables():
     await WheelController.move_wheels_forward_in_straight_line(float(1670), Speed.Straight)
     await WheelController.wheel_slight_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(310))
-    await WheelController.wheel_left_turn_with_angle(float(360))
-    await multitask(GripperController.reset_left_arm(),
-                    WheelController.move_wheels_backward_in_straight_line(float(400)))
+    await multitask(GripperController.reset_left_arm(), WheelController.wheel_slight_right_turn())
+    await WheelController.wheel_slight_left_turn()
+    await WheelController.move_wheels_backward_in_straight_line(float(400))
     await multitask(WheelController.wheel_slight_left_turn(), GripperController.grip_element_using_left_arm())
 
     # going to red market

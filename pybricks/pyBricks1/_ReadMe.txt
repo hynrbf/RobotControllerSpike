@@ -1,3 +1,7 @@
+0. ToDo coach tito
+calibrate the getting the 2 sets of veg in Karen mat
+calibrate the getting the 2 veg in red market as well if is_red_got_first
+
 1. source https://spike.legoeducation.com/essential/help/lls-help-python
 
 2. https://www.youtube.com/watch?v=C05-aLtvSLI&list=PLj_k_RHuTqaUlBoR-8AemA2PeXgZLVBZG
