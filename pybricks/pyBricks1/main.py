@@ -21,61 +21,54 @@ async def water_green_plant_only():
 
 async def get_water_elements():
     await WheelController.wheel_slight_right_turn()
-    await WheelController.move_wheels_backward_in_straight_line(float(745), Speed.Straight)
+    await multitask(GripperController.grip_element_using_both_arms(),
+                    WheelController.move_wheels_backward_in_straight_line(float(820), Speed.Straight))
     await WheelController.wheel_left_turn()
 
-    # from base black line
-    # await WheelController.move_wheels_forward_in_straight_line(float(40))
-    # await GripperController.hook_element_upwards(angle=20)
-    # await WheelController.move_wheels_backward_in_straight_line(float(50))
-    # await WheelController.move_wheels_forward_in_straight_line(float(50))
-    # await WheelController.move_wheels_backward_in_straight_line(float(50))
+    # base brown line to get the water from tower
+    await WheelController.move_wheels_forward_in_straight_line(float(30), Speed.Slow)
+    await GripperController.hook_element_upwards(angle=25)
+    await WheelController.move_wheels_backward_in_straight_line(float(50))
+    await WheelController.move_wheels_forward_in_straight_line(float(70))
+    await WheelController.move_wheels_backward_in_straight_line(float(65))
+    await GripperController.hook_element_downwards(angle=25)
+    await WheelController.move_wheels_backward_in_straight_line(float(20), Speed.Slow)
+    await WheelController.wheel_right_turn_with_angle(15)
+    await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm())
+    await GripperController.grip_element_using_both_arms()
 
-    # # base brown line
-    # await WheelController.move_wheels_forward_in_straight_line(float(30), Speed.Slow)
-    # await GripperController.hook_element_upwards(angle=25)
-    # await WheelController.move_wheels_backward_in_straight_line(float(50))
-    # await WheelController.move_wheels_forward_in_straight_line(float(70))
-    # await WheelController.move_wheels_backward_in_straight_line(float(65))
-    # await GripperController.hook_element_downwards(angle=25)
-    # await WheelController.move_wheels_backward_in_straight_line(float(20), Speed.Slow)
-    # await WheelController.wheel_right_turn_with_angle(15)
-    # await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm())
-    # await GripperController.grip_element_using_both_arms()
-    #
-    # await multitask(GripperController.hook_element_upwards_using_left(angle=30),
-    #                 WheelController.move_wheels_forward_in_straight_line(float(115)))
-    #
-    # await GripperController.hook_element_downwards_using_left(angle=30)
-    # await WheelController.move_wheels_backward_in_straight_line(float(70))
-    # await WheelController.wheel_right_turn_with_angle(75)
-    #
-    # await WheelController.move_wheels_forward_in_straight_line(float(270))
-    # await WheelController.wheel_left_turn()
-    # await WheelController.move_wheels_forward_in_straight_line(float(60))
-    # await WheelController.move_wheels_towards_element_then_stop_at_marker()
-    # await water_green_plant_only()
-    #
-    # await WheelController.wheel_right_turn()
-    # await WheelController.move_wheels_forward_in_straight_line(float(155))
-    # await WheelController.wheel_left_turn()
-    # await WheelController.move_wheels_forward_in_straight_line(float(30))
-    # await WheelController.move_wheels_towards_element_then_stop_at_marker()
-    # await water_green_plant_only()
-    #
-    # await WheelController.wheel_right_turn()
-    # await WheelController.move_wheels_forward_in_straight_line(float(155))
-    # await WheelController.wheel_left_turn()
-    # await WheelController.move_wheels_forward_in_straight_line(float(30))
-    # await WheelController.move_wheels_towards_element_then_stop_at_marker()
-    # await water_green_plant_only()
+    await multitask(GripperController.hook_element_upwards_using_left(angle=30),
+                    WheelController.move_wheels_forward_in_straight_line(float(115)))
+
+    await GripperController.hook_element_downwards_using_left(angle=30)
+    await WheelController.move_wheels_backward_in_straight_line(float(70))
+    await WheelController.wheel_right_turn_with_angle(75)
+
+    await WheelController.move_wheels_forward_in_straight_line(float(270))
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(60))
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
+    await water_green_plant_only()
+
+    await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(155))
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(30))
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
+    await water_green_plant_only()
+
+    await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(155))
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(30))
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
+    await water_green_plant_only()
 
 
 # Anton's code
 async def get_the_vegetables_at_the_market():
-    # in case need alog
-    # await WheelController.wheel_left_turn()
-    # await WheelController.wheel_right_turn()
+    await WheelController.wheel_left_turn_with_angle(float(180))
+    await WheelController.wheel_right_turn_with_angle(float(180))
     await multitask(GripperController.release_element_using_both_arms(),
                     WheelController.move_wheels_backward_in_straight_line(float(480)))
     await WheelController.wheel_left_turn()
@@ -126,6 +119,7 @@ async def get_the_vegetables_at_the_market():
     await WheelController.move_wheels_forward_in_straight_line(float(470))
     await WheelController.wheel_slight_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(300))
+    await WheelController.wheel_right_turn_with_angle(float(360))
     await multitask(GripperController.release_element_using_both_arms(),
                     WheelController.move_wheels_backward_in_straight_line(float(250)))
 
@@ -159,8 +153,7 @@ async def get_the_vegetables():
     await WheelController.move_wheels_forward_in_straight_line(float(1670), Speed.Straight)
     await WheelController.wheel_slight_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(310))
-    # in case need alog
-    # await WheelController.wheel_left_turn_with_angle(float(360))
+    await WheelController.wheel_left_turn_with_angle(float(360))
     await multitask(GripperController.reset_left_arm(),
                     WheelController.move_wheels_backward_in_straight_line(float(400)))
     await multitask(WheelController.wheel_slight_left_turn(), GripperController.grip_element_using_left_arm())
