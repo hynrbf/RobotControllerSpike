@@ -94,6 +94,7 @@ async def get_water_elements():
     await GripperController.hook_element_downwards_using_left(angle=30)
     await WheelController.move_wheels_backward_in_straight_line(float(70))
     await WheelController.wheel_right_turn_with_angle(75)
+    print("green position detected: ", position_of_green)
 
     if position_of_green == 3:
         await WheelController.move_wheels_forward_in_straight_line(float(300), Speed.Straight)
@@ -103,6 +104,8 @@ async def get_water_elements():
         await WheelController.move_wheels_forward_in_straight_line(float(630), Speed.Straight)
 
     await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(30))
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
     await water_green_plant_only()
 
 
