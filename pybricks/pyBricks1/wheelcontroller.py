@@ -12,7 +12,7 @@ class WheelController:
     # 2nd black wheels, wheel diameter is 5.5cm and the axle distance is 18.5cm
     # 3rd big wheels, wheel diameter is 8cm and the axle distance is 16cm, 17.5cm
     __wheel_diameter_in_mm = float(80)
-    __axle_track_in_mm = float(175)
+    __axle_track_in_mm = float(174)
 
     __left_motor = Motor(Port.E, Direction.COUNTERCLOCKWISE)
     __right_motor = Motor(Port.F)
@@ -157,7 +157,7 @@ class WheelController:
     async def move_wheels_towards_element_then_stop_at_marker():
         Shared.hub().display.icon(Icon.ARROW_DOWN)
         wheel_controller = WheelController.__object()
-        await wheel_controller.straight(float(60))
+        await wheel_controller.straight(float(50))
 
         while True:
             if await ColorController.detect_white_or_black_mat_color():
