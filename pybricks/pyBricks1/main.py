@@ -50,18 +50,17 @@ async def get_water_elements():
     await move_rotten_plant()
 
     # go to 3rd green square
-    # await WheelController.wheel_right_turn()
-    # await WheelController.move_wheels_forward_in_straight_line(float(155))
-    # await WheelController.wheel_left_turn()
-    # await WheelController.move_wheels_forward_in_straight_line(float(30))
-    # await WheelController.move_wheels_towards_element_then_stop_at_marker()
-    # await water_green_plant_only()
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(165))
+    await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(30))
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
+    await move_rotten_plant()
 
-    # await multitask(GripperController.grip_element_using_both_arms(),
-    #                 WheelController.move_wheels_forward_in_straight_line(float(860), Speed.Straight))
-    # await WheelController.wheel_right_turn()
-    #
-    # # base brown or blue line to get the water from tower
+    # go to water tower
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(270))
+    await WheelController.wheel_right_turn()
     # await WheelController.move_wheels_forward_in_straight_line(float(30), Speed.Slow, True)
     # await GripperController.hook_element_upwards(angle=25)
     # await WheelController.move_wheels_backward_in_straight_line(float(50))
@@ -79,6 +78,12 @@ async def get_water_elements():
     # await GripperController.hook_element_downwards_using_left(angle=30)
     # await WheelController.move_wheels_backward_in_straight_line(float(70))
     # await WheelController.wheel_right_turn_with_angle(75)
+
+    # await multitask(GripperController.grip_element_using_both_arms(),
+    #                 WheelController.move_wheels_forward_in_straight_line(float(860), Speed.Straight))
+    # await WheelController.wheel_right_turn()
+    #
+
 
 
 # Anton's code
