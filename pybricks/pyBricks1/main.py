@@ -20,7 +20,7 @@ async def water_green_plant_only():
 
 
 async def get_water_elements():
-    await WheelController.wheel_right_turn_with_angle(float(225))
+    await WheelController.wheel_right_turn_with_angle(float(135))
     await WheelController.move_wheels_backward_in_straight_line(float(600), with_brake=True)
     await WheelController.move_wheels_forward_in_straight_line(float(400))
     await WheelController.wheel_right_turn()
@@ -122,9 +122,9 @@ async def get_the_vegetables_at_the_market():
     await WheelController.move_wheels_forward_in_straight_line(float(470))
     await WheelController.wheel_slight_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(300))
-    await WheelController.wheel_left_turn_with_angle(float(360))
-    await multitask(GripperController.release_element_using_both_arms(),
-                    WheelController.move_wheels_backward_in_straight_line(float(250)))
+    await multitask(GripperController.release_element_using_both_arms(), WheelController.wheel_slight_right_turn())
+    await WheelController.wheel_slight_left_turn()
+    await WheelController.move_wheels_backward_in_straight_line(float(250))
 
 
 async def get_the_vegetables():
