@@ -11,6 +11,10 @@ async def test_wheel():
     await WheelController.wheel_left_turn()
     await wait(1000)
     await WheelController.wheel_right_turn()
+    await wait(1000)
+    await WheelController.wheel_right_turn()
+    await wait(1000)
+    await WheelController.wheel_left_turn()
 
 
 async def test_gripper():
