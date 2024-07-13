@@ -10,9 +10,9 @@ from shared import Shared, Speed
 class WheelController:
     # I measured manually and the wheel diameter is 5.6cm and the axle distance is 11.7cm float(117) for blue wheels
     # 2nd black wheels, wheel diameter is 5.5cm and the axle distance is 18.5cm
-    # 3rd big wheels, wheel diameter is 8cm and the axle distance is 16cm, 17.5cm
+    # 3rd big wheels, wheel diameter is 8cm and the axle distance is 16cm, 17.5cm sometimes 174 so need to recheck
     __wheel_diameter_in_mm = float(80)
-    __axle_track_in_mm = float(174)
+    __axle_track_in_mm = float(175)
 
     __left_motor = Motor(Port.E, Direction.COUNTERCLOCKWISE)
     __right_motor = Motor(Port.F)
