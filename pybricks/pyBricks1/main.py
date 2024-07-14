@@ -15,27 +15,72 @@ async def water_green_plant_only():
         await WheelController.move_wheels_towards_element_then_stop_at_marker()
         await WheelController.move_wheels_backward_in_straight_line(float(110))
     else:
-        await WheelController.move_wheels_forward_in_straight_line(float(120))
-        await WheelController.move_wheels_backward_in_straight_line(float(220))
+        await WheelController.move_wheels_backward_in_straight_line(float(100))
+
+
+async def move_rotten_plant() -> bool:
+    is_green_detected = False
+
+    if await ColorController.detect_green_vegetable():
+        await WheelController.move_wheels_backward_in_straight_line(float(100))
+        is_green_detected = True
+    else:
+        await WheelController.move_wheels_forward_in_straight_line(float(120), Speed.Straight)
+        await WheelController.move_wheels_backward_in_straight_line(float(220), Speed.Straight)
+
+    return is_green_detected
 
 
 async def get_water_elements():
-    # await WheelController.wheel_slight_right_turn()
-    # await WheelController.move_wheels_backward_in_straight_line(float(745), Speed.Straight)
-    # await WheelController.wheel_left_turn()
+    # position to center line
+    await WheelController.wheel_right_turn_with_angle(float(135))
+    await WheelController.move_wheels_backward_in_straight_line(float(400), with_brake=True)
+    await multitask(WheelController.move_wheels_forward_in_straight_line(float(300)),
+                    GripperController.grip_element_using_both_arms())
+    await WheelController.wheel_right_turn()
+    position_of_green = 0
 
-    # from base black line
-    # await WheelController.move_wheels_forward_in_straight_line(float(40))
-    # await GripperController.hook_element_upwards(angle=20)
-    # await WheelController.move_wheels_backward_in_straight_line(float(50))
-    # await WheelController.move_wheels_forward_in_straight_line(float(50))
-    # await WheelController.move_wheels_backward_in_straight_line(float(50))
+    # go to 1st green square
+    await WheelController.move_wheels_forward_in_straight_line(float(250), Speed.Straight)
+    await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(60))
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
 
-    # base brown line
-    await WheelController.move_wheels_forward_in_straight_line(float(30), Speed.Slow)
+    if await move_rotten_plant():
+        position_of_green = 1
+
+    # go to 2nd green square
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(165), Speed.Straight)
+    await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(30))
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
+
+    if await move_rotten_plant():
+        position_of_green = 2
+
+    # go to 3rd green square
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(180), Speed.Straight)
+    await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(30))
+    await WheelController.move_wheels_towards_element_then_stop_at_marker()
+
+    if await move_rotten_plant():
+        position_of_green = 3
+
+    # go to water tower
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(300), Speed.Straight)
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(30))
+    await WheelController.wheel_u_turn_right()
+
+    # get the water in the tower already
+    await WheelController.move_wheels_forward_in_straight_line(float(40), Speed.Slow, True)
     await GripperController.hook_element_upwards(angle=25)
     await WheelController.move_wheels_backward_in_straight_line(float(50))
-    await WheelController.move_wheels_forward_in_straight_line(float(70))
+    await WheelController.move_wheels_forward_in_straight_line(float(70), with_brake=True)
     await WheelController.move_wheels_backward_in_straight_line(float(65))
     await GripperController.hook_element_downwards(angle=25)
     await WheelController.move_wheels_backward_in_straight_line(float(20), Speed.Slow)
@@ -49,22 +94,15 @@ async def get_water_elements():
     await GripperController.hook_element_downwards_using_left(angle=30)
     await WheelController.move_wheels_backward_in_straight_line(float(70))
     await WheelController.wheel_right_turn_with_angle(75)
+    print("green position detected: ", position_of_green)
 
-    await WheelController.move_wheels_forward_in_straight_line(float(270))
-    await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(60))
-    await WheelController.move_wheels_towards_element_then_stop_at_marker()
-    await water_green_plant_only()
+    if position_of_green == 3:
+        await WheelController.move_wheels_forward_in_straight_line(float(300), Speed.Straight)
+    elif position_of_green == 2:
+        await WheelController.move_wheels_forward_in_straight_line(float(465), Speed.Straight)
+    else:
+        await WheelController.move_wheels_forward_in_straight_line(float(630), Speed.Straight)
 
-    await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(155))
-    await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(30))
-    await WheelController.move_wheels_towards_element_then_stop_at_marker()
-    await water_green_plant_only()
-
-    await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(155))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(30))
     await WheelController.move_wheels_towards_element_then_stop_at_marker()
@@ -73,11 +111,10 @@ async def get_water_elements():
 
 # Anton's code
 async def get_the_vegetables_at_the_market():
-    # in case need alog
-    # await WheelController.wheel_left_turn()
-    # await WheelController.wheel_right_turn()
+    await WheelController.wheel_left_turn_with_angle(float(180))
+    await WheelController.wheel_right_turn_with_angle(float(180))
     await multitask(GripperController.release_element_using_both_arms(),
-                    WheelController.move_wheels_backward_in_straight_line(float(470)))
+                    WheelController.move_wheels_backward_in_straight_line(float(480)))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(90), with_brake=True)
     await WheelController.move_wheels_forward_in_straight_line(float(50))
@@ -126,22 +163,16 @@ async def get_the_vegetables_at_the_market():
     await WheelController.move_wheels_forward_in_straight_line(float(470))
     await WheelController.wheel_slight_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(300))
-    await multitask(GripperController.release_element_using_both_arms(),
-                    WheelController.move_wheels_backward_in_straight_line(float(250)))
+    await multitask(GripperController.release_element_using_both_arms(), WheelController.wheel_slight_right_turn())
+    await WheelController.wheel_slight_left_turn()
+    await WheelController.move_wheels_backward_in_straight_line(float(250))
 
 
 async def get_the_vegetables():
-    # await GripperController.reset_left_arm()
-    # await GripperController.reset_right_arm()
-    # wheel_to_butt_distance = float(50)
-    # left_turn_variance_to_left_wheel = float(60)
-    # right_turn_variance_to_right_wheel = float(60)
-    # await WheelController.move_wheels_backward_in_straight_line(float(170) - wheel_to_butt_distance, Speed.Medium)
-
     # get red vegetable and yellow
     await WheelController.move_wheels_forward_in_straight_line(float(50))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(215), Speed.Medium)
+    await WheelController.move_wheels_forward_in_straight_line(float(195), Speed.Medium)
     await GripperController.grip_element_using_both_arms()
 
     # get another set of vegetable
@@ -154,15 +185,14 @@ async def get_the_vegetables():
     await GripperController.grip_element_using_both_arms()
 
     # going long straight to the compose area
-    await WheelController.move_wheels_backward_in_straight_line(float(140))
+    await WheelController.move_wheels_backward_in_straight_line(float(135))
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(1670), Speed.Straight)
     await WheelController.wheel_slight_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(310))
-    # in case need alog
-    # await WheelController.wheel_left_turn_with_angle(float(360))
-    await multitask(GripperController.reset_left_arm(),
-                    WheelController.move_wheels_backward_in_straight_line(float(400)))
+    await multitask(GripperController.reset_left_arm(), WheelController.wheel_slight_right_turn())
+    await WheelController.wheel_slight_left_turn()
+    await WheelController.move_wheels_backward_in_straight_line(float(400))
     await multitask(WheelController.wheel_slight_left_turn(), GripperController.grip_element_using_left_arm())
 
     # going to red market
@@ -174,64 +204,62 @@ async def get_the_vegetables():
 
 
 # Alfeo's code
-async def water_if_green_plant() -> bool:
+async def water_if_green_plant(count_tries_to_detect_green: int) -> bool:
     is_green_detected = False
 
     if await ColorController.detect_green_vegetable():
-        await WheelController.move_wheels_backward_in_straight_line(float(30))
-        await multitask(GripperController.reset_left_arm(),
-                        WheelController.move_wheels_backward_in_straight_line(float(100)))
-        await GripperController.grip_element_using_left_arm()
+        await WheelController.move_wheels_backward_in_straight_line(float(30), Speed.Straight)
+        await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm(),
+                        WheelController.move_wheels_backward_in_straight_line(float(100), Speed.Straight))
+        await GripperController.grip_element_using_both_arms()
         await WheelController.move_wheels_towards_element_then_stop_at_marker()
-        await WheelController.move_wheels_backward_in_straight_line(float(130))
+        await WheelController.move_wheels_backward_in_straight_line(float(110), Speed.Straight)
         is_green_detected = True
     else:
-        await WheelController.move_wheels_forward_in_straight_line(float(120))
-        await WheelController.move_wheels_backward_in_straight_line(float(220))
+        await WheelController.move_wheels_forward_in_straight_line(float(120), Speed.Straight)
+
+        if count_tries_to_detect_green >= 2:
+            await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm(),
+                            WheelController.move_wheels_backward_in_straight_line(float(240), Speed.Straight))
+        else:
+            await WheelController.move_wheels_backward_in_straight_line(float(240), Speed.Straight)
 
     return is_green_detected
 
 
-async def water_the_green_plants_and_move_decay_plants():
+async def water_the_green_plants_and_move_rotten_plants():
+    count_tries_to_detect_green = 0
     await WheelController.wheel_left_turn_with_angle(float(20))
     await WheelController.move_wheels_forward_in_straight_line(float(210))
     await multitask(GripperController.grip_element_using_both_arms(),
                     WheelController.wheel_right_turn_with_angle(float(20)))
+
+    # go to 1st green square
     await WheelController.move_wheels_forward_in_straight_line(float(305))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.move_wheels_towards_element_then_stop_at_marker()
-    is_green_detected = await water_if_green_plant()
+    await water_if_green_plant(count_tries_to_detect_green)
+    count_tries_to_detect_green = count_tries_to_detect_green + 1
 
-    if is_green_detected:
-        await WheelController.wheel_right_turn()
-        await multitask(GripperController.release_element_using_both_arms(),
-                        WheelController.move_wheels_backward_in_straight_line(float(500), Speed.Straight))
-        await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
-        return
-
+    # go to 2nd green square
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(155))
+    await WheelController.move_wheels_forward_in_straight_line(float(160), Speed.Straight)
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(30))
     await WheelController.move_wheels_towards_element_then_stop_at_marker()
+    await water_if_green_plant(count_tries_to_detect_green)
+    count_tries_to_detect_green = count_tries_to_detect_green + 1
 
-    is_green_detected = await water_if_green_plant()
-
-    if is_green_detected:
-        await WheelController.wheel_right_turn()
-        await multitask(GripperController.release_element_using_both_arms(),
-                        WheelController.move_wheels_backward_in_straight_line(float(600), Speed.Straight))
-        await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
-        return
-
+    # go to 3rd green square
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(160))
+    await WheelController.move_wheels_forward_in_straight_line(float(160), Speed.Straight)
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(30))
     await WheelController.move_wheels_towards_element_then_stop_at_marker()
+    await water_if_green_plant(count_tries_to_detect_green)
+    count_tries_to_detect_green = count_tries_to_detect_green + 1
 
-    await water_if_green_plant()
     await WheelController.wheel_right_turn()
     await multitask(GripperController.release_element_using_both_arms(),
                     WheelController.move_wheels_backward_in_straight_line(float(800), Speed.Straight))
@@ -247,7 +275,7 @@ async def main():
     print("Start, pb version: ", version)
     await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm())
 
-    await water_the_green_plants_and_move_decay_plants()
+    await water_the_green_plants_and_move_rotten_plants()
     await get_the_vegetables()
     await get_the_vegetables_at_the_market()
     await get_water_elements()

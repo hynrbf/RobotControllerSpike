@@ -10,9 +10,9 @@ from shared import Shared, Speed
 class WheelController:
     # I measured manually and the wheel diameter is 5.6cm and the axle distance is 11.7cm float(117) for blue wheels
     # 2nd black wheels, wheel diameter is 5.5cm and the axle distance is 18.5cm
-    # 3rd big wheels, wheel diameter is 8cm and the axle distance is 16cm, 17.5cm
+    # 3rd big wheels, wheel diameter is 8cm and the axle distance is 16cm, 17.5cm sometimes 174 so need to recheck
     __wheel_diameter_in_mm = float(80)
-    __axle_track_in_mm = float(174)
+    __axle_track_in_mm = float(175)
 
     __left_motor = Motor(Port.E, Direction.COUNTERCLOCKWISE)
     __right_motor = Motor(Port.F)
@@ -27,7 +27,8 @@ class WheelController:
         print("State of robot is: ", state)
 
     @staticmethod
-    async def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast):
+    async def move_wheels_forward_in_straight_line(distance_in_mm: float, speed: float = Speed.Fast,
+                                                   with_brake: bool = False):
         Shared.hub().display.icon(Icon.ARROW_DOWN)
         wheel_controller = WheelController.__object()
 
@@ -42,7 +43,10 @@ class WheelController:
             wheel_controller.settings(straight_speed=speed, straight_acceleration=None, turn_rate=None,
                                       turn_acceleration=None)
 
-        await wheel_controller.straight(distance_in_mm)
+        if with_brake:
+            await wheel_controller.straight(distance=distance_in_mm, then=Stop.BRAKE)
+        else:
+            await wheel_controller.straight(distance_in_mm)
 
         travelled_distance = WheelController.__get_distance_in_mm()
         print("Travelled distance in mm: ", travelled_distance)
@@ -165,7 +169,7 @@ class WheelController:
                 break
             else:
                 # you can be fast here otherwise bump the element, same as Medium Fast
-                wheel_controller.drive(Speed.Slow, 0)
+                wheel_controller.drive(float(100), 0)
 
             await wait(100)
 

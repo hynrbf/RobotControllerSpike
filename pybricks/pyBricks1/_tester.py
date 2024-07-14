@@ -11,6 +11,10 @@ async def test_wheel():
     await WheelController.wheel_left_turn()
     await wait(1000)
     await WheelController.wheel_right_turn()
+    await wait(1000)
+    await WheelController.wheel_right_turn()
+    await wait(1000)
+    await WheelController.wheel_left_turn()
 
 
 async def test_gripper():
@@ -23,8 +27,12 @@ async def test_gripper():
 
 async def main():
     print("Start, pb version: ", version)
-    await test_wheel()
+    # await multitask(WheelController.move_wheels_backward_in_straight_line(float(400), float(100)),
+    #                ColorController.detect_white_or_black_mat_color())
+    # await WheelController.move_wheels_back_then_stop_at_center_line()
 
+    await GripperController.grip_element_using_left_arm()
+    await WheelController.move_wheels_backward_in_straight_line(float(200))
     print("DONE!")
 
 
