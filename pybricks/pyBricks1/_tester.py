@@ -25,14 +25,18 @@ async def test_gripper():
     await GripperController.grip_element_using_right_arm()
 
 
+async def test_green_color():
+    is_green = await ColorController.detect_green_vegetable()
+    print("Is green: ", is_green)
+
+
 async def main():
     print("Start, pb version: ", version)
-    # await multitask(WheelController.move_wheels_backward_in_straight_line(float(400), float(100)),
-    #                ColorController.detect_white_or_black_mat_color())
-    # await WheelController.move_wheels_back_then_stop_at_center_line()
 
-    await GripperController.grip_element_using_left_arm()
-    await WheelController.move_wheels_backward_in_straight_line(float(200))
+    await test_wheel()
+    await test_gripper()
+    await test_green_color()
+
     print("DONE!")
 
 
