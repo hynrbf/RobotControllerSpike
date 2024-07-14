@@ -37,6 +37,8 @@ async def main():
     # await test_gripper()
     # await test_green_color()
 
+    await WheelController.move_wheels_forward_in_straight_line(float(2000))
+
     print("DONE!")
 
 
