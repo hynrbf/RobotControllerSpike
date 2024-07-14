@@ -33,9 +33,9 @@ async def test_green_color():
 async def main():
     print("Start, pb version: ", version)
 
-    await test_wheel()
-    await test_gripper()
-    await test_green_color()
+    # await test_wheel()
+    # await test_gripper()
+    # await test_green_color()
 
     print("DONE!")
 
