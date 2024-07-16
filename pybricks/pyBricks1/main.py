@@ -240,14 +240,14 @@ async def water_the_green_plants_and_move_rotten_plants():
     await water_if_green_plant(count_tries_to_detect_green)
     count_tries_to_detect_green = count_tries_to_detect_green + 1
 
-    # # go to 2nd green square
-    # await WheelController.wheel_right_turn()
-    # await WheelController.move_wheels_forward_in_straight_line(float(160), Speed.Straight)
-    # await WheelController.wheel_left_turn()
-    # await WheelController.move_wheels_forward_in_straight_line(float(110))
-    # await water_if_green_plant(count_tries_to_detect_green)
-    # count_tries_to_detect_green = count_tries_to_detect_green + 1
-    #
+    # go to 2nd green square
+    await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(160), Speed.Straight)
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(115))
+    await water_if_green_plant(count_tries_to_detect_green)
+    count_tries_to_detect_green = count_tries_to_detect_green + 1
+
     # # go to 3rd green square
     # await WheelController.wheel_right_turn()
     # await WheelController.move_wheels_forward_in_straight_line(float(160), Speed.Straight)
@@ -275,9 +275,9 @@ async def main():
     await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm())
 
     await water_the_green_plants_and_move_rotten_plants()
-    #await get_the_vegetables()
-    #await get_the_vegetables_at_the_market()
-    #await get_water_elements()
+    # await get_the_vegetables()
+    # await get_the_vegetables_at_the_market()
+    # await get_water_elements()
     # await multitask(get_the_vegetables(), WheelController.debug())
     print("DONE!")
 
