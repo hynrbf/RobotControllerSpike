@@ -192,15 +192,17 @@ async def get_the_vegetables():
     await WheelController.move_wheels_forward_in_straight_line(float(220))
     await multitask(GripperController.reset_left_arm(), WheelController.wheel_slight_right_turn())
     await WheelController.wheel_slight_left_turn()
-    # await WheelController.move_wheels_backward_in_straight_line(float(400))
-    # await multitask(WheelController.wheel_slight_left_turn(), GripperController.grip_element_using_left_arm())
-    #
-    # # going to red market
-    # await WheelController.move_wheels_backward_in_straight_line(float(400))
-    # await WheelController.move_wheels_backward_in_straight_line(float(300), with_brake=True)
-    # await WheelController.move_wheels_forward_in_straight_line(float(60))
-    # await WheelController.wheel_right_turn()
-    # await WheelController.move_wheels_backward_in_straight_line(float(475))
+    await WheelController.move_wheels_backward_in_straight_line(float(400))
+    await multitask(WheelController.wheel_right_turn_with_angle(float(135)),
+                    GripperController.grip_element_using_left_arm())
+
+    # going to red market
+    await WheelController.move_wheels_forward_in_straight_line(float(400))
+    await WheelController.wheel_u_turn_right()
+    await WheelController.move_wheels_backward_in_straight_line(float(300), with_brake=True)
+    await WheelController.move_wheels_forward_in_straight_line(float(60))
+    await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_backward_in_straight_line(float(475))
 
 
 # Alfeo's code
@@ -258,7 +260,7 @@ async def water_the_green_plants_and_move_rotten_plants():
 
     # going to base
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(800))
+    await WheelController.move_wheels_forward_in_straight_line(float(800), Speed.Straight)
     await WheelController.wheel_u_turn_right()
     await multitask(GripperController.release_element_using_both_arms(),
                     WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True))
@@ -273,7 +275,7 @@ async def main():
     print("Start, pb version: ", version)
     await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm())
 
-    # await water_the_green_plants_and_move_rotten_plants()
+    await water_the_green_plants_and_move_rotten_plants()
     await get_the_vegetables()
     # await get_the_vegetables_at_the_market()
     # await get_water_elements()
