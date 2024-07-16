@@ -23,6 +23,13 @@ async def test_gripper():
     await wait(1000)
     await GripperController.reset_right_arm()
     await GripperController.grip_element_using_right_arm()
+    await wait(1000)
+    await GripperController.reset_left_arm()
+    await GripperController.reset_right_arm()
+    await wait(1000)
+    await GripperController.grip_element_using_both_arms()
+    await wait(1000)
+    await GripperController.release_element_using_both_arms()
 
 
 async def test_green_color():
@@ -34,10 +41,8 @@ async def main():
     print("Start, pb version: ", version)
 
     # await test_wheel()
-    # await test_gripper()
+    await test_gripper()
     # await test_green_color()
-
-    await WheelController.move_wheels_forward_in_straight_line(float(2000))
 
     print("DONE!")
 
