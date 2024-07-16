@@ -183,15 +183,15 @@ async def get_the_vegetables():
     await multitask(GripperController.release_element_using_both_arms(),
                     WheelController.move_wheels_forward_in_straight_line(float(145), float(100)))
     await GripperController.grip_element_using_both_arms()
-    #
-    # # going long straight to the compose area
-    # await WheelController.move_wheels_backward_in_straight_line(float(145))
-    # await WheelController.wheel_right_turn()
-    # await WheelController.move_wheels_forward_in_straight_line(float(1670), Speed.Straight)
-    # await WheelController.wheel_slight_left_turn()
-    # await WheelController.move_wheels_forward_in_straight_line(float(310))
-    # await multitask(GripperController.reset_left_arm(), WheelController.wheel_slight_right_turn())
-    # await WheelController.wheel_slight_left_turn()
+
+    # going long straight to the compose area
+    await WheelController.move_wheels_backward_in_straight_line(float(175))
+    await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(1670), Speed.Straight)
+    await WheelController.wheel_slight_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(220))
+    await multitask(GripperController.reset_left_arm(), WheelController.wheel_slight_right_turn())
+    await WheelController.wheel_slight_left_turn()
     # await WheelController.move_wheels_backward_in_straight_line(float(400))
     # await multitask(WheelController.wheel_slight_left_turn(), GripperController.grip_element_using_left_arm())
     #
