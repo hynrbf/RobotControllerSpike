@@ -169,38 +169,38 @@ async def get_the_vegetables_at_the_market():
 
 
 async def get_the_vegetables():
-    # get red vegetable and yellow
-    await WheelController.move_wheels_forward_in_straight_line(float(50))
+    # get the 1st red vegetable and yellow
+    await WheelController.move_wheels_forward_in_straight_line(float(45))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(195), Speed.Medium)
+    await WheelController.move_wheels_forward_in_straight_line(float(205), Speed.Medium)
     await GripperController.grip_element_using_both_arms()
 
-    # get another set of vegetable
-    await WheelController.move_wheels_backward_in_straight_line(float(200))
+    # get 2nd set of vegetables
+    await WheelController.move_wheels_backward_in_straight_line(float(150))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(185))
+    await WheelController.move_wheels_forward_in_straight_line(float(175))
     await WheelController.wheel_left_turn()
     await multitask(GripperController.release_element_using_both_arms(),
-                    WheelController.move_wheels_forward_in_straight_line(float(185), float(100)))
+                    WheelController.move_wheels_forward_in_straight_line(float(145), float(100)))
     await GripperController.grip_element_using_both_arms()
-
-    # going long straight to the compose area
-    await WheelController.move_wheels_backward_in_straight_line(float(145))
-    await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(1670), Speed.Straight)
-    await WheelController.wheel_slight_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(310))
-    await multitask(GripperController.reset_left_arm(), WheelController.wheel_slight_right_turn())
-    await WheelController.wheel_slight_left_turn()
-    await WheelController.move_wheels_backward_in_straight_line(float(400))
-    await multitask(WheelController.wheel_slight_left_turn(), GripperController.grip_element_using_left_arm())
-
-    # going to red market
-    await WheelController.move_wheels_backward_in_straight_line(float(400))
-    await WheelController.move_wheels_backward_in_straight_line(float(300), with_brake=True)
-    await WheelController.move_wheels_forward_in_straight_line(float(60))
-    await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_backward_in_straight_line(float(475))
+    #
+    # # going long straight to the compose area
+    # await WheelController.move_wheels_backward_in_straight_line(float(145))
+    # await WheelController.wheel_right_turn()
+    # await WheelController.move_wheels_forward_in_straight_line(float(1670), Speed.Straight)
+    # await WheelController.wheel_slight_left_turn()
+    # await WheelController.move_wheels_forward_in_straight_line(float(310))
+    # await multitask(GripperController.reset_left_arm(), WheelController.wheel_slight_right_turn())
+    # await WheelController.wheel_slight_left_turn()
+    # await WheelController.move_wheels_backward_in_straight_line(float(400))
+    # await multitask(WheelController.wheel_slight_left_turn(), GripperController.grip_element_using_left_arm())
+    #
+    # # going to red market
+    # await WheelController.move_wheels_backward_in_straight_line(float(400))
+    # await WheelController.move_wheels_backward_in_straight_line(float(300), with_brake=True)
+    # await WheelController.move_wheels_forward_in_straight_line(float(60))
+    # await WheelController.wheel_right_turn()
+    # await WheelController.move_wheels_backward_in_straight_line(float(475))
 
 
 # Alfeo's code
@@ -273,8 +273,8 @@ async def main():
     print("Start, pb version: ", version)
     await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm())
 
-    await water_the_green_plants_and_move_rotten_plants()
-    # await get_the_vegetables()
+    # await water_the_green_plants_and_move_rotten_plants()
+    await get_the_vegetables()
     # await get_the_vegetables_at_the_market()
     # await get_water_elements()
     # await multitask(get_the_vegetables(), WheelController.debug())
