@@ -41,8 +41,10 @@ async def main():
     print("Start, pb version: ", version)
 
     # await test_wheel()
-    await test_gripper()
+    # await test_gripper()
     # await test_green_color()
+
+    await GripperController.release_element_using_both_arms()
 
     print("DONE!")
 
