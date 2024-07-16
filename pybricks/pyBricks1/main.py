@@ -215,13 +215,13 @@ async def water_if_green_plant(count_tries_to_detect_green: int) -> bool:
         await WheelController.move_wheels_backward_in_straight_line(float(115), Speed.Straight)
         is_green_detected = True
     else:
-        await WheelController.move_wheels_forward_in_straight_line(float(120), Speed.Straight)
+        await WheelController.move_wheels_forward_in_straight_line(float(110), Speed.Straight)
 
         # if count_tries_to_detect_green >= 2:
         #    await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm(),
         #                    WheelController.move_wheels_backward_in_straight_line(float(240), Speed.Straight))
         # else:
-        await WheelController.move_wheels_backward_in_straight_line(float(235), Speed.Straight)
+        await WheelController.move_wheels_backward_in_straight_line(float(225), Speed.Straight)
 
     return is_green_detected
 
@@ -256,20 +256,12 @@ async def water_the_green_plants_and_move_rotten_plants():
     await water_if_green_plant(count_tries_to_detect_green)
     count_tries_to_detect_green = count_tries_to_detect_green + 1
 
-    # await WheelController.wheel_right_turn()
-    # await WheelController.move_wheels_forward_in_straight_line(float(160), Speed.Straight)
-    # await WheelController.wheel_left_turn()
-    # await WheelController.move_wheels_forward_in_straight_line(float(110))
-    # await water_if_green_plant(count_tries_to_detect_green)
-    # count_tries_to_detect_green = count_tries_to_detect_green + 1
-    #
-    # await WheelController.wheel_right_turn()
-    # await WheelController.wheel_u_turn_right()
-    # await WheelController.move_wheels_forward_in_straight_line(float(800))
-    # await WheelController.wheel_u_turn_right()
-    # # await multitask(GripperController.release_element_using_both_arms(),
-    # #                WheelController.move_wheels_backward_in_straight_line(float(800), Speed.Straight))
-    # await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
+    # going to base
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(800))
+    await WheelController.wheel_u_turn_right()
+    await multitask(GripperController.release_element_using_both_arms(),
+                    WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True))
 
 
 # 1) example of moving motors straight. e.g. float(1000) is 1 meter which is 1000mm
