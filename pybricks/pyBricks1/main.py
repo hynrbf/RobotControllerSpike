@@ -32,16 +32,9 @@ async def move_rotten_plant() -> bool:
 
 
 async def get_water_elements():
-    # position to center line
-    await WheelController.wheel_right_turn_with_angle(float(135))
-    await WheelController.move_wheels_backward_in_straight_line(float(400), with_brake=True)
-    await multitask(WheelController.move_wheels_forward_in_straight_line(float(300)),
-                    GripperController.grip_element_using_both_arms())
-    await WheelController.wheel_right_turn()
-    position_of_green = 0
-
     # go to 1st green square
-    await WheelController.move_wheels_forward_in_straight_line(float(250), Speed.Straight)
+    position_of_green = 0
+    await WheelController.move_wheels_forward_in_straight_line(float(450), Speed.Straight)
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.move_wheels_towards_element_then_stop_at_marker()
@@ -285,7 +278,7 @@ async def main():
     await water_the_green_plants_and_move_rotten_plants()
     await get_the_vegetables()
     await get_the_vegetables_at_the_market()
-    # await get_water_elements()
+    await get_water_elements()
     # await multitask(get_the_vegetables(), WheelController.debug())
     print("DONE!")
 
