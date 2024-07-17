@@ -28,19 +28,11 @@ class GripperController:
     async def reset_right_arm():
         await GripperController.__right_motor.run_target(500, 0)
         GripperController.__right_motor_position = HandPosition.Release
-        await wait(100)
-
-        print("Right hand pos: ", GripperController.__right_motor_position)
-        GripperController.__get_right_arm_angle()
 
     @staticmethod
     async def reset_left_arm():
         await GripperController.__left_motor.run_target(500, 0)
         GripperController.__left_motor_position = HandPosition.Release
-        await wait(100)
-
-        print("Left hand pos: ", GripperController.__right_motor_position)
-        GripperController.__get_left_arm_angle()
 
     @staticmethod
     async def grip_element_using_right_arm():
