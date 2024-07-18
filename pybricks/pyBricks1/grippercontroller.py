@@ -1,7 +1,7 @@
 from pybricks.pupdevices import Motor
 from pybricks.parameters import Port, Icon
 from pybricks.robotics import DriveBase
-from pybricks.tools import wait
+from pybricks.tools import wait, multitask
 
 from shared import Shared, Speed
 
@@ -17,38 +17,22 @@ class GripperController:
     __right_motor_position = HandPosition.Release
     __left_motor_position = HandPosition.Release
     __both_motors = DriveBase(__left_motor, __right_motor, 56, 60)
-    __grip_turn_angle = 90
+    # 88 to 90
+    __grip_turn_angle = 88
 
     @staticmethod
     async def reset_both_arms():
-        await GripperController.reset_right_arm()
-        await GripperController.reset_left_arm()
+        await multitask(GripperController.reset_right_arm(), GripperController.reset_left_arm())
 
     @staticmethod
     async def reset_right_arm():
-        Shared.hub().display.icon(Icon.EMPTY)
-        GripperController.__get_right_arm_angle()
-        await wait(100)
-
         await GripperController.__right_motor.run_target(500, 0)
         GripperController.__right_motor_position = HandPosition.Release
-        await wait(100)
-
-        print("Right hand pos: ", GripperController.__right_motor_position)
-        GripperController.__get_right_arm_angle()
 
     @staticmethod
     async def reset_left_arm():
-        Shared.hub().display.icon(Icon.EMPTY)
-        GripperController.__get_left_arm_angle()
-        await wait(100)
-
         await GripperController.__left_motor.run_target(500, 0)
         GripperController.__left_motor_position = HandPosition.Release
-        await wait(100)
-
-        print("Left hand pos: ", GripperController.__right_motor_position)
-        GripperController.__get_left_arm_angle()
 
     @staticmethod
     async def grip_element_using_right_arm():
@@ -57,10 +41,6 @@ class GripperController:
 
         await GripperController.__right_motor.run_angle(500, -GripperController.__grip_turn_angle, wait=True)
         GripperController.__right_motor_position = HandPosition.Grip
-        Shared.hub().display.icon(Icon.SAD)
-        await wait(500)
-
-        GripperController.__get_right_arm_angle()
 
     @staticmethod
     async def grip_element_using_left_arm():
@@ -70,9 +50,6 @@ class GripperController:
         await GripperController.__left_motor.run_angle(500, GripperController.__grip_turn_angle, wait=True)
         GripperController.__left_motor_position = HandPosition.Grip
         Shared.hub().display.icon(Icon.SAD)
-        await wait(500)
-
-        GripperController.__get_left_arm_angle()
 
     @staticmethod
     async def grip_element_using_both_arms():
@@ -85,13 +62,12 @@ class GripperController:
             await GripperController.grip_element_using_right_arm()
             return
 
-        await GripperController.__both_motors.turn(GripperController.__grip_turn_angle)
+        await multitask(GripperController.grip_element_using_left_arm(),
+                        GripperController.grip_element_using_right_arm())
         GripperController.__right_motor_position = HandPosition.Grip
         GripperController.__left_motor_position = HandPosition.Grip
         print("Right hand pos: ", GripperController.__right_motor_position)
         print("Left hand pos: ", GripperController.__left_motor_position)
-        Shared.hub().display.icon(Icon.SAD)
-        await wait(500)
 
     @staticmethod
     async def release_element_using_both_arms():
@@ -104,45 +80,31 @@ class GripperController:
             await GripperController.reset_right_arm()
             return
 
-        await GripperController.__both_motors.turn(-GripperController.__grip_turn_angle)
+        await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm())
         GripperController.__right_motor_position = HandPosition.Release
         GripperController.__left_motor_position = HandPosition.Release
         print("Right hand pos: ", GripperController.__right_motor_position)
         print("Left hand pos: ", GripperController.__left_motor_position)
-        Shared.hub().display.icon(Icon.SAD)
-        await wait(500)
 
     @staticmethod
     async def hook_element_downwards(speed: float = Speed.Fast, angle: int = 45):
         angle = angle * -1
         await GripperController.__right_motor.run_angle(speed, angle, wait=True)
-        await wait(500)
-
-        GripperController.__get_left_arm_angle()
 
     @staticmethod
     async def hook_element_upwards(speed: float = Speed.Fast, angle: int = 45):
         # left motor will be negative, but we will use right
         # angle = angle * -1
         await GripperController.__right_motor.run_angle(speed, angle, wait=True)
-        await wait(500)
-
-        GripperController.__get_left_arm_angle()
 
     @staticmethod
     async def hook_element_downwards_using_left(speed: float = Speed.Fast, angle: int = 45):
         await GripperController.__left_motor.run_angle(speed, angle, wait=True)
-        await wait(500)
-
-        GripperController.__get_left_arm_angle()
 
     @staticmethod
     async def hook_element_upwards_using_left(speed: float = Speed.Fast, angle: int = 45):
         angle = angle * -1
         await GripperController.__left_motor.run_angle(speed, angle, wait=True)
-        await wait(500)
-
-        GripperController.__get_left_arm_angle()
 
     @staticmethod
     def __get_right_arm_angle() -> int:
