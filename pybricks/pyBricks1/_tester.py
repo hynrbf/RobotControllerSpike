@@ -74,9 +74,15 @@ async def main():
         await WheelController.move_wheels_forward_in_straight_line(float(200))
         await GripperController.reset_both_arms()
         await WheelController.move_wheels_backward_in_straight_line(float(50))
-
+    else:
+        await WheelController.wheel_slight_left_turn()
+        await WheelController.move_wheels_forward_in_straight_line(float(210))
+        await WheelController.wheel_left_turn()
+        await WheelController.wheel_right_turn()
+        await GripperController.reset_left_arm()
+        await WheelController.move_wheels_backward_in_straight_line(float(230))
+        await WheelController.wheel_slight_right_turn()
     print("DONE!")
 
 
 run_task(main())
-
