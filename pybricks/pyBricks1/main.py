@@ -67,13 +67,13 @@ async def get_water_elements():
     await GripperController.grip_element_using_both_arms()
     await WheelController.move_wheels_forward_in_straight_line(float(30))
     await WheelController.wheel_u_turn_right()
-    await WheelController.move_wheels_forward_in_straight_line(float(40))
+    await WheelController.move_wheels_forward_in_straight_line(float(50))
     await GripperController.reset_both_arms()
     await WheelController.wheel_right_turn_with_angle(float(20))
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     is_red = await ColorController.detect_red_vegetable()
 
-    # now grip the element
+    # now grip the element inside container
     await WheelController.move_wheels_backward_in_straight_line(float(50))
     await WheelController.wheel_right_turn_with_angle(float(70))
     await WheelController.move_wheels_forward_in_straight_line(float(100))
@@ -100,9 +100,8 @@ async def get_water_elements():
         await WheelController.move_wheels_forward_in_straight_line(float(210))
         await WheelController.wheel_left_turn()
         await WheelController.wheel_right_turn()
-        await GripperController.reset_left_arm()
-        await WheelController.move_wheels_backward_in_straight_line(float(230))
-        await WheelController.wheel_slight_right_turn()
+        await GripperController.reset_both_arms()
+        await WheelController.move_wheels_backward_in_straight_line(float(100))
 
 
 # Anton's code
