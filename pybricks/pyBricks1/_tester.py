@@ -39,24 +39,18 @@ async def test_green_color():
 
 async def main():
     print("Start, pb version: ", version)
-
-    # await test_wheel()
-    # await test_gripper()
-    # await test_green_color()
-
-    # get vegetable in a container
-    await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm())
+    await GripperController.reset_both_arms()
     await GripperController.grip_element_using_both_arms()
 
     # get vegetable in a container and detect color
-    await WheelController.move_wheels_forward_in_straight_line(float(50))
+    await GripperController.grip_element_using_both_arms()
+    await WheelController.move_wheels_forward_in_straight_line(float(30))
     await WheelController.wheel_u_turn_right()
-    await WheelController.move_wheels_forward_in_straight_line(float(50))
+    await WheelController.move_wheels_forward_in_straight_line(float(40))
     await GripperController.reset_both_arms()
     await WheelController.wheel_right_turn_with_angle(float(20))
     await WheelController.move_wheels_forward_in_straight_line(float(70))
     is_red = await ColorController.detect_red_vegetable()
-    print("is red:", is_red)
 
     # now grip the element
     await WheelController.move_wheels_backward_in_straight_line(float(50))

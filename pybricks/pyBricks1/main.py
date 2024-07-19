@@ -63,27 +63,6 @@ async def get_water_elements():
     if await move_rotten_plant():
         position_of_green = 3
 
-    # get vegetable in a container and detect color
-    await WheelController.move_wheels_forward_in_straight_line(float(50))
-    await WheelController.wheel_u_turn_right()
-    await WheelController.move_wheels_forward_in_straight_line(float(50))
-    await GripperController.reset_both_arms()
-    await WheelController.wheel_right_turn_with_angle(float(20))
-    await WheelController.move_wheels_forward_in_straight_line(float(70))
-    is_red = await ColorController.detect_red_vegetable()
-
-    # now grip the element
-    await WheelController.move_wheels_backward_in_straight_line(float(50))
-    await WheelController.wheel_right_turn_with_angle(float(70))
-    await WheelController.move_wheels_forward_in_straight_line(float(90))
-    await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(45), with_brake=True)
-    await GripperController.grip_element_using_left_arm()
-    await WheelController.move_wheels_backward_in_straight_line(float(70))
-    await WheelController.wheel_left_turn()
-    await multitask(WheelController.move_wheels_forward_in_straight_line(float(500), Speed.Straight),
-                    GripperController.grip_element_using_both_arms())
-
 
 # Anton's code
 async def get_the_vegetables_at_the_market():
@@ -135,11 +114,14 @@ async def get_the_vegetables_at_the_market():
         await multitask(WheelController.move_wheels_forward_in_straight_line(float(1100)),
                         GripperController.grip_element_using_both_arms())
 
+    # putting in compose area
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(470))
     await WheelController.wheel_slight_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(230))
     await multitask(GripperController.release_element_using_both_arms(), WheelController.wheel_slight_right_turn())
+
+    # postion wall near compose area
     await WheelController.wheel_slight_left_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(230))
     await WheelController.wheel_slight_right_turn()
