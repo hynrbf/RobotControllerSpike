@@ -87,9 +87,9 @@ async def get_water_elements():
 
     if is_red:
         await WheelController.wheel_right_turn()
-        await WheelController.move_wheels_forward_in_straight_line(float(450), Speed.Straight)
+        await WheelController.move_wheels_forward_in_straight_line(float(500), Speed.Straight)
         await WheelController.wheel_u_turn_right()
-        await WheelController.move_wheels_backward_in_straight_line(float(290), with_brake=True)
+        await WheelController.move_wheels_backward_in_straight_line(float(240), with_brake=True)
         await WheelController.move_wheels_forward_in_straight_line(float(60))
         await WheelController.wheel_left_turn()
         await WheelController.move_wheels_forward_in_straight_line(float(200))
@@ -121,7 +121,7 @@ async def get_the_vegetables_at_the_market():
     is_red_got_first = is_red and not is_yellow
 
     await WheelController.wheel_right_turn_with_angle(float(15))
-    await WheelController.move_wheels_forward_in_straight_line(float(70))
+    await WheelController.move_wheels_forward_in_straight_line(float(65))
     await GripperController.grip_element_using_left_arm()
     await WheelController.wheel_left_turn_with_angle(float(15))
 
@@ -168,7 +168,7 @@ async def get_the_vegetables_at_the_market():
     await WheelController.wheel_slight_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(150))
     await WheelController.wheel_u_turn_right()
-    await WheelController.move_wheels_backward_in_straight_line(float(155), with_brake=True)
+    await WheelController.move_wheels_backward_in_straight_line(float(165), with_brake=True)
 
 
 async def get_the_vegetables():
