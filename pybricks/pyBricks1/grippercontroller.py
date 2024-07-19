@@ -18,7 +18,7 @@ class GripperController:
     __left_motor_position = HandPosition.Release
     __both_motors = DriveBase(__left_motor, __right_motor, 56, 60)
     # 88 to 90
-    __grip_turn_angle = 88
+    __grip_turn_angle = 90
 
     @staticmethod
     async def reset_both_arms():
