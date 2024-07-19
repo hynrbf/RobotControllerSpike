@@ -49,7 +49,7 @@ async def main():
     await WheelController.move_wheels_forward_in_straight_line(float(40))
     await GripperController.reset_both_arms()
     await WheelController.wheel_right_turn_with_angle(float(20))
-    await WheelController.move_wheels_forward_in_straight_line(float(70))
+    await WheelController.move_wheels_forward_in_straight_line(float(60))
     is_red = await ColorController.detect_red_vegetable()
 
     # now grip the element
@@ -57,7 +57,7 @@ async def main():
     await WheelController.wheel_right_turn_with_angle(float(70))
     await WheelController.move_wheels_forward_in_straight_line(float(90))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(45), with_brake=True)
+    await WheelController.move_wheels_forward_in_straight_line(float(38), with_brake=True)
     await GripperController.grip_element_using_left_arm()
     await WheelController.move_wheels_backward_in_straight_line(float(70))
     await WheelController.wheel_left_turn()
