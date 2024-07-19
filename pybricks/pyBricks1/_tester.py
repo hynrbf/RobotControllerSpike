@@ -39,10 +39,11 @@ async def test_green_color():
 
 async def main():
     print("Start, pb version: ", version)
+    await GripperController.release_element_using_both_arms()
 
-    await test_gripper()
-    await test_wheel()
-    await test_green_color()
+    # await test_gripper()
+    # await test_wheel()
+    # await test_green_color()
 
     print("DONE!")
 
