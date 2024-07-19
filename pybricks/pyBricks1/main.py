@@ -22,8 +22,7 @@ async def move_rotten_plant() -> bool:
     is_green_detected = False
 
     if await ColorController.detect_green_vegetable():
-        await multitask(GripperController.reset_both_arms(),
-                        WheelController.move_wheels_backward_in_straight_line(float(115), Speed.Straight))
+        await WheelController.move_wheels_backward_in_straight_line(float(115), Speed.Straight)
         is_green_detected = True
     else:
         await WheelController.move_wheels_forward_in_straight_line(float(110), Speed.Straight)
@@ -70,7 +69,7 @@ async def get_water_elements():
     await WheelController.move_wheels_forward_in_straight_line(float(50))
     await GripperController.reset_both_arms()
     await WheelController.wheel_right_turn_with_angle(float(20))
-    await WheelController.move_wheels_forward_in_straight_line(float(60))
+    await WheelController.move_wheels_forward_in_straight_line(float(58))
     is_red = await ColorController.detect_red_vegetable()
 
     # now grip the element inside container
@@ -167,14 +166,15 @@ async def get_the_vegetables_at_the_market():
     await WheelController.wheel_slight_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(150))
     await WheelController.wheel_u_turn_right()
-    await WheelController.move_wheels_backward_in_straight_line(float(165), with_brake=True)
+    await multitask(WheelController.move_wheels_backward_in_straight_line(float(175), with_brake=True),
+                    GripperController.grip_element_using_both_arms())
 
 
 async def get_the_vegetables():
     # get the 1st red vegetable and yellow
     await WheelController.move_wheels_forward_in_straight_line(float(45))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(205), Speed.Medium)
+    await WheelController.move_wheels_forward_in_straight_line(float(200), Speed.Medium)
     await GripperController.grip_element_using_both_arms()
 
     # get 2nd set of vegetables
