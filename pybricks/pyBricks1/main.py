@@ -191,7 +191,11 @@ async def get_the_vegetables():
     # going long straight to the compose area
     await WheelController.move_wheels_backward_in_straight_line(float(195))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(1670), Speed.Straight)
+    await WheelController.move_wheels_forward_in_straight_line(float(1050), Speed.Straight)
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(30), Speed.Straight)
+    await WheelController.wheel_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(620), Speed.Straight)
     await WheelController.wheel_slight_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(220))
     await multitask(GripperController.reset_left_arm(), WheelController.wheel_slight_right_turn())
