@@ -81,10 +81,10 @@ async def get_water_elements():
     await GripperController.grip_element_using_left_arm()
     await WheelController.move_wheels_backward_in_straight_line(float(70))
     await WheelController.wheel_left_turn()
-    await multitask(WheelController.move_wheels_forward_in_straight_line(float(500), Speed.Straight),
-                    GripperController.grip_element_using_both_arms())
 
     if is_red:
+        await multitask(WheelController.move_wheels_forward_in_straight_line(float(500), Speed.Straight),
+                        GripperController.grip_element_using_both_arms())
         await WheelController.wheel_right_turn()
         await WheelController.move_wheels_forward_in_straight_line(float(500), Speed.Straight)
         await WheelController.wheel_u_turn_right()
@@ -95,6 +95,8 @@ async def get_water_elements():
         await GripperController.reset_both_arms()
         await WheelController.move_wheels_backward_in_straight_line(float(50))
     else:
+        await multitask(WheelController.move_wheels_forward_in_straight_line(float(600), Speed.Straight),
+                        GripperController.grip_element_using_both_arms())
         await WheelController.wheel_slight_left_turn()
         await WheelController.move_wheels_forward_in_straight_line(float(210))
         await WheelController.wheel_left_turn()
