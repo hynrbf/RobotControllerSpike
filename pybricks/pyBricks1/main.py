@@ -219,7 +219,7 @@ async def water_if_green_plant(count_tries_to_detect_green: int) -> bool:
     is_green_detected = False
 
     if await ColorController.detect_green_vegetable():
-        # from color detect position. 125 backward, 125 forward, then backward 115
+        # from color detect position 120 forward. 125 backward, 125 forward, then backward 120
         await WheelController.move_wheels_backward_in_straight_line(float(25), Speed.Straight)
         await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm(),
                         WheelController.move_wheels_backward_in_straight_line(float(100), Speed.Straight))
@@ -266,7 +266,7 @@ async def water_the_green_plants_and_move_rotten_plants():
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(165), Speed.Straight)
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(120))
+    await WheelController.move_wheels_forward_in_straight_line(float(130))
     await water_if_green_plant(count_tries_to_detect_green)
     count_tries_to_detect_green = count_tries_to_detect_green + 1
 
