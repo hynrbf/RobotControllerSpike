@@ -11,10 +11,11 @@ await WheelController.wheel_left_turn()
 
 3. things to avoid
 robot to test gripper and wheel
+always press wheel with 2 fingers para kapit!!!
+pa simple oil!!
 
 avoid ma over distance and masabit
 check body na nde tabingi
-always press wheel para kapit
 never put the hub in stand position, the gyro will be bad
 check the color light have lights
 
