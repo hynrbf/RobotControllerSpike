@@ -108,7 +108,7 @@ async def get_the_vegetables_at_the_market():
     await WheelController.wheel_left_turn_with_angle(float(180))
     await WheelController.wheel_right_turn_with_angle(float(180))
     await multitask(GripperController.release_element_using_both_arms(),
-                    WheelController.move_wheels_backward_in_straight_line(float(480)))
+                    WheelController.move_wheels_backward_in_straight_line(float(525)))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(95), with_brake=True)
     await WheelController.move_wheels_forward_in_straight_line(float(60))
@@ -122,7 +122,8 @@ async def get_the_vegetables_at_the_market():
     await WheelController.wheel_right_turn_with_angle(float(15))
     await WheelController.move_wheels_forward_in_straight_line(float(65))
     await multitask(GripperController.grip_element_using_left_arm(),
-                    WheelController.wheel_left_turn_with_angle(float(15)))
+                    WheelController.wheel_left_turn_with_angle(float(30)))
+    await WheelController.wheel_right_turn_with_angle(float(15))
 
     # get 2nd vegetable
     await WheelController.move_wheels_forward_in_straight_line(float(20))
