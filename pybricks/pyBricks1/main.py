@@ -117,7 +117,7 @@ async def get_the_vegetables_at_the_market():
     await WheelController.wheel_left_turn()
 
     # go to the 2 vegetables
-    await WheelController.move_wheels_forward_in_straight_line(float(270))
+    await WheelController.move_wheels_forward_in_straight_line(float(290))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(50))
     await WheelController.wheel_left_turn_with_angle(20)
@@ -125,9 +125,9 @@ async def get_the_vegetables_at_the_market():
     await WheelController.wheel_right_turn_with_angle(40)
     is_red_again = await ColorController.detect_red_vegetable()
     await WheelController.wheel_left_turn_with_angle(20)
-    await WheelController.move_wheels_forward_in_straight_line(float(100), float(100))
+    await WheelController.move_wheels_forward_in_straight_line(float(100), Speed.Slow)
     await GripperController.grip_element_using_both_arms()
-    is_move_to_compose_area = True
+    is_go_to_compose_area = True
     print("result ", is_red, is_red_again)
 
     # both red
@@ -141,7 +141,7 @@ async def get_the_vegetables_at_the_market():
         await WheelController.move_wheels_backward_in_straight_line(float(250))
         await multitask(WheelController.wheel_left_turn(), GripperController.grip_element_using_both_arms())
         await WheelController.move_wheels_forward_in_straight_line(float(1110), Speed.Straight)
-        is_move_to_compose_area = False
+        is_go_to_compose_area = False
 
     # both yellow
     if not is_red and not is_red_again:
@@ -175,9 +175,17 @@ async def get_the_vegetables_at_the_market():
         await multitask(WheelController.wheel_left_turn(), GripperController.grip_element_using_both_arms())
         await WheelController.move_wheels_forward_in_straight_line(float(1110), Speed.Straight)
 
-    # putting in compose area
+    # going to center line
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(420))
+    await WheelController.move_wheels_forward_in_straight_line(float(400))
+
+    if not is_go_to_compose_area:
+        await WheelController.wheel_left_turn()
+        await multitask(WheelController.move_wheels_backward_in_straight_line(float(265), with_brake=True),
+                        GripperController.grip_element_using_both_arms())
+        return
+
+    print("do dome")
     # await WheelController.wheel_slight_right_turn()
     # await WheelController.move_wheels_forward_in_straight_line(float(230))
     # await multitask(GripperController.release_element_using_both_arms(), WheelController.wheel_slight_right_turn())
@@ -205,7 +213,7 @@ async def get_the_vegetables():
     await WheelController.move_wheels_forward_in_straight_line(float(185))
     await WheelController.wheel_left_turn()
     await multitask(GripperController.release_element_using_both_arms(),
-                    WheelController.move_wheels_forward_in_straight_line(float(145), float(100)))
+                    WheelController.move_wheels_forward_in_straight_line(float(145), Speed.Slow))
     await GripperController.grip_element_using_both_arms()
 
     # going long straight to the compose area
@@ -225,9 +233,9 @@ async def get_the_vegetables():
                     GripperController.grip_element_using_left_arm())
 
     # going to red market
-    await WheelController.move_wheels_forward_in_straight_line(float(400), Speed.Straight)
+    await WheelController.move_wheels_forward_in_straight_line(float(500), Speed.Straight)
     await WheelController.wheel_u_turn_right()
-    await WheelController.move_wheels_backward_in_straight_line(float(280), with_brake=True)
+    await WheelController.move_wheels_backward_in_straight_line(float(180), with_brake=True)
     await WheelController.move_wheels_forward_in_straight_line(float(60))
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(475))
