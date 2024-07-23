@@ -113,92 +113,36 @@ async def get_the_vegetables_at_the_market():
                     WheelController.move_wheels_backward_in_straight_line(float(520)))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(95), with_brake=True)
-    await WheelController.move_wheels_forward_in_straight_line(float(60))
+    await WheelController.move_wheels_forward_in_straight_line(float(250))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(115))
+
+    # go to the 2 vegetables
+    await WheelController.move_wheels_forward_in_straight_line(float(290))
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(50))
+    await WheelController.wheel_left_turn_with_angle(20)
     is_red = await ColorController.detect_red_vegetable()
-    is_yellow = await ColorController.detect_yellow_vegetable()
-    is_red_got_first = is_red and not is_yellow
-
-    # get first vegetable
-    await WheelController.wheel_right_turn_with_angle(float(15))
-    await WheelController.move_wheels_forward_in_straight_line(float(60))
-    await multitask(GripperController.grip_element_using_left_arm(),
-                    WheelController.wheel_left_turn_with_angle(float(30)))
-    await WheelController.wheel_right_turn_with_angle(float(15))
-
-    # get 2nd vegetable
-    await WheelController.move_wheels_forward_in_straight_line(float(20))
+    await WheelController.wheel_right_turn_with_angle(40)
     is_red_again = await ColorController.detect_red_vegetable()
-    is_yellow_again = await ColorController.detect_yellow_vegetable()
-    await WheelController.wheel_left_turn_with_angle(float(20))
-    await WheelController.move_wheels_forward_in_straight_line(float(75))
-    await GripperController.grip_element_using_right_arm()
-    is_include = True
+    await WheelController.wheel_left_turn_with_angle(20)
+    await WheelController.move_wheels_forward_in_straight_line(float(100), float(100))
+    await GripperController.grip_element_using_both_arms()
+    print("result ", is_red, is_red_again)
 
     if is_red and is_red_again:
-        await WheelController.wheel_right_turn_with_angle(float(15))
-        await WheelController.move_wheels_backward_in_straight_line(float(380))
-        await GripperController.reset_both_arms()
-        await WheelController.move_wheels_backward_in_straight_line(float(150))
-        await WheelController.wheel_right_turn()
-        await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
-        await WheelController.move_wheels_forward_in_straight_line(float(200))
-        is_include = False
-
-    if is_yellow and is_yellow_again:
-        await WheelController.wheel_right_turn_with_angle(float(195))
-        await multitask(WheelController.move_wheels_forward_in_straight_line(float(380), Speed.Straight),
-                        GripperController.reset_right_arm())
-        await WheelController.move_wheels_backward_in_straight_line(float(150))
+        await WheelController.move_wheels_backward_in_straight_line(float(100))
         await WheelController.wheel_left_turn()
-        await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
-        await WheelController.move_wheels_forward_in_straight_line(float(200))
+        await WheelController.move_wheels_forward_in_straight_line(float(320))
         await WheelController.wheel_right_turn()
-        await multitask(WheelController.move_wheels_forward_in_straight_line(float(1100)),
-                        GripperController.grip_element_using_both_arms())
-        is_include = False
+        await multitask(WheelController.move_wheels_forward_in_straight_line(float(150)),
+                        GripperController.reset_both_arms())
 
-    if is_red_got_first and is_include:
-        await WheelController.wheel_right_turn_with_angle(float(15))
-        await WheelController.move_wheels_backward_in_straight_line(float(380))
-        await GripperController.reset_left_arm()
-        await WheelController.move_wheels_backward_in_straight_line(float(150))
+    if not is_red and not is_red_again:
+        await WheelController.wheel_u_turn_right()
+        await WheelController.move_wheels_backward_in_straight_line(float(105), with_brake=True)
+        await WheelController.move_wheels_forward_in_straight_line(float(250))
         await WheelController.wheel_right_turn()
-        await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
-        await WheelController.move_wheels_forward_in_straight_line(float(200))
-
-        await WheelController.wheel_right_turn()
-        await multitask(WheelController.move_wheels_forward_in_straight_line(float(800)),
-                        GripperController.grip_element_using_both_arms())
-    elif is_include:
-        await WheelController.wheel_right_turn_with_angle(float(195))
-        await multitask(WheelController.move_wheels_forward_in_straight_line(float(380), Speed.Straight),
-                        GripperController.reset_right_arm())
-        await WheelController.move_wheels_backward_in_straight_line(float(150))
-        await WheelController.wheel_left_turn()
-        await WheelController.move_wheels_backward_in_straight_line(float(150), with_brake=True)
-        await WheelController.move_wheels_forward_in_straight_line(float(200))
-
-        await WheelController.wheel_right_turn()
-        await multitask(WheelController.move_wheels_forward_in_straight_line(float(1100)),
-                        GripperController.grip_element_using_both_arms())
-
-    # putting in compose area
-    await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(470))
-    await WheelController.wheel_slight_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(230))
-    await multitask(GripperController.release_element_using_both_arms(), WheelController.wheel_slight_right_turn())
-
-    # postion wall near compose area
-    await WheelController.wheel_slight_left_turn()
-    await WheelController.move_wheels_backward_in_straight_line(float(230))
-    await WheelController.wheel_slight_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(150))
-    await WheelController.wheel_u_turn_right()
-    await multitask(WheelController.move_wheels_backward_in_straight_line(float(265), with_brake=True),
-                    GripperController.grip_element_using_both_arms())
+        await WheelController.move_wheels_forward_in_straight_line(float(1430), Speed.Straight)
 
 
 async def get_the_vegetables():
@@ -318,7 +262,7 @@ async def main():
     await water_the_green_plants_and_move_rotten_plants()
     await get_the_vegetables()
     await get_the_vegetables_at_the_market()
-    await get_elements_at_greenhouse()
+    # await get_elements_at_greenhouse()
     # await multitask(get_the_vegetables(), WheelController.debug())
     print("DONE!")
 
