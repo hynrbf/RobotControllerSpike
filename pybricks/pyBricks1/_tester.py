@@ -39,11 +39,31 @@ async def test_green_color():
 
 async def main():
     print("Start, pb version: ", version)
-    await GripperController.release_element_using_both_arms()
+    await GripperController.reset_both_arms()
 
     # await test_gripper()
     # await test_wheel()
     # await test_green_color()
+
+    await WheelController.move_wheels_forward_in_straight_line(float(290))
+    await WheelController.wheel_left_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(50))
+    await WheelController.wheel_left_turn_with_angle(20)
+    is_red = await ColorController.detect_red_vegetable()
+    await WheelController.wheel_right_turn_with_angle(40)
+    is_red_again = await ColorController.detect_red_vegetable()
+    await WheelController.wheel_left_turn_with_angle(20)
+    await WheelController.move_wheels_forward_in_straight_line(float(100), Speed.Slow)
+    await GripperController.grip_element_using_both_arms()
+    print("result ", is_red, is_red_again)
+
+    if is_red and is_red_again:
+        await WheelController.move_wheels_backward_in_straight_line(float(100))
+        await WheelController.wheel_left_turn()
+        await WheelController.move_wheels_forward_in_straight_line(float(320))
+        await WheelController.wheel_right_turn()
+        await multitask(WheelController.move_wheels_forward_in_straight_line(float(150)),
+                        GripperController.reset_both_arms())
 
     print("DONE!")
 
