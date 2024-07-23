@@ -179,7 +179,7 @@ async def get_the_vegetables():
     # get the 1st red vegetable and yellow
     await WheelController.move_wheels_forward_in_straight_line(float(45))
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(200), Speed.Medium)
+    await WheelController.move_wheels_forward_in_straight_line(float(220), Speed.Medium)
     await GripperController.grip_element_using_both_arms()
 
     # get 2nd set of vegetables
@@ -192,7 +192,7 @@ async def get_the_vegetables():
     await GripperController.grip_element_using_both_arms()
 
     # going long straight to the compose area
-    await WheelController.move_wheels_backward_in_straight_line(float(195))
+    await WheelController.move_wheels_backward_in_straight_line(float(215))
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(1050), Speed.Straight)
     await WheelController.wheel_left_turn()
