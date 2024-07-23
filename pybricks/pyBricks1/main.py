@@ -129,6 +129,7 @@ async def get_the_vegetables_at_the_market():
     await GripperController.grip_element_using_both_arms()
     print("result ", is_red, is_red_again)
 
+    # both red
     if is_red and is_red_again:
         await WheelController.move_wheels_backward_in_straight_line(float(100))
         await WheelController.wheel_left_turn()
@@ -137,12 +138,29 @@ async def get_the_vegetables_at_the_market():
         await multitask(WheelController.move_wheels_forward_in_straight_line(float(150)),
                         GripperController.reset_both_arms())
 
+    # both yellow
     if not is_red and not is_red_again:
         await WheelController.wheel_u_turn_right()
         await WheelController.move_wheels_backward_in_straight_line(float(105), with_brake=True)
         await WheelController.move_wheels_forward_in_straight_line(float(250))
         await WheelController.wheel_right_turn()
         await WheelController.move_wheels_forward_in_straight_line(float(1430), Speed.Straight)
+
+    # red and yellow
+    if is_red and not is_red_again:
+        await WheelController.move_wheels_backward_in_straight_line(float(100))
+        await WheelController.wheel_left_turn()
+        await WheelController.move_wheels_forward_in_straight_line(float(320))
+        await WheelController.wheel_right_turn()
+        await multitask(WheelController.move_wheels_forward_in_straight_line(float(150)),
+                        GripperController.reset_left_arm())
+        await WheelController.move_wheels_backward_in_straight_line(float(250))
+        await multitask(WheelController.wheel_left_turn(), GripperController.grip_element_using_both_arms())
+        await WheelController.move_wheels_forward_in_straight_line(float(1110), Speed.Straight)
+
+    # yellow and red
+    if not is_red and is_red_again:
+        print("")
 
 
 async def get_the_vegetables():
