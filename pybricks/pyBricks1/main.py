@@ -107,16 +107,19 @@ async def get_elements_at_greenhouse():
 
 # Anton's code
 async def get_the_vegetables_at_the_market():
-    await WheelController.wheel_left_turn_with_angle(float(180))
-    await WheelController.wheel_right_turn_with_angle(float(180))
+    # drop the 2 red vegetables
+    await WheelController.wheel_left_turn()
+    await WheelController.wheel_right_turn()
     await multitask(GripperController.release_element_using_both_arms(),
                     WheelController.move_wheels_backward_in_straight_line(float(520)))
+
+    # position to get the 2 new vegetables
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_backward_in_straight_line(float(95), with_brake=True)
     await WheelController.move_wheels_forward_in_straight_line(float(250))
     await WheelController.wheel_left_turn()
 
-    # go to the 2 vegetables
+    # go to the 2 new vegetables
     await WheelController.move_wheels_forward_in_straight_line(float(290))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(50))
@@ -185,19 +188,18 @@ async def get_the_vegetables_at_the_market():
                         GripperController.grip_element_using_both_arms())
         return
 
-    print("do dome")
-    # await WheelController.wheel_slight_right_turn()
-    # await WheelController.move_wheels_forward_in_straight_line(float(230))
-    # await multitask(GripperController.release_element_using_both_arms(), WheelController.wheel_slight_right_turn())
-    #
-    # # position wall near compose area
-    # await WheelController.wheel_slight_left_turn()
-    # await WheelController.move_wheels_backward_in_straight_line(float(230))
-    # await WheelController.wheel_slight_right_turn()
-    # await WheelController.move_wheels_forward_in_straight_line(float(150))
-    # await WheelController.wheel_u_turn_right()
-    # await multitask(WheelController.move_wheels_backward_in_straight_line(float(265), with_brake=True),
-    #                 GripperController.grip_element_using_both_arms())
+    await WheelController.wheel_slight_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(230))
+    await multitask(GripperController.release_element_using_both_arms(), WheelController.wheel_slight_right_turn())
+
+    # position wall near compose area
+    await WheelController.wheel_slight_left_turn()
+    await WheelController.move_wheels_backward_in_straight_line(float(230))
+    await WheelController.wheel_slight_right_turn()
+    await WheelController.move_wheels_forward_in_straight_line(float(150))
+    await WheelController.wheel_u_turn_right()
+    await multitask(WheelController.move_wheels_backward_in_straight_line(float(265), with_brake=True),
+                    GripperController.grip_element_using_both_arms())
 
 
 async def get_the_vegetables():
@@ -330,7 +332,7 @@ async def main():
     await water_the_green_plants_and_move_rotten_plants()
     await get_the_vegetables()
     await get_the_vegetables_at_the_market()
-    # await get_elements_at_greenhouse()
+    await get_elements_at_greenhouse()
     # await multitask(get_the_vegetables(), WheelController.debug())
     print("DONE!")
 
