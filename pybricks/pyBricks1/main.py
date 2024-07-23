@@ -122,7 +122,7 @@ async def get_the_vegetables_at_the_market():
 
     # get first vegetable
     await WheelController.wheel_right_turn_with_angle(float(15))
-    await WheelController.move_wheels_forward_in_straight_line(float(65))
+    await WheelController.move_wheels_forward_in_straight_line(float(60))
     await multitask(GripperController.grip_element_using_left_arm(),
                     WheelController.wheel_left_turn_with_angle(float(30)))
     await WheelController.wheel_right_turn_with_angle(float(15))
@@ -185,18 +185,18 @@ async def get_the_vegetables():
     # get 2nd set of vegetables
     await WheelController.move_wheels_backward_in_straight_line(float(150))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(175))
+    await WheelController.move_wheels_forward_in_straight_line(float(185))
     await WheelController.wheel_left_turn()
     await multitask(GripperController.release_element_using_both_arms(),
                     WheelController.move_wheels_forward_in_straight_line(float(145), float(100)))
     await GripperController.grip_element_using_both_arms()
 
     # going long straight to the compose area
-    await WheelController.move_wheels_backward_in_straight_line(float(215))
+    await WheelController.move_wheels_backward_in_straight_line(float(210))
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(1050), Speed.Straight)
+    await WheelController.move_wheels_forward_in_straight_line(float(1055), Speed.Straight)
     await WheelController.wheel_left_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(30), Speed.Straight)
+    await WheelController.move_wheels_forward_in_straight_line(float(60), Speed.Straight)
     await WheelController.wheel_right_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(620), Speed.Straight)
     await WheelController.wheel_slight_left_turn()
@@ -250,7 +250,7 @@ async def water_the_green_plants_and_move_rotten_plants():
                     WheelController.wheel_right_turn_with_angle(float(20)))
 
     # go to 1st green square
-    await WheelController.move_wheels_forward_in_straight_line(float(305))
+    await WheelController.move_wheels_forward_in_straight_line(float(310))
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(120))
     await water_if_green_plant(count_tries_to_detect_green)
@@ -258,7 +258,7 @@ async def water_the_green_plants_and_move_rotten_plants():
 
     # go to 2nd green square
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(160), Speed.Straight)
+    await WheelController.move_wheels_forward_in_straight_line(float(165), Speed.Straight)
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(120))
     await water_if_green_plant(count_tries_to_detect_green)
@@ -266,7 +266,7 @@ async def water_the_green_plants_and_move_rotten_plants():
 
     # go to 3rd green square
     await WheelController.wheel_right_turn()
-    await WheelController.move_wheels_forward_in_straight_line(float(165), Speed.Straight)
+    await WheelController.move_wheels_forward_in_straight_line(float(170), Speed.Straight)
     await WheelController.wheel_left_turn()
     await WheelController.move_wheels_forward_in_straight_line(float(130))
     await water_if_green_plant(count_tries_to_detect_green)
