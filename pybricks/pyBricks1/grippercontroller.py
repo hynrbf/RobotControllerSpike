@@ -39,6 +39,7 @@ class GripperController:
         if GripperController.__right_motor_position == HandPosition.Grip:
             return
 
+        # to improve soon, run_until_stalled is the one that when stuck moves on
         await GripperController.__right_motor.run_angle(500, -GripperController.__grip_turn_angle, wait=True)
         GripperController.__right_motor_position = HandPosition.Grip
 
