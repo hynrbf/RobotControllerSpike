@@ -3,7 +3,7 @@ from grippercontroller import GripperController
 from shared import Speed
 from wheelcontroller import WheelController
 from pybricks import version
-from pybricks.tools import run_task, multitask
+from pybricks.tools import run_task, multitask, wait
 
 
 async def water_green_plant_only():
@@ -328,7 +328,8 @@ async def water_the_green_plants_and_move_rotten_plants():
 async def main():
     print("Start, pb version: ", version)
     await multitask(GripperController.reset_left_arm(), GripperController.reset_right_arm())
-
+    await wait(2000)
+    
     await water_the_green_plants_and_move_rotten_plants()
     await get_the_vegetables()
     await get_the_vegetables_at_the_market()
