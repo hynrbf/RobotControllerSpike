@@ -5,10 +5,10 @@ from pybricks.robotics import DriveBase
 
 class Speed:
     Straight = None
-    Slow = float(150)
-    Medium = float(300)
+    Slow = float(100)
+    Medium = float(250)
     # 600 is max, but sometimes gyro make mistakes so, I guess 500 makes little mistake so 450 is sweet spot
-    Fast = float(450)
+    Fast = float(400)
 
 
 # inspiration https://github.com/FLL-Team-24277/FLL-Fall-2023-Masterpiece/blob/main/samples/base_robot.py
@@ -29,10 +29,10 @@ class Shared:
             Shared.__wheels_with_gyro = DriveBase(left_motor, right_motor, wheel_diameter=wheel_diameter_in_mm,
                                                   axle_track=axle_track_in_mm)
             Shared.__wheels_with_gyro.use_gyro(True)
-            Shared.__wheels_with_gyro.settings(straight_speed=Speed.Fast, straight_acceleration=None, turn_rate=360,
+            Shared.__wheels_with_gyro.settings(straight_speed=Speed.Fast, straight_acceleration=None, turn_rate=180,
                                                turn_acceleration=None)
             return Shared.__wheels_with_gyro
 
-        Shared.__wheels_with_gyro.settings(straight_speed=Speed.Fast, straight_acceleration=None, turn_rate=360,
+        Shared.__wheels_with_gyro.settings(straight_speed=Speed.Fast, straight_acceleration=None, turn_rate=180,
                                            turn_acceleration=None)
         return Shared.__wheels_with_gyro
